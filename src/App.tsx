@@ -40,6 +40,7 @@ function App() {
           Learn React
         </a>
         <p>
+          Nathan Wolf
           Daniel Mahler
         </p>
       </header>
