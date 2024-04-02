@@ -41,6 +41,7 @@ function App() {
         </a>
         <p>
           Nathan Wolf
+          Daniel Mahler
         </p>
       </header>
       <Form>
