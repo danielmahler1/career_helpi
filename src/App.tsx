@@ -45,7 +45,6 @@ function App() {
         </p>
         <p>
           Daniel Mahler
-          Benjamin Kellner
         </p>
         <p>
           Benjamin Kellner
