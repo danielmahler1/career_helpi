@@ -41,7 +41,15 @@ function App() {
         </a>
         <p>
           Nathan Wolf
+        </p>
+        <p>
           Daniel Mahler
+<<<<<<< Updated upstream
+=======
+        </p>
+        <p>
+          Benjamin Kellner
+>>>>>>> Stashed changes
         </p>
       </header>
       <Form>
