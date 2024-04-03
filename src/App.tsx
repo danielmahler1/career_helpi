@@ -42,7 +42,12 @@ function App() {
         </a>
         <p>
           Nathan Wolf
+        </p>
+        <p>
           Daniel Mahler
+          Benjamin Kellner
+        </p>
+        <p>
           Benjamin Kellner
         </p>
       </header>
