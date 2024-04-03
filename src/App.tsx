@@ -44,12 +44,9 @@ function App() {
         </p>
         <p>
           Daniel Mahler
-<<<<<<< Updated upstream
-=======
         </p>
         <p>
           Benjamin Kellner
->>>>>>> Stashed changes
         </p>
       </header>
       <Form>
