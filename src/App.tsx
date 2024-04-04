@@ -15,16 +15,28 @@ if (prevKey !== null) {
 
 const Header = () => {
   return (
-    <a href="/" className="Home-Button" style={{
-      margin: '10px',
-      padding: '5px',
-      backgroundColor: '#61dafb',
-      color: 'white',
-      textDecoration: 'none',
-      borderRadius: '5px'
-    }}>
-      Home
-    </a>
+    <div>
+      <a href="/" className="Home-Button" style={{
+        margin: '10px',
+        padding: '5px',
+        backgroundColor: '#61dafb',
+        color: 'white',
+        textDecoration: 'none',
+        borderRadius: '5px'
+      }}>
+        Home
+      </a>
+      <Link to="/basic-questions" style={{
+        margin: '10px',
+        padding: '5px',
+        backgroundColor: '#61dafb',
+        color: 'white',
+        textDecoration: 'none',
+        borderRadius: '5px'
+      }}>
+        Basic Questions
+      </Link>
+    </div>
   );
 }
 
@@ -53,9 +65,6 @@ function App() {
           <p className="name-tag">Nathan Wolf</p>
           <p className="name-tag">Daniel Mahler</p>
           <p className="name-tag">Benjamin Kellner</p>
-          <Link to="/basic-questions">
-            <Button variant="primary">Go to Basic Questions</Button>
-          </Link>
         </header>
         <Form>
           <Form.Label>API Key:</Form.Label>
