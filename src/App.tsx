@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
@@ -31,7 +33,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        
+        <Link to="/" className="Home-Button" style={{margin: '10px', padding: '5px', backgroundColor: '#61dafb', color: 'white', textDecoration: 'none', borderRadius: '5px'}}>Home</Link>
         <a
           className="App-link"
           href="https://reactjs.org"
