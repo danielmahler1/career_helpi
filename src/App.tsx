@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Button, Form } from 'react-bootstrap';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BasicQuestion from './Pages/BasicQuestion';
+import HomePage from './Pages/HomePage'; // Make sure the import path is correct
 
 // Local storage and API Key setup
 let keyData = "";
@@ -16,7 +15,7 @@ if (prevKey !== null) {
 const Header = () => {
   return (
     <div>
-      <a href="/" className="Home-Button" style={{
+      <Link to="/" style={{
         margin: '10px',
         padding: '5px',
         backgroundColor: '#61dafb',
@@ -25,7 +24,7 @@ const Header = () => {
         borderRadius: '5px'
       }}>
         Home
-      </a>
+      </Link>
       <Link to="/basic-questions" style={{
         margin: '10px',
         padding: '5px',
@@ -43,9 +42,10 @@ const Header = () => {
 function App() {
   const [key, setKey] = useState<string>(keyData);
 
-  function handleSubmit() {
+  function handleSubmit(event: React.FormEvent) {
+    event.preventDefault(); // Prevent default form submission behavior
     localStorage.setItem(saveKeyData, JSON.stringify(key));
-    window.location.reload();
+    // window.location.reload(); // Consider using React state to trigger a re-render instead of reloading the page
   }
 
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
@@ -55,24 +55,9 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <header className="App-header">
-          <Header />
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>Edit <code>src/App.tsx</code> and save to reload.</p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-          <p className="name-tag">Nathan Wolf</p>
-          <p className="name-tag">Daniel Mahler</p>
-          <p className="name-tag">Benjamin Kellner</p>
-        </header>
-        <Form>
-          <Form.Label>API Key:</Form.Label>
-          <Form.Control type="password" placeholder="Insert API Key Here" onChange={changeKey}></Form.Control>
-          <br />
-          <Button className="Submit-Button" onClick={handleSubmit}>Submit</Button>
-        </Form>
+        <Header />
         <Routes>
+          <Route path="/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
         </Routes>
       </div>
