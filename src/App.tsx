@@ -3,12 +3,28 @@ import logo from './logo.svg';
 import './App.css';
 import { Button, Form } from 'react-bootstrap';
 
+
 //local storage and API Key: key should be entered in by the user and will be stored in local storage (NOT session storage)
 let keyData = "";
 const saveKeyData = "MYKEY";
 const prevKey = localStorage.getItem(saveKeyData); //so it'll look like: MYKEY: <api_key_value here> in the local storage when you inspect
 if (prevKey !== null) {
   keyData = JSON.parse(prevKey);
+}
+
+const Header = () => {
+  return (
+    <a href="/" className="Home-Button" style={{
+      margin: '10px', 
+      padding: '5px', 
+      backgroundColor: '#61dafb', 
+      color: 'white', 
+      textDecoration: 'none', 
+      borderRadius: '5px'
+    }}>
+      Home
+    </a>
+  );
 }
 
 function App() {
@@ -27,11 +43,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Header /> {/* Include the Header component here */}
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -40,15 +56,9 @@ function App() {
         >
           Learn React
         </a>
-        <p>
-          Nathan Wolf
-        </p>
-        <p>
-          Daniel Mahler
-        </p>
-        <p>
-          Benjamin Kellner
-        </p>
+        <p className="name-tag">Nathan Wolf</p>
+        <p className="name-tag">Daniel Mahler</p>
+        <p className="name-tag">Benjamin Kellner</p>
       </header>
       <Form>
         <Form.Label>API Key:</Form.Label>
