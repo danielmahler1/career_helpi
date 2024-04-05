@@ -17,7 +17,7 @@ const Header = () => {
     <nav>
       <ul style={{ listStyleType: 'none', margin: 0, padding: 0, textAlign: 'center' }}>
         <li style={{ display: 'inline' }}>
-          <Link to="/" className="link-button">
+          <Link to="/starter_helpi/" className="link-button">
             Home
           </Link>
         </li>
@@ -54,7 +54,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
+          <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
         </Routes>
