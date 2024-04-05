@@ -29,37 +29,37 @@
 }
 
 .name-tag {
-  margin-top: 5px; /* Reduce top margin */
-  margin-bottom: 5px; /* Reduce bottom margin */
+  margin-top: 5px; 
+  margin-bottom: 5px; 
 }
 
-/* Additions start here */
+/* buttons */
 :root {
-  --primary-color: #61dafb; /* Light blue for primary buttons */
-  --hover-color: #4095c6; /* Darker blue for hover state */
-  --text-color: #ffffff; /* White color for text */
+  --primary-color: #61dafb; 
+  --hover-color: #4095c6; 
+  --text-color: #ffffff; 
 }
 
 .link-button {
   margin: 10px;
-  padding: 10px 15px; /* Increased padding for better clickability */
+  padding: 10px 15px; 
   background-color: var(--primary-color);
   color: var(--text-color);
   text-decoration: none;
-  border-radius: 8px; /* Slightly larger radius for a modern look */
-  transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effect */
-  font-weight: bold; /* Make text bold */
-  display: inline-block; /* Ensure padding and margin apply correctly */
+  border-radius: 8px; 
+  transition: background-color 0.3s, transform 0.2s; 
+  font-weight: bold; 
+  display: inline-block; 
 }
-
+/*hover color*/
 .link-button:hover, .link-button:focus {
-  background-color: var(--hover-color); /* Darker shade on hover/focus for feedback */
-  transform: translateY(-2px); /* Slight lift effect */
-  outline: none; /* Remove focus outline, but ensure accessibility via other means */
+  background-color: var(--hover-color); 
+  transform: translateY(-2px); 
+  outline: none; 
 }
-
+/*lift*/
 .link-button:focus {
-  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.5); /* Glow effect for focus */
+  box-shadow: 0 0 0 3px rgba(97, 218, 251, 0.5); 
 }
 
 @keyframes App-logo-spin {
