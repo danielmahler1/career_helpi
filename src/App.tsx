@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import BasicQuestion from './Pages/BasicQuestion';
-import HomePage from './Pages/HomePage'; // Make sure the import path is correct
+import DetailedQuestion from './Pages/DetailedQuestion';
+import HomePage from './Pages/HomePage'; 
 
-// Local storage and API Key setup
 let keyData = "";
 const saveKeyData = "MYKEY";
 const prevKey = localStorage.getItem(saveKeyData);
@@ -14,30 +14,27 @@ if (prevKey !== null) {
 
 const Header = () => {
   return (
-    <div>
-      <Link to="/" style={{
-        margin: '10px',
-        padding: '5px',
-        backgroundColor: '#61dafb',
-        color: 'white',
-        textDecoration: 'none',
-        borderRadius: '5px'
-      }}>
-        Home
-      </Link>
-      <Link to="/basic-questions" style={{
-        margin: '10px',
-        padding: '5px',
-        backgroundColor: '#61dafb',
-        color: 'white',
-        textDecoration: 'none',
-        borderRadius: '5px'
-      }}>
-        Basic Questions
-      </Link>
-    </div>
+    <nav>
+      <ul style={{ listStyleType: 'none', margin: 0, padding: 0, textAlign: 'center' }}>
+        <li style={{ display: 'inline' }}>
+          <Link to="/starter_helpi/" className="link-button">
+            Home
+          </Link>
+        </li>
+        <li style={{ display: 'inline' }}>
+          <Link to="/basic-questions" className="link-button">
+            Basic Questions
+          </Link>
+        </li>
+        <li style={{ display: 'inline' }}>
+          <Link to="/detailed-questions" className="link-button">
+            Detailed Questions
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
-}
+};
 
 function App() {
   const [key, setKey] = useState<string>(keyData);
@@ -60,6 +57,7 @@ function App() {
           <Route path="/" element={<Navigate to="/starter_helpi/" replace />} /> 
           <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
+          <Route path="/detailed-questions" element={<DetailedQuestion />} />
         </Routes>
       </div>
     </Router>
