@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
 import BasicQuestion from './Pages/BasicQuestion';
 import DetailedQuestion from './Pages/DetailedQuestion';
 import HomePage from './Pages/HomePage'; 
@@ -54,6 +54,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
+          <Route path="/" element={<Navigate to="/starter_helpi/" replace />} /> 
           <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
