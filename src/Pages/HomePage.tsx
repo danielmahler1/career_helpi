@@ -11,7 +11,13 @@ interface HomePageProps {
 
 const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
   return (
-    <>
+    <div className="App">
+      <header className="App-header">
+        <p>Mahler, Wolf, Kellner Career Assessment</p>
+      </header>
+      <div className="main-content">
+        {/* Your main content here */}
+      </div>
       <footer className="footer">
         <Form onSubmit={handleSubmit} className="api-form">
           <Form.Label>API Key:</Form.Label>
@@ -24,11 +30,9 @@ const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
           <p className="name-tag">Benjamin Kellner</p>
         </div>
       </footer>
-    </>
+    </div>
   );
 };
-
-
 
 
 export default HomePage;
