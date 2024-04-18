@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../logo.svg'; // Adjust the path as necessary
 import { Button, Form } from 'react-bootstrap';
 
 interface HomePageProps {
