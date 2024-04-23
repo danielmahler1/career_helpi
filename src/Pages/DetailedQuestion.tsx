@@ -1,5 +1,3 @@
-// DetailedQuestions.js
-
 import React, { useState } from "react";
 import "./DetailedQuestions.css"; // Import CSS file
 
