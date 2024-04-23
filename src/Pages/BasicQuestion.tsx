@@ -60,7 +60,10 @@ const BasicQuestion = () => {
   };
 
   const handleOtherSubmit = () => {
-    if (!otherText.trim()) return; // Prevent setting an empty 'Other' answer
+    if (!otherText.trim()) {
+      alert('Must enter text');
+      return;
+    }
     answers[currentQuestionIndex] = otherText;
     setAnswers(answers);
     setOtherText('');
