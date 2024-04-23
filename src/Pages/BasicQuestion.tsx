@@ -74,8 +74,14 @@ const BasicQuestion = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       alert('Quiz Complete. Answers: ' + answers.join(', '));
-      setQuizStarted(false); // Optionally reset or navigate to results page
+      resetQuiz();
     }
+  };
+
+  const resetQuiz = () => {
+    setQuizStarted(false);
+    setCurrentQuestionIndex(0); // Reset the index for the progress bar
+    setAnswers(Array(careerQuestions.length).fill('')); // Optionally clear all previous answers
   };
 
   const startQuiz = () => {
