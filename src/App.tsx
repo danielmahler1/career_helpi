@@ -1,11 +1,12 @@
 import React, { useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Navbar, Nav, Container } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import "./App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface HomePageProps {
   keyData: string;
@@ -90,30 +91,6 @@ const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
   );
 };
 
-const Header = () => {
-  return (
-    <nav>
-      <ul style={{ listStyleType: "none", margin: 0, padding: 0, textAlign: "center", backgroundColor: "#282c34" }}>
-        <li style={{ display: "inline" }}>
-          <Link to="/starter_helpi/" className="link-button">
-            Home
-          </Link>
-        </li>
-        <li style={{ display: "inline" }}>
-          <Link to="/basic-questions" className="link-button">
-            Basic Questions
-          </Link>
-        </li>
-        <li style={{ display: "inline" }}>
-          <Link to="/detailed-questions" className="link-button">
-            Detailed Questions
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  );
-};
-
 const App = () => {
   const saveKeyData = "MYKEY";
   const [key, setKey] = useState<string>(localStorage.getItem(saveKeyData) || "");
@@ -128,7 +105,32 @@ const App = () => {
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
+          <Container>
+            <Navbar.Brand as={Link} to="/starter_helpi/">
+              CareerPath
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="/basic-questions">
+                  Basic Quiz
+                </Nav.Link>
+                <Nav.Link as={Link} to="/detailed-questions">
+                  Detailed Quiz
+                </Nav.Link>
+              </Nav>
+              <Nav>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={Link} to="/signup">
+                  Sign Up
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
         <ToastContainer />
         <Routes>
           <Route path="/" element={<Navigate to="/starter_helpi/" replace />} />

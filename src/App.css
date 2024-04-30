@@ -18,6 +18,32 @@ html, body {
   min-height: 100vh;
 }
 
+.navbar {
+  background-color: #343a40; 
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #fff; 
+}
+
+.navbar a {
+  color: #ddd; 
+}
+
+.navbar a:hover {
+  color: #fff; 
+}
+
+.navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1); 
+}
+
+.navbar .container, .navbar .container-fluid {
+  padding-left: 0; 
+  padding-right: 0; 
+}
+
 .homepage-container {
   width: 100%;
   display: flex;
