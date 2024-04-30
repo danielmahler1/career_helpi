@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./BasicQuestions.css"; // Import CSS file
-import getCareerAdvice from '../API'; // Adjust path as necessary
+import getCareerAdvice from "../API"; // Adjust path as necessary
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-// Define a type for the question structure
 type QuestionType = {
   question: string;
   options: string[];
   hasOtherOption?: boolean; // Indicates if there's an 'Other' option that requires a text input
 };
 
-// Career assessment questions with the specified inputs
 const careerQuestions: QuestionType[] = [
   {
     question: "What is your highest level of education?",
@@ -43,14 +43,13 @@ const careerQuestions: QuestionType[] = [
   },
 ];
 
-
-
 const BasicQuestion = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(careerQuestions.length).fill(""));
-  const [showOtherInput, setShowOtherInput] = useState<boolean>(false);
-  const [otherText, setOtherText] = useState<string>("");
+  const [showOtherInput, setShowOtherInput] = useState(false);
+  const [otherText, setOtherText] = useState("");
   const [quizStarted, setQuizStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOptionClick = (option: string) => {
     if (option === "Other") {
@@ -80,29 +79,26 @@ const BasicQuestion = () => {
     if (nextQuestionIndex < careerQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
+      setIsLoading(true);
       const fullPrompt = "Based on these answers, what career path do you recommend? " + answers.join(", ");
-      
-      // Construct the messages array required by getCareerAdvice
-      const messages = [{
-        role: 'user', // Assuming 'user' is the correct role for this message
-        content: fullPrompt
-      }];
-  
+      const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
+        toast.success("Career Advice Generated Successfully");
         alert("Quiz Complete. Career advice: " + advice);
       } catch (error) {
-        alert("There was an error getting career advice: " + error);
+        toast.error("Error Generating Career Advice");
+      } finally {
+        setIsLoading(false);
+        resetQuiz();
       }
-  
-      resetQuiz();
     }
   };
 
   const resetQuiz = () => {
     setQuizStarted(false);
-    setCurrentQuestionIndex(0); // Reset the index for the progress bar
-    setAnswers(Array(careerQuestions.length).fill("")); // Optionally clear all previous answers
+    setCurrentQuestionIndex(0);
+    setAnswers(Array(careerQuestions.length).fill(""));
   };
 
   const startQuiz = () => {
@@ -117,8 +113,6 @@ const BasicQuestion = () => {
       </div>
     );
   };
-
-
 
   if (!quizStarted) {
     return (
@@ -137,24 +131,35 @@ const BasicQuestion = () => {
   return (
     <div className="quiz-container-basic">
       <div className="basic-quiz-box">
-        <h1>Career Assessment</h1>
-        <ProgressBar current={currentQuestionIndex + 1} total={careerQuestions.length} />
-        <div style={{ marginTop: "20px" }}>
-          <h2>{careerQuestions[currentQuestionIndex].question}</h2>
-          {careerQuestions[currentQuestionIndex].options.map((option, index) => (
-            <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
-              {option}
-            </button>
-          ))}
-          {showOtherInput && careerQuestions[currentQuestionIndex].hasOtherOption && (
-            <>
-              <input type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)} placeholder="Please specify" className="other-input" />
-              <button className="other-submit" onClick={handleOtherSubmit}>
-                Enter
-              </button>
-            </>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="loading-modal">
+            <div className="loading-text">Generating Career Advice...</div>
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1>Career Assessment</h1>
+            <ProgressBar current={currentQuestionIndex + 1} total={careerQuestions.length} />
+            <div style={{ marginTop: "20px" }}>
+              <h2>{careerQuestions[currentQuestionIndex].question}</h2>
+              {careerQuestions[currentQuestionIndex].options.map((option, index) => (
+                <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
+                  {option}
+                </button>
+              ))}
+              {showOtherInput && careerQuestions[currentQuestionIndex].hasOtherOption && (
+                <>
+                  <input type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)} placeholder="Please specify" className="other-input" />
+                  <button className="other-submit" onClick={handleOtherSubmit}>
+                    Enter
+                  </button>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

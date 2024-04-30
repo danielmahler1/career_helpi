@@ -1,13 +1,7 @@
-// api.ts
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 
 const openAIEndpoint = "https://api.openai.com/v1/chat/completions";
-
-/**
- * Fetches career advice from OpenAI based on the provided text prompt.
- * @param messages An array of message objects representing the conversation.
- * @returns A promise that resolves to the response from OpenAI, processed as a string.
- */
 const getCareerAdvice = async (messages: { role: string; content: string }[]): Promise<string> => {
   const apiKey = localStorage.getItem("MYKEY");
 
@@ -19,8 +13,8 @@ const getCareerAdvice = async (messages: { role: string; content: string }[]): P
     const response = await axios.post(
       openAIEndpoint,
       {
-        model: "gpt-4-turbo", // Use the appropriate model
-        messages: messages, // Provide the messages array
+        model: "gpt-4-turbo",
+        messages: messages,
       },
       {
         headers: {
@@ -30,8 +24,6 @@ const getCareerAdvice = async (messages: { role: string; content: string }[]): P
       }
     );
 
-    // Assuming the response structure has a 'choices' array
-    // with at least one 'message' object containing a 'content' string
     const lastMessage = response.data.choices[0].message.content;
     return lastMessage.trim();
   } catch (error) {
