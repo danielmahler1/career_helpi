@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./BasicQuestions.css"; // Import CSS file
+import getCareerAdvice from '../API'; // Adjust path as necessary
 
 // Define a type for the question structure
 type QuestionType = {
@@ -74,12 +75,14 @@ const BasicQuestion = () => {
     advanceQuestion();
   };
 
-  const advanceQuestion = () => {
+  const advanceQuestion = async () => {
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < careerQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
-      alert("Quiz Complete. Answers: " + answers.join(", "));
+      const fullPrompt = "Based on these answers, what career path do you recommend? " + answers.join(", ");
+      const advice = await getCareerAdvice(fullPrompt);
+      alert("Quiz Complete. Career advice: " + advice);
       resetQuiz();
     }
   };
@@ -102,6 +105,8 @@ const BasicQuestion = () => {
       </div>
     );
   };
+
+
 
   if (!quizStarted) {
     return (
