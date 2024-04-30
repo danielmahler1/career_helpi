@@ -19,30 +19,21 @@ html, body {
 }
 
 .navbar {
-  background-color: #343a40; 
-}
-
-.navbar-brand {
-  font-weight: bold;
-  color: #fff; 
+  background-color: #343a40; /* Dark grey background */
 }
 
 .navbar a {
-  color: #ddd; 
+  color: #ffffff; /* White text color */
 }
 
 .navbar a:hover {
-  color: #fff; 
+  color: #cccccc; /* Light grey on hover */
 }
 
-.navbar-toggler {
-  border-color: rgba(255, 255, 255, 0.1); 
+.navbar.Brand {
+  font-weight: bold; /* Bold brand name */
 }
 
-.navbar .container, .navbar .container-fluid {
-  padding-left: 0; 
-  padding-right: 0; 
-}
 
 .homepage-container {
   width: 100%;
