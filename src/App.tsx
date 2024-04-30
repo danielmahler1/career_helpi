@@ -88,16 +88,12 @@ const Header = () => {
 
 const App = () => {
   const saveKeyData = "MYKEY";
-  let initialKeyData = "";
-  const prevKey = localStorage.getItem(saveKeyData);
-  if (prevKey !== null) {
-    initialKeyData = JSON.parse(prevKey);
-  }
-  const [key, setKey] = useState<string>(initialKeyData);
+  const [key, setKey] = useState<string>(localStorage.getItem(saveKeyData) || "");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    localStorage.setItem(saveKeyData, JSON.stringify(key));
+    localStorage.setItem(saveKeyData, key); // Store the API key directly
+    alert('API Key saved. Please refresh the page or re-run the operation to use the new key.'); // Alert the user
   }
 
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
