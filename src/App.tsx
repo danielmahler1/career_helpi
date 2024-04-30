@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-ro
 import "./App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface HomePageProps {
   keyData: string;
@@ -12,7 +14,12 @@ interface HomePageProps {
   changeKey: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// Inside the HeroSection component
+interface FooterProps {
+  keyData: string;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  changeKey: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
 const HeroSection = ({ handleStartClick }: { handleStartClick: () => void }) => {
   return (
     <div className="hero-section">
@@ -24,6 +31,7 @@ const HeroSection = ({ handleStartClick }: { handleStartClick: () => void }) => 
     </div>
   );
 };
+
 const QuizHeader = () => {
   return (
     <div className="quiz-header">
@@ -59,21 +67,26 @@ const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
           </Link>
         </div>
       </div>
-      <footer className="footer">
-        <Form onSubmit={handleSubmit} className="api-form">
-          <Form.Label>API Key:</Form.Label>
-          <Form.Control type="password" placeholder="Insert API Key Here" value={keyData} onChange={changeKey}></Form.Control>
-          <Button className="submit-button" type="submit">
-            Submit
-          </Button>
-        </Form>
-        <div className="names-container">
-          <p className="name-tag">Nathan Wolf</p>
-          <p className="name-tag">Daniel Mahler</p>
-          <p className="name-tag">Benjamin Kellner</p>
-        </div>
-      </footer>
     </div>
+  );
+};
+
+const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
+  return (
+    <footer className="footer">
+      <Form onSubmit={handleSubmit} className="api-form">
+        <Form.Label>API Key:</Form.Label>
+        <Form.Control type="password" placeholder="Insert API Key Here" value={keyData} onChange={changeKey}></Form.Control>
+        <Button className="submit-button" type="submit">
+          Submit
+        </Button>
+      </Form>
+      <div className="names-container">
+        <p className="name-tag">Nathan Wolf</p>
+        <p className="name-tag">Daniel Mahler</p>
+        <p className="name-tag">Benjamin Kellner</p>
+      </div>
+    </footer>
   );
 };
 
@@ -103,31 +116,27 @@ const Header = () => {
 
 const App = () => {
   const saveKeyData = "MYKEY";
-  let initialKeyData = "";
-  const prevKey = localStorage.getItem(saveKeyData);
-  if (prevKey !== null) {
-    initialKeyData = JSON.parse(prevKey);
-  }
-  const [key, setKey] = useState<string>(initialKeyData);
+  const [key, setKey] = useState<string>(localStorage.getItem(saveKeyData) || "");
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    localStorage.setItem(saveKeyData, JSON.stringify(key));
-    console.log("API Key submitted: ", key);
+    localStorage.setItem(saveKeyData, key);
+    toast.success("API Key Saved Successfully");
   }
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
-
   return (
     <Router>
       <div className="App">
         <Header />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Navigate to="/starter_helpi/" replace />} />
           <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
         </Routes>
+        <Footer keyData={key} handleSubmit={handleSubmit} changeKey={changeKey} />
       </div>
     </Router>
   );
