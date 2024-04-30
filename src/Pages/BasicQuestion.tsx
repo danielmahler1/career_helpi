@@ -81,8 +81,20 @@ const BasicQuestion = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       const fullPrompt = "Based on these answers, what career path do you recommend? " + answers.join(", ");
-      const advice = await getCareerAdvice(fullPrompt);
-      alert("Quiz Complete. Career advice: " + advice);
+      
+      // Construct the messages array required by getCareerAdvice
+      const messages = [{
+        role: 'user', // Assuming 'user' is the correct role for this message
+        content: fullPrompt
+      }];
+  
+      try {
+        const advice = await getCareerAdvice(messages);
+        alert("Quiz Complete. Career advice: " + advice);
+      } catch (error) {
+        alert("There was an error getting career advice: " + error);
+      }
+  
       resetQuiz();
     }
   };
