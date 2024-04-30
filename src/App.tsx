@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Button, Form } from "react-bootstrap";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import "./App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
@@ -58,6 +59,20 @@ const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
           </Link>
         </div>
       </div>
+      <footer className="footer">
+        <Form onSubmit={handleSubmit} className="api-form">
+          <Form.Label>API Key:</Form.Label>
+          <Form.Control type="password" placeholder="Insert API Key Here" value={keyData} onChange={changeKey}></Form.Control>
+          <Button className="submit-button" type="submit">
+            Submit
+          </Button>
+        </Form>
+        <div className="names-container">
+          <p className="name-tag">Nathan Wolf</p>
+          <p className="name-tag">Daniel Mahler</p>
+          <p className="name-tag">Benjamin Kellner</p>
+        </div>
+      </footer>
     </div>
   );
 };
@@ -94,12 +109,11 @@ const App = () => {
     initialKeyData = JSON.parse(prevKey);
   }
   const [key, setKey] = useState<string>(initialKeyData);
-
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     localStorage.setItem(saveKeyData, JSON.stringify(key));
+    console.log("API Key submitted: ", key);
   }
-
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
     setKey(event.target.value);
   }
