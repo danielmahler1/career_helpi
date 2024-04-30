@@ -12,7 +12,7 @@ interface HomePageProps {
   changeKey: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const HomePage = ({ keyData, handleSubmit, changeKey}: HomePageProps) => {
+const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
   return (
     <div className="homepage-container">
       <div className="quiz-container">
@@ -43,8 +43,6 @@ const HomePage = ({ keyData, handleSubmit, changeKey}: HomePageProps) => {
   );
 };
 
-
-
 const Header = () => {
   return (
     <nav>
@@ -71,16 +69,12 @@ const Header = () => {
 
 const App = () => {
   const saveKeyData = "MYKEY";
-  let initialKeyData = "";
-  const prevKey = localStorage.getItem(saveKeyData);
-  if (prevKey !== null) {
-    initialKeyData = JSON.parse(prevKey);
-  }
-  const [key, setKey] = useState<string>(initialKeyData);
+  const [key, setKey] = useState<string>(localStorage.getItem(saveKeyData) || "");
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    localStorage.setItem(saveKeyData, JSON.stringify(key));
+    localStorage.setItem(saveKeyData, key); // Store the API key directly
+    alert('API Key saved. Please refresh the page or re-run the operation to use the new key.'); // Alert the user
   }
 
   function changeKey(event: React.ChangeEvent<HTMLInputElement>) {
@@ -92,7 +86,7 @@ const App = () => {
       <div className="App">
         <Header />
         <Routes>
-          <Route path="/" element={<Navigate to="/starter_helpi/" replace />} /> 
+          <Route path="/" element={<Navigate to="/starter_helpi/" replace />} />
           <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
