@@ -2,208 +2,49 @@
 > starter_helpi@0.1.0 test
 > react-scripts test --coverage
 
-  console.error
-    Warning: `ReactDOMTestUtils.act` is deprecated in favor of `React.act`. Import `act` from `react` instead of `react-dom/test-utils`. See https://react.dev/warnings/react-dom-test-utils for more info.
-
-    [0m [90m 4 |[39m
-     [90m 5 |[39m test([32m'renders learn react link'[39m[33m,[39m () [33m=>[39m {
-    [31m[1m>[22m[39m[90m 6 |[39m   render([33m<[39m[33mApp[39m [33m/[39m[33m>[39m)[33m;[39m
-     [90m   |[39m         [31m[1m^[22m[39m
-     [90m 7 |[39m   [36mconst[39m linkElement [33m=[39m screen[33m.[39mgetByText([35m/learn react/i[39m)[33m;[39m
-     [90m 8 |[39m   expect(linkElement)[33m.[39mtoBeInTheDocument()[33m;[39m
-     [90m 9 |[39m })[33m;[39m[0m
-
-      at printWarning (node_modules/react-dom/cjs/react-dom-test-utils.development.js:71:30)
-      at error (node_modules/react-dom/cjs/react-dom-test-utils.development.js:45:7)
-      at actWithWarning (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1736:7)
-      at node_modules/@testing-library/react/dist/act-compat.js:63:25
-      at renderRoot (node_modules/@testing-library/react/dist/pure.js:159:26)
-      at render (node_modules/@testing-library/react/dist/pure.js:246:10)
-      at Object.<anonymous> (src/App.test.tsx:6:9)
-      at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
-      at runJest (node_modules/@jest/core/build/runJest.js:404:19)
-      at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
-      at runCLI (node_modules/@jest/core/build/cli/index.js:173:3)
-
 FAIL src/App.test.tsx
-  ✕ renders learn react link (102 ms)
+  ● Test suite failed to run
 
-  ● renders learn react link
+    Jest encountered an unexpected token
 
-    TestingLibraryElementError: Unable to find an element with the text: /learn react/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
 
-    Ignored nodes: comments, script, style
-    [36m<body>[39m
-      [36m<div>[39m
-        [36m<div[39m
-          [33mclass[39m=[32m"App"[39m
-        [36m>[39m
-          [36m<nav>[39m
-            [36m<ul[39m
-              [33mstyle[39m=[32m"list-style-type: none; margin: 0px; padding: 0px; text-align: center; background-color: rgb(40, 44, 52);"[39m
-            [36m>[39m
-              [36m<li[39m
-                [33mstyle[39m=[32m"display: inline;"[39m
-              [36m>[39m
-                [36m<a[39m
-                  [33mclass[39m=[32m"link-button"[39m
-                  [33mhref[39m=[32m"/starter_helpi/"[39m
-                [36m>[39m
-                  [0mHome[0m
-                [36m</a>[39m
-              [36m</li>[39m
-              [36m<li[39m
-                [33mstyle[39m=[32m"display: inline;"[39m
-              [36m>[39m
-                [36m<a[39m
-                  [33mclass[39m=[32m"link-button"[39m
-                  [33mhref[39m=[32m"/basic-questions"[39m
-                [36m>[39m
-                  [0mBasic Questions[0m
-                [36m</a>[39m
-              [36m</li>[39m
-              [36m<li[39m
-                [33mstyle[39m=[32m"display: inline;"[39m
-              [36m>[39m
-                [36m<a[39m
-                  [33mclass[39m=[32m"link-button"[39m
-                  [33mhref[39m=[32m"/detailed-questions"[39m
-                [36m>[39m
-                  [0mDetailed Questions[0m
-                [36m</a>[39m
-              [36m</li>[39m
-            [36m</ul>[39m
-          [36m</nav>[39m
-          [36m<div[39m
-            [33mclass[39m=[32m"homepage-container"[39m
-          [36m>[39m
-            [36m<div[39m
-              [33mclass[39m=[32m"hero-section"[39m
-            [36m>[39m
-              [36m<h1[39m
-                [33mclass[39m=[32m"hero-title"[39m
-              [36m>[39m
-                [0mDiscover Your Career Path[0m
-              [36m</h1>[39m
-              [36m<p[39m
-                [33mclass[39m=[32m"hero-subtitle"[39m
-              [36m>[39m
-                [0mTake our career assessment to find careers that match your interests and skills.[0m
-              [36m</p>[39m
-              [36m<button[39m
-                [33mclass[39m=[32m"start-assessment-button"[39m
-              [36m>[39m
-                [0mSelect Your Assessment[0m
-              [36m</button>[39m
-            [36m</div>[39m
-            [36m<div[39m
-              [33mclass[39m=[32m"quiz-container"[39m
-            [36m>[39m
-              [36m<div[39m
-                [33mclass[39m=[32m"quiz-header"[39m
-              [36m>[39m
-                [36m<h1>[39m
-                  [0mChoose Your Quiz[0m
-                [36m</h1>[39m
-                [36m<p>[39m
-                  [0mExplore our different quizzes to assess your knowledge and skills.[0m
-                [36m</p>[39m
-              [36m</div>[39m
-              [36m<div[39m
-                [33mclass[39m=[32m"quiz-box"[39m
-              [36m>[39m
-                [36m<h2>[39m
-                  [0mBasic Questions Quiz[0m
-                [36m</h2>[39m
-                [36m<p>[39m
-                  [0mStart with some fundamental questions to test your basic knowledge.[0m
-                [36m</p>[39m
-                [36m<a[39m
-                  [33mclass[39m=[32m"button"[39m
-                  [33mhref[39m=[32m"/basic-questions"[39m
-                [36m>[39m
-                  [0mStart Basic Quiz[0m
-                [36m</a>[39m
-              [36m</div>[39m
-              [36m<div[39m
-                [33mclass[39m=[32m"quiz-box"[39m
-              [36m>[39m
-                [36m<h2>[39m
-                  [0mDetailed Questions Quiz[0m
-                [36m</h2>[39m
-                [36m<p>[39m
-                  [0mDive deeper with detailed questions for a thorough challenge.[0m
-                [36m</p>[39m
-                [36m<a[39m
-                  [33mclass[39m=[32m"button"[39m
-                  [33mhref[39m=[32m"/detailed-questions"[39m
-                [36m>[39m
-                  [0mStart Detailed Quiz[0m
-                [36m</a>[39m
-              [36m</div>[39m
-            [36m</div>[39m
-            [36m<footer[39m
-              [33mclass[39m=[32m"footer"[39m
-            [36m>[39m
-              [36m<form[39m
-                [33mclass[39m=[32m"api-form"[39m
-              [36m>[39m
-                [36m<label[39m
-                  [33mclass[39m=[32m"form-label"[39m
-                [36m>[39m
-                  [0mAPI Key:[0m
-                [36m</label>[39m
-                [36m<input[39m
-                  [33mclass[39m=[32m"form-control"[39m
-                  [33mplaceholder[39m=[32m"Insert API Key Here"[39m
-                  [33mtype[39m=[32m"password"[39m
-                  [33mvalue[39m=[32m""[39m
-                [36m/>[39m
-                [36m<button[39m
-                  [33mclass[39m=[32m"submit-button btn btn-primary"[39m
-                  [33mtype[39m=[32m"submit"[39m
-                [36m>[39m
-                  [0mSubmit[0m
-                [36m</button>[39m
-              [36m</form>[39m
-              [36m<div[39m
-                [33mclass[39m=[32m"names-container"[39m
-              [36m>[39m
-                [36m<p[39m
-                  [33mclass[39m=[32m"name-tag"[39m
-                [36m>[39m
-                  [0mNathan Wolf[0m
-                [36m</p>[39m
-                [36m<p[39m
-                  [33mclass[39m=[32m"name-tag"[39m
-                [36m>[39m
-                  [0mDaniel Mahler[0m
-                [36m</p>[39m
-                [36m<p[39m
-                  [33mclass[39m=[32m"name-tag"[39m
-                [36m>[39m
-                  [0mBenjamin Kellner[0m
-                [36m</p>[39m
-              [36m</div>[39m
-            [36m</footer>[39m
-          [36m</div>[39m
-        [36m</div>[39m
-      [36m</div>[39m
-    [36m</body>[39m
+    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
 
-    [0m [90m  5 |[39m test([32m'renders learn react link'[39m[33m,[39m () [33m=>[39m {
-     [90m  6 |[39m   render([33m<[39m[33mApp[39m [33m/[39m[33m>[39m)[33m;[39m
-    [31m[1m>[22m[39m[90m  7 |[39m   [36mconst[39m linkElement [33m=[39m screen[33m.[39mgetByText([35m/learn react/i[39m)[33m;[39m
-     [90m    |[39m                              [31m[1m^[22m[39m
-     [90m  8 |[39m   expect(linkElement)[33m.[39mtoBeInTheDocument()[33m;[39m
-     [90m  9 |[39m })[33m;[39m
-     [90m 10 |[39m[0m
+    By default "node_modules" folder is ignored by transformers.
 
-      at Object.getElementError (node_modules/@testing-library/react/node_modules/@testing-library/dom/dist/config.js:37:19)
-      at node_modules/@testing-library/react/node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-      at node_modules/@testing-library/react/node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-      at getByText (node_modules/@testing-library/react/node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/App.test.tsx:7:30)
+    Here's what you can do:
+     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
+     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
+     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
+     • If you need a custom transformation specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+
+    You'll find more details and examples of these config options in the docs:
+    https://jestjs.io/docs/configuration
+    For information about custom transformations, see:
+    https://jestjs.io/docs/code-transformation
+
+    Details:
+
+    /home/runner/work/starter_helpi/starter_helpi/node_modules/axios/index.js:1
+    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import axios from './lib/axios.js';
+                                                                                      ^^^^^^
+
+    SyntaxError: Cannot use import statement outside a module
+
+    [0m [90m 1 |[39m [90m// api.ts[39m
+    [31m[1m>[22m[39m[90m 2 |[39m [36mimport[39m axios [36mfrom[39m [32m"axios"[39m[33m;[39m
+     [90m   |[39m [31m[1m^[22m[39m
+     [90m 3 |[39m
+     [90m 4 |[39m [36mconst[39m openAIEndpoint [33m=[39m [32m"https://api.openai.com/v1/chat/completions"[39m[33m;[39m
+     [90m 5 |[39m[0m
+
+      at Runtime.createScriptFromCode (node_modules/jest-runtime/build/index.js:1728:14)
+      at Object.<anonymous> (src/API.ts:2:1)
+      at Object.<anonymous> (src/Pages/BasicQuestion.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:5:1)
+      at Object.<anonymous> (src/App.test.tsx:3:1)
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
       at runJest (node_modules/@jest/core/build/runJest.js:404:19)
       at _run10000 (node_modules/@jest/core/build/cli/index.js:320:7)
@@ -212,17 +53,18 @@ FAIL src/App.test.tsx
 -----------------------|---------|----------|---------|---------|-------------------
 File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
 -----------------------|---------|----------|---------|---------|-------------------
-All files              |   18.91 |     4.34 |   18.51 |   19.09 |                   
- src                   |      50 |    16.66 |      50 |      50 |                   
-  App.tsx              |   73.91 |       50 |    62.5 |   73.91 | 39,109,113-118    
+All files              |       0 |        0 |       0 |       0 |                   
+ src                   |       0 |        0 |       0 |       0 |                   
+  API.ts               |       0 |        0 |       0 |       0 | 4-42              
+  App.tsx              |       0 |        0 |       0 |       0 | 23-128            
   index.tsx            |       0 |      100 |     100 |       0 | 7-19              
   reportWebVitals.ts   |       0 |        0 |       0 |       0 | 3-10              
- src/Pages             |    5.19 |        0 |       0 |    5.26 |                   
-  BasicQuestion.tsx    |    4.54 |        0 |       0 |    4.65 | 48-134            
-  DetailedQuestion.tsx |    6.06 |        0 |       0 |    6.06 | 21-85             
+ src/Pages             |       0 |        0 |       0 |       0 |                   
+  BasicQuestion.tsx    |       0 |        0 |       0 |       0 | 13-151            
+  DetailedQuestion.tsx |       0 |        0 |       0 |       0 | 10-85             
 -----------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 failed, 1 total
-Tests:       1 failed, 1 total
+Tests:       0 total
 Snapshots:   0 total
-Time:        2.608 s
+Time:        2.918 s
 Ran all test suites.
