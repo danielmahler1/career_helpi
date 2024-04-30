@@ -82,8 +82,8 @@ const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
         </Button>
       </Form>
       <div className="names-container">
-        <p className="name-tag">Nathan Wolf</p>
         <p className="name-tag">Daniel Mahler</p>
+        <p className="name-tag">Nathan Wolf</p>
         <p className="name-tag">Benjamin Kellner</p>
       </div>
     </footer>
