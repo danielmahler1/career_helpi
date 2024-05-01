@@ -72,11 +72,13 @@ const DetailedQuestions = () => {
     return (
       <div className="quiz-container-detailed">
         <div className="detailed-quiz-box">
-          <h1>Detailed Questions Quiz</h1>
-          <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-          <button onClick={startQuiz} className="start-button">
-            Start Quiz
-          </button>
+          <div className="content-center">
+            <h1>Detailed Questions Quiz</h1>
+            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+            <button className="start-button" onClick={startQuiz}>
+              Start Quiz
+            </button>
+          </div>
         </div>
       </div>
     );

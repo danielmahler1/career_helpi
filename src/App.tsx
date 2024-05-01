@@ -1,11 +1,14 @@
 import React, { useRef, useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
 import "./App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 interface HomePageProps {
   keyData: string;
@@ -71,46 +74,50 @@ const HomePage = ({ keyData, handleSubmit, changeKey }: HomePageProps) => {
   );
 };
 
-const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
+const Header = () => {
   return (
-    <footer className="footer">
-      <Form onSubmit={handleSubmit} className="api-form">
-        <Form.Label>API Key:</Form.Label>
-        <Form.Control type="password" placeholder="Insert API Key Here" value={keyData} onChange={changeKey}></Form.Control>
-        <Button className="submit-button" type="submit">
-          Submit
-        </Button>
-      </Form>
-      <div className="names-container">
-        <p className="name-tag">Daniel Mahler</p>
-        <p className="name-tag">Nathan Wolf</p>
-        <p className="name-tag">Benjamin Kellner</p>
-      </div>
-    </footer>
+    <Navbar bg="dark" variant="dark" expand="lg">
+      <Navbar.Brand as={Link} to="/starter_helpi/" style={{ marginLeft: 10 }}>
+        CareerFinder
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginRight: 10 }} />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="me-auto">
+          <Nav.Link as={Link} to="/basic-questions">
+            Basic Quiz
+          </Nav.Link>
+          <Nav.Link as={Link} to="/detailed-questions">
+            Detailed Quiz
+          </Nav.Link>
+        </Nav>
+        <Nav>
+          <Nav.Link as={Link} to="/results">
+            Results Overview
+          </Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 
-const Header = () => {
+const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
   return (
-    <nav>
-      <ul style={{ listStyleType: "none", margin: 0, padding: 0, textAlign: "center", backgroundColor: "#282c34" }}>
-        <li style={{ display: "inline" }}>
-          <Link to="/starter_helpi/" className="link-button">
-            Home
-          </Link>
-        </li>
-        <li style={{ display: "inline" }}>
-          <Link to="/basic-questions" className="link-button">
-            Basic Questions
-          </Link>
-        </li>
-        <li style={{ display: "inline" }}>
-          <Link to="/detailed-questions" className="link-button">
-            Detailed Questions
-          </Link>
-        </li>
-      </ul>
-    </nav>
+    <Navbar bg="dark" variant="dark" className="justify-content-between text-white footer">
+      <Form onSubmit={handleSubmit} className="footer-form">
+        <InputGroup className="input-group-custom">
+          <InputGroup.Text id="basic-addon1">API Key</InputGroup.Text>
+          <FormControl type="password" placeholder="Insert API Key Here" aria-label="API Key" aria-describedby="basic-addon1" value={keyData} onChange={changeKey} />
+          <Button type="submit" variant="outline-light">
+            Submit
+          </Button>
+        </InputGroup>
+      </Form>
+      <Nav>
+        <Nav.Item className="mx-3">Nathan Wolf</Nav.Item>
+        <Nav.Item className="mx-3">Daniel Mahler</Nav.Item>
+        <Nav.Item className="mx-3">Benjamin Kellner</Nav.Item>
+      </Nav>
+    </Navbar>
   );
 };
 
