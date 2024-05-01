@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-ro
 import "./App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
-import About from "./Pages/About";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -90,9 +89,6 @@ const Header = () => {
           <Nav.Link as={Link} to="/detailed-questions">
             Detailed Quiz
           </Nav.Link>
-          <Nav.Link as={Link} to="/about-us">
-            About
-          </Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link as={Link} to="/results">
@@ -146,7 +142,6 @@ const App = () => {
           <Route path="/starter_helpi/" element={<HomePage keyData={key} setKey={setKey} handleSubmit={handleSubmit} changeKey={changeKey} />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
-          <Route path="/about-us" element={<About />} />
         </Routes>
         <Footer keyData={key} handleSubmit={handleSubmit} changeKey={changeKey} />
       </div>
