@@ -46,31 +46,14 @@ const careerQuestions: QuestionType[] = [
 const BasicQuestion = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(careerQuestions.length).fill(""));
-  const [showOtherInput, setShowOtherInput] = useState(false);
-  const [otherText, setOtherText] = useState("");
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState("");
 
   const handleOptionClick = (option: string) => {
-    if (option === "Other") {
-      setShowOtherInput(true);
-    } else {
-      answers[currentQuestionIndex] = option;
-      setAnswers(answers);
-      setShowOtherInput(false);
-      advanceQuestion();
-    }
-  };
-
-  const handleOtherSubmit = () => {
-    if (!otherText.trim()) {
-      alert("Must enter text");
-      return;
-    }
-    answers[currentQuestionIndex] = otherText;
-    setAnswers(answers);
-    setOtherText("");
-    setShowOtherInput(false);
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = option;
+    setAnswers(newAnswers);
     advanceQuestion();
   };
 
@@ -85,12 +68,11 @@ const BasicQuestion = () => {
       try {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
-        alert("Quiz Complete. Career advice: " + advice);
+        setResult(advice);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
         setIsLoading(false);
-        resetQuiz();
       }
     }
   };
@@ -99,32 +81,28 @@ const BasicQuestion = () => {
     setQuizStarted(false);
     setCurrentQuestionIndex(0);
     setAnswers(Array(careerQuestions.length).fill(""));
+    setResult("");
   };
 
-  const startQuiz = () => {
-    setQuizStarted(true);
-  };
-
-  const ProgressBar = ({ current, total }: { current: number; total: number }) => {
-    const progressPercent = (current / total) * 100;
-    return (
-      <div className="progress-bar-container">
-        <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
-      </div>
-    );
-  };
-
-  if (!quizStarted) {
+  if (!quizStarted || result) {
     return (
       <div className="quiz-container-basic">
         <div className="basic-quiz-box">
-          <div className="content-center">
-            <h1>Basic Questions Quiz</h1>
-            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <button className="start-button" onClick={startQuiz}>
-              Start Quiz
-            </button>
-          </div>
+          {result ? (
+            <>
+              <h1>Career Advice</h1>
+              <p>{result}</p>
+              <button onClick={resetQuiz}>Restart Quiz</button>
+            </>
+          ) : (
+            <>
+              <h1>Basic Questions Quiz</h1>
+              <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+              <button className="start-button" onClick={() => setQuizStarted(true)}>
+                Start Quiz
+              </button>
+            </>
+          )}
         </div>
       </div>
     );
@@ -133,35 +111,13 @@ const BasicQuestion = () => {
   return (
     <div className="quiz-container-basic">
       <div className="basic-quiz-box">
-        {isLoading ? (
-          <div className="loading-modal">
-            <div className="loading-text">Generating Career Advice...</div>
-            <div className="spinner-container">
-              <div className="spinner"></div>
-            </div>
-          </div>
-        ) : (
-          <>
-            <h1>Career Assessment</h1>
-            <ProgressBar current={currentQuestionIndex + 1} total={careerQuestions.length} />
-            <div style={{ marginTop: "20px" }}>
-              <h2>{careerQuestions[currentQuestionIndex].question}</h2>
-              {careerQuestions[currentQuestionIndex].options.map((option, index) => (
-                <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
-                  {option}
-                </button>
-              ))}
-              {showOtherInput && careerQuestions[currentQuestionIndex].hasOtherOption && (
-                <>
-                  <input type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)} placeholder="Please specify" className="other-input" />
-                  <button className="other-submit" onClick={handleOtherSubmit}>
-                    Enter
-                  </button>
-                </>
-              )}
-            </div>
-          </>
-        )}
+        <h1>Career Assessment</h1>
+        <h2>{careerQuestions[currentQuestionIndex].question}</h2>
+        {careerQuestions[currentQuestionIndex].options.map((option, index) => (
+          <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
+            {option}
+          </button>
+        ))}
       </div>
     </div>
   );
