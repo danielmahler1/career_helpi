@@ -24,10 +24,16 @@ const DetailedQuestions = () => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = event.target.value;
     setAnswers(newAnswers);
+  };
+
+  const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleAnswer(event); // Call existing handleAnswer to update the answer state
+    event.target.style.height = 'auto'; // Reset height to auto to reduce it if needed
+    event.target.style.height = event.target.scrollHeight + 'px'; // Adjust height based on content
   };
 
   const moveToNextQuestion = async () => {
@@ -107,7 +113,18 @@ const DetailedQuestions = () => {
             <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
             <div>
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-              <input type="text" value={answers[currentQuestionIndex]} onChange={handleAnswer} className="answer-input" />
+              <textarea
+                value={answers[currentQuestionIndex]}
+                onChange={handleTextareaInput}
+                onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    moveToNextQuestion();
+                  }
+                }}
+                className="answer-input"
+                style={{ resize: 'none', overflow: 'hidden' }}
+              />
               <button onClick={moveToNextQuestion} className="next-button">
                 Next Question
               </button>
