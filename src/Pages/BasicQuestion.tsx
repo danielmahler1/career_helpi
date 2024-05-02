@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 type QuestionType = {
   question: string;
   options: string[];
-  hasOtherOption?: boolean; // Indicates if there's an 'Other' option that requires a text input
+  hasOtherOption?: boolean;
 };
 
 const careerQuestions: QuestionType[] = [
@@ -52,9 +52,13 @@ const BasicQuestion = () => {
 
   const handleOptionClick = (option: string) => {
     const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = option;
-    setAnswers(newAnswers);
-    advanceQuestion();
+    if (option === "Other") {
+      // Handle "Other" option logic if needed
+    } else {
+      newAnswers[currentQuestionIndex] = option;
+      setAnswers(newAnswers);
+      advanceQuestion();
+    }
   };
 
   const advanceQuestion = async () => {
@@ -84,6 +88,15 @@ const BasicQuestion = () => {
     setResult("");
   };
 
+  const ProgressBar = ({ current, total }: { current: number; total: number }) => {
+    const progressPercent = (current / total) * 100;
+    return (
+      <div className="progress-bar-container">
+        <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
+      </div>
+    );
+  };
+
   if (!quizStarted || result) {
     return (
       <div className="quiz-container-basic">
@@ -111,13 +124,25 @@ const BasicQuestion = () => {
   return (
     <div className="quiz-container-basic">
       <div className="basic-quiz-box">
-        <h1>Career Assessment</h1>
-        <h2>{careerQuestions[currentQuestionIndex].question}</h2>
-        {careerQuestions[currentQuestionIndex].options.map((option, index) => (
-          <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
-            {option}
-          </button>
-        ))}
+        {isLoading ? (
+          <div className="loading-modal">
+            <div className="loading-text">Generating Career Advice...</div>
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1>Career Assessment</h1>
+            <ProgressBar current={currentQuestionIndex + 1} total={careerQuestions.length} />
+            <h2>{careerQuestions[currentQuestionIndex].question}</h2>
+            {careerQuestions[currentQuestionIndex].options.map((option, index) => (
+              <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
+                {option}
+              </button>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
