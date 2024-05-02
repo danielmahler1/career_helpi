@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./DetailedQuestions.css"; // Import CSS file
+import "../Styles/DetailedQuestions.css"; // Import CSS file
 
 // Define a type for the question structure
 type QuestionType = {
