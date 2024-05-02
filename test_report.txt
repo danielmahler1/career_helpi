@@ -65,11 +65,12 @@ All files              |       0 |        0 |       0 |       0 |
   HomePage.tsx         |       0 |      100 |       0 |       0 | 13-19             
   QuizHeader.tsx       |       0 |      100 |       0 |       0 | 1-2               
  src/Pages             |       0 |        0 |       0 |       0 |                   
-  BasicQuestion.tsx    |       0 |        0 |       0 |       0 | 13-156            
+  BasicQuestion.tsx    |       0 |        0 |       0 |       0 | 13-140            
   DetailedQuestion.tsx |       0 |        0 |       0 |       0 | 10-87             
+  Results.tsx          |       0 |        0 |       0 |       0 |                   
 -----------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        2.981 s
+Time:        3.139 s
 Ran all test suites.
