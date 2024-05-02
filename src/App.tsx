@@ -3,7 +3,7 @@ import { Button, Form, FormControl, InputGroup } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
-import "./App.css";
+import "./Styles/App.css";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
