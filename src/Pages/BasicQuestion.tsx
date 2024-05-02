@@ -17,7 +17,7 @@ const careerQuestions: QuestionType[] = [
   },
   {
     question: "What are your primary professional skills?",
-    options: ["Technical", "Creative", "Business", "Math", "Hospitality", "Other"],
+    options: ["Technical", "Creative", "Business", "Math", "Hospitality"],
     hasOtherOption: true,
   },
   {
@@ -34,7 +34,7 @@ const careerQuestions: QuestionType[] = [
   },
   {
     question: "Which industries are you interested in working in?",
-    options: ["Healthcare", "Education", "Technology", "Business", "Entertainment", "Other"],
+    options: ["Healthcare", "Education", "Technology", "Business", "Entertainment"],
     hasOtherOption: true,
   },
   {
