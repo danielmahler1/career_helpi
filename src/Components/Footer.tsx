@@ -20,8 +20,8 @@ const Footer = ({ keyData, handleSubmit, changeKey }: FooterProps) => {
         </InputGroup>
       </Form>
       <Nav>
-        <Nav.Item className="mx-3">Nathan Wolf</Nav.Item>
         <Nav.Item className="mx-3">Daniel Mahler</Nav.Item>
+        <Nav.Item className="mx-3">Nathan Wolf</Nav.Item>
         <Nav.Item className="mx-3">Benjamin Kellner</Nav.Item>
       </Nav>
     </Navbar>
