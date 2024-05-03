@@ -1,7 +1,6 @@
 // HeroSection.tsx
 import React from "react";
 import GradientShadowButton from "./GradientShadowButton";
-import "../Styles/output.css";
 
 interface HeroSectionProps {
   handleStartClick: () => void;

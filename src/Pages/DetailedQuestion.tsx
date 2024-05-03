@@ -18,7 +18,7 @@ const sampleQuestions: QuestionType[] = [
   { question: "What values are most important to you in a workplace? How do you evaluate a potential employer's alignment with these values?" },
 ];
 
-const DetailedQuestions = () => {
+const DetailedQuestion = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(sampleQuestions.length).fill(""));
   const [quizStarted, setQuizStarted] = useState(false);
@@ -97,4 +97,4 @@ const DetailedQuestions = () => {
   );
 };
 
-export default DetailedQuestions;
+export default DetailedQuestion;

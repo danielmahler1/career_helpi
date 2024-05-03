@@ -3,25 +3,31 @@ import React, { useEffect, useRef } from "react";
 import { FiArrowRight } from "react-icons/fi";
 
 /**
- IMPORTANT!!
+   IMPORTANT!!
+  
+   This component requires the following class for cross browser masking support
+  
+  .mask-with-browser-support {
+    mask: linear-gradient(black, black), linear-gradient(black, black);
+    mask-clip: content-box, border-box;
+    mask-composite: exclude;
+    -webkit-mask:
+      linear-gradient(black, black) content-box,
+      linear-gradient(black, black);
+    -webkit-mask-clip: content-box, border-box;
+    -webkit-mask-composite: xor;
+  }
+   */
 
- This component requires the following class for cross browser masking support
-
-.mask-with-browser-support {
-  mask: linear-gradient(black, black), linear-gradient(black, black);
-  mask-clip: content-box, border-box;
-  mask-composite: exclude;
-  -webkit-mask:
-    linear-gradient(black, black) content-box,
-    linear-gradient(black, black);
-  -webkit-mask-clip: content-box, border-box;
-  -webkit-mask-composite: xor;
-}
- */
+const Example = () => {
+  return <BeamInput />;
+};
 
 const BeamInput = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const turn = useMotionValue(0);
+
   useEffect(() => {
     animate(turn, 1, {
       ease: "linear",
@@ -43,6 +49,7 @@ const BeamInput = () => {
       className="relative flex w-full max-w-md items-center gap-2 rounded-full border border-white/20 bg-gradient-to-br from-white/20 to-white/5 py-1.5 pl-6 pr-1.5"
     >
       <input ref={inputRef} type="email" placeholder="Enter your email" className="w-full bg-transparent text-sm text-white placeholder-white/80 focus:outline-0" />
+
       <button
         onClick={(e) => e.stopPropagation()}
         type="submit"
@@ -51,6 +58,7 @@ const BeamInput = () => {
         <span>Join Waitlist</span>
         <FiArrowRight className="-mr-4 opacity-0 transition-all group-hover:-mr-0 group-hover:opacity-100 group-active:-rotate-45" />
       </button>
+
       <div className="pointer-events-none absolute inset-0 z-10 rounded-full">
         <motion.div
           style={{
@@ -63,4 +71,4 @@ const BeamInput = () => {
   );
 };
 
-export default BeamInput;
+export default Example;
