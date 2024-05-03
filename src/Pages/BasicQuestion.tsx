@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import "../Styles/BasicQuestions.css"; // Import CSS file
 import getCareerAdvice from "../Components/API"; // Adjust path as necessary
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
+import SteppedProgress from "../Components/SteppedProgress";
+import "../Styles/output.css";
 
 type QuestionType = {
   question: string;
@@ -55,8 +57,9 @@ const BasicQuestion = () => {
     if (option === "Other") {
       setShowOtherInput(true);
     } else {
-      answers[currentQuestionIndex] = option;
-      setAnswers(answers);
+      const newAnswers = [...answers]; // Create a copy of the answers array
+      newAnswers[currentQuestionIndex] = option;
+      setAnswers(newAnswers);
       setShowOtherInput(false);
       advanceQuestion();
     }
@@ -67,8 +70,9 @@ const BasicQuestion = () => {
       alert("Must enter text");
       return;
     }
-    answers[currentQuestionIndex] = otherText;
-    setAnswers(answers);
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = otherText;
+    setAnswers(newAnswers);
     setOtherText("");
     setShowOtherInput(false);
     advanceQuestion();
@@ -105,15 +109,6 @@ const BasicQuestion = () => {
     setQuizStarted(true);
   };
 
-  const ProgressBar = ({ current, total }: { current: number; total: number }) => {
-    const progressPercent = (current / total) * 100;
-    return (
-      <div className="progress-bar-container">
-        <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
-      </div>
-    );
-  };
-
   if (!quizStarted) {
     return (
       <div className="quiz-container-basic">
@@ -121,9 +116,7 @@ const BasicQuestion = () => {
           <div className="content-center">
             <h1>Basic Questions Quiz</h1>
             <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <button className="start-button" onClick={startQuiz}>
-              Start Quiz
-            </button>
+            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
           </div>
         </div>
       </div>
@@ -143,7 +136,7 @@ const BasicQuestion = () => {
         ) : (
           <>
             <h1>Career Assessment</h1>
-            <ProgressBar current={currentQuestionIndex + 1} total={careerQuestions.length} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} />
             <div style={{ marginTop: "20px" }}>
               <h2>{careerQuestions[currentQuestionIndex].question}</h2>
               {careerQuestions[currentQuestionIndex].options.map((option, index) => (

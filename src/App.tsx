@@ -6,7 +6,7 @@ import Footer from "./Components/Footer";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
-import "./Styles/App.css";
+import "../src/Styles/output.css";
 
 const App = () => {
   const saveKeyData = "MYKEY";

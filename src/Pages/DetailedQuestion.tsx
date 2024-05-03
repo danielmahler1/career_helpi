@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "../Styles/DetailedQuestions.css"; // Import CSS file
+import GradientShadowButton from "../Components/GradientShadowButton";
+import BeamInput from "../Components/BeamInput";
 
 // Define a type for the question structure
 type QuestionType = {
@@ -75,9 +76,7 @@ const DetailedQuestions = () => {
           <div className="content-center">
             <h1>Detailed Questions Quiz</h1>
             <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <button className="start-button" onClick={startQuiz}>
-              Start Quiz
-            </button>
+            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
           </div>
         </div>
       </div>
@@ -91,10 +90,7 @@ const DetailedQuestions = () => {
         <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
         <div>
           <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-          <input type="text" value={answers[currentQuestionIndex]} onChange={handleAnswer} className="answer-input" />
-          <button onClick={moveToNextQuestion} className="next-button">
-            Next Question
-          </button>
+          <BeamInput />
         </div>
       </div>
     </div>
