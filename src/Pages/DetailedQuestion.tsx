@@ -47,7 +47,7 @@ const DetailedQuestions = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt = "Based on these answers, what career path do you recommend? " + answers.join(", ");
+      const fullPrompt = "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences." + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
