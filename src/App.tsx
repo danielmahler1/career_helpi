@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
-import Footer from "./Components/Footer";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
-import "../src/Styles/output.css";
+import "./Styles/App.css";
 
 const App = () => {
   const saveKeyData = "MYKEY";
@@ -35,7 +34,6 @@ const App = () => {
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
         </Routes>
-        <Footer keyData={key} handleSubmit={handleSubmit} changeKey={changeKey} />
       </div>
     </Router>
   );

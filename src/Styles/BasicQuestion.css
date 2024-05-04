@@ -6,15 +6,7 @@
   background-color: #282c34;
   padding: 20px;
   height: auto;
-  min-height: calc(100vh - 110px);
-}
-
-.content-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  min-height: 100vh;
 }
 
 .basic-quiz-box {
@@ -26,7 +18,14 @@
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   overflow-y: auto;
-  margin-top: -150px;
+}
+
+.content-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .progress-bar-container {

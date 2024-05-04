@@ -6,7 +6,7 @@
   background-color: #282c34;
   padding: 20px;
   height: auto;
-  min-height: calc(100vh - 110px);
+  min-height: 100vh;
 }
 
 .content-center {
@@ -18,15 +18,36 @@
 }
 
 .detailed-quiz-box {
-  height: 400px;
-  width: 600px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background: #1c1e22; /* Slightly darker than quiz-box */
   border-radius: 10px;
-  background-color: #1c1e22;
+  padding: 20px;
+  text-align: center;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  overflow-y: auto;
-  margin-top: -150px;
+  max-width: 450px;
+  min-height: 300px;
+}
+
+.detailed-quiz-box h1 {
+  font-size: 30px; /* Matches h2 in quiz-box for visual consistency */
+}
+
+.detailed-quiz-box p {
+  margin: 20px; /* Ensure paragraph spacing is consistent */
+}
+
+/* Styling for BeamInput to match GradientShadowButton */
+.beam-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px; /* Add space above the input for visual separation */
 }
 
 .progress-bar-container {

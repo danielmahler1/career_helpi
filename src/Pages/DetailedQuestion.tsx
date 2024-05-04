@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
+import "../Styles/DetailedQuestions.css";
 
 // Define a type for the question structure
 type QuestionType = {
@@ -90,6 +91,8 @@ const DetailedQuestion = () => {
         <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
         <div>
           <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
+        </div>
+        <div className="beam-input-container">
           <BeamInput />
         </div>
       </div>

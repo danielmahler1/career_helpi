@@ -13,7 +13,6 @@ const SimpleFloatingNav = () => {
       </Link>
       <NavLink to="/basic-questions">Basic Questions</NavLink>
       <NavLink to="/detailed-questions">Detailed Questions</NavLink>
-      <NavLink to="/results">Results Overview</NavLink>
       <JoinButton />
     </nav>
   );

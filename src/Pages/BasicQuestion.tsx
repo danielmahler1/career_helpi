@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
 import SteppedProgress from "../Components/SteppedProgress";
+import "../Styles/BasicQuestion.css";
 
 type QuestionType = {
   question: string;
