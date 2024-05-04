@@ -5,6 +5,7 @@ import HomePage from "./Components/HomePage";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
 import { ToastContainer, toast } from "react-toastify";
+import FloatingBottomNav from "./Components/FloatingBottomNav";
 import "./Styles/App.css";
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
         </Routes>
+        <FloatingBottomNav />
       </div>
     </Router>
   );
