@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import getCareerAdvice from "../Components/API"; // Adjust path as necessary
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
 import "../Styles/DetailedQuestions.css";
 
-// Define a type for the question structure
 type QuestionType = {
   question: string;
 };
 
-// Sample questions - you can replace or add more
 const sampleQuestions: QuestionType[] = [
   { question: "Describe a project or task where you felt the most engaged and fulfilled. What were you doing, and why did it feel significant to you?" },
   { question: "What specific aspects of your previous jobs have you liked and disliked? (Consider aspects like company culture, management style, job duties, etc.)" },
@@ -23,31 +24,44 @@ const DetailedQuestion = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(sampleQuestions.length).fill(""));
   const [quizStarted, setQuizStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = event.target.value;
     setAnswers(newAnswers);
   };
 
-  const moveToNextQuestion = () => {
+  const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    handleAnswer(event); // Call existing handleAnswer to update the answer state
+    event.target.style.height = "auto"; // Reset height to auto to reduce it if needed
+    event.target.style.height = event.target.scrollHeight + "px"; // Adjust height based on content
+  };
+
+  const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
       alert("Please answer the current question before proceeding.");
-      return; // Do not proceed if the question is not answered
+      return;
     }
 
-    // Move to the next question
-    if (currentQuestionIndex < sampleQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      // Reset the input field after moving to the next question
-      setAnswers((prevAnswers) => {
-        const updatedAnswers = [...prevAnswers];
-        updatedAnswers[currentQuestionIndex + 1] = ""; // Clear the next question's input
-        return updatedAnswers;
-      });
+    const nextQuestionIndex = currentQuestionIndex + 1;
+    if (nextQuestionIndex < sampleQuestions.length) {
+      setCurrentQuestionIndex(nextQuestionIndex);
     } else {
-      alert("Quiz Complete.");
-      resetQuiz(); // Reset the quiz when complete
+      setIsLoading(true);
+      const fullPrompt =
+        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences." + answers.join(", ");
+      const messages = [{ role: "user", content: fullPrompt }];
+      try {
+        const advice = await getCareerAdvice(messages);
+        toast.success("Career Advice Generated Successfully");
+        alert("Quiz Complete. Career advice: " + advice);
+      } catch (error) {
+        toast.error("Error Generating Career Advice");
+      } finally {
+        setIsLoading(false);
+        resetQuiz();
+      }
     }
   };
 
@@ -56,16 +70,16 @@ const DetailedQuestion = () => {
   };
 
   const resetQuiz = () => {
-    setQuizStarted(false); // Reset the quiz state
-    setCurrentQuestionIndex(0); // Reset the question index
-    setAnswers(Array(sampleQuestions.length).fill("")); // Clear all answers
+    setQuizStarted(false);
+    setCurrentQuestionIndex(0);
+    setAnswers(Array(sampleQuestions.length).fill(""));
   };
 
   const ProgressBar = ({ current, total }: { current: number; total: number }) => {
     const progressPercent = (current / total) * 100;
     return (
       <div className="progress-bar-container">
-        <div style={{ width: `${progressPercent}%` }} className="progress-bar"></div>
+        <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
       </div>
     );
   };
@@ -87,14 +101,37 @@ const DetailedQuestion = () => {
   return (
     <div className="quiz-container-detailed">
       <div className="detailed-quiz-box">
-        <h1>Detailed Questions</h1>
-        <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
-        <div>
-          <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-        </div>
-        <div className="beam-input-container">
-          <BeamInput />
-        </div>
+        {isLoading ? (
+          <div className="loading-modal">
+            <div className="loading-text">Generating Career Advice...</div>
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1>Detailed Questions</h1>
+            <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
+            <div>
+              <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
+              <textarea
+                value={answers[currentQuestionIndex]}
+                onChange={handleTextareaInput}
+                onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    moveToNextQuestion();
+                  }
+                }}
+                className="answer-input"
+                style={{ resize: "none", overflow: "hidden" }}
+              />
+              <button onClick={moveToNextQuestion} className="next-button">
+                Next Question
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
