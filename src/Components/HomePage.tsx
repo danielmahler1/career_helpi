@@ -1,18 +1,11 @@
-import React, { Dispatch, SetStateAction, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom"; // Import useHistory for navigation
 import HeroSection from "./HeroSection";
 import QuizHeader from "./QuizHeader";
 import GradientShadowButton from "./GradientShadowButton"; // Import the new button component
 import "../Styles/HomePage.css";
 
-interface HomePageProps {
-  keyData: string;
-  setKey: Dispatch<SetStateAction<string>>;
-  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-  changeKey: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const HomePage = ({ keyData, setKey, handleSubmit, changeKey }: HomePageProps) => {
+const HomePage = () => {
   const quizRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const handleStartClick = () => {
