@@ -19,7 +19,7 @@ const FloatingBottomNav = () => {
 
   return (
     <div className="relative flex justify-center items-center w-full">
-      <motion.nav className="bg-white text-black shadow-lg flex items-center justify-between absolute bottom-8 left-0 right-0 mx-auto w-max">
+      <motion.nav className="bg-white text-black shadow-lg flex items-center justify-between absolute bottom-4 left-0 right-0 mx-auto w-max">
         <MenuButton setOpen={setIsOpen} open={isOpen} />
         <div className="flex gap-6 px-6">
           <Link text="Home" Icon={FiHome} path="/" />

@@ -12,7 +12,6 @@ const HomePage = () => {
     quizRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Handler for navigation
   const navigateTo = (path: string) => {
     navigate(path);
   };

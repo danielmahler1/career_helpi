@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
+import { toast } from "react-toastify"; // Ensure you have react-toastify installed and imported
 
 interface SpringModalProps {
   isOpen: boolean;
@@ -10,6 +11,21 @@ interface SpringModalProps {
 }
 
 const SpringModal: React.FC<SpringModalProps> = ({ isOpen, setIsOpen, apiKey, setApiKey }) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (apiKey.trim() === "") {
+      toast.error("API Key Cannot Be Empty");
+      return;
+    }
+    localStorage.setItem("MYKEY", apiKey);
+    toast.success("API Key Saved Successfully");
+    setIsOpen(false);
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setApiKey(event.target.value);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -32,17 +48,21 @@ const SpringModal: React.FC<SpringModalProps> = ({ isOpen, setIsOpen, apiKey, se
               <div className="bg-white w-16 h-16 mb-2 rounded-full text-3xl text-indigo-600 grid place-items-center mx-auto">
                 <FiAlertCircle />
               </div>
-              <h3 className="text-3xl font-bold text-center mb-2">Enter your API Key</h3>
-              <p className="text-center mb-6">Please Input Your OpenAI Key Below.</p>
-              <input type="text" value={apiKey} onChange={(e) => setApiKey(e.target.value)} className="text-sm p-2 border border-gray-300 rounded w-full" placeholder="Enter API key" />
-              <div className="flex gap-2 mt-4">
-                <button onClick={() => setIsOpen(false)} className="bg-transparent hover:bg-white/10 transition-colors text-white font-semibold w-full py-2 rounded">
-                  Close
-                </button>
-                <button onClick={() => setIsOpen(false)} className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded">
-                  Save
-                </button>
-              </div>
+              <h3 className="text-3xl font-bold text-center mb-2">Enter Your API Key</h3>
+              <p className="text-center mb-6">
+                Please input your OpenAI key below. Your key is stored locally on your device and is only used to authenticate requests to OpenAI servers when accessing services.
+              </p>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="password" value={apiKey} onChange={handleChange} className="text-sm p-2 border border-gray-300 rounded w-full text-black" placeholder="Enter API Key:" />
+                <div className="flex gap-2 mt-4">
+                  <button type="button" onClick={() => setIsOpen(false)} className="bg-transparent hover:bg-white/10 transition-colors text-white font-semibold w-full py-2 rounded">
+                    Close
+                  </button>
+                  <button type="submit" className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded">
+                    Save
+                  </button>
+                </div>
+              </form>
             </div>
           </motion.div>
         </motion.div>
