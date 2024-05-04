@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
+import SteppedProgress from "../Components/SteppedProgress";
+
 import "../Styles/DetailedQuestions.css";
 
 type QuestionType = {
@@ -32,10 +34,10 @@ const DetailedQuestion = () => {
     setAnswers(newAnswers);
   };
 
-  const handleTextareaInput = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    handleAnswer(event); // Call existing handleAnswer to update the answer state
-    event.target.style.height = "auto"; // Reset height to auto to reduce it if needed
-    event.target.style.height = event.target.scrollHeight + "px"; // Adjust height based on content
+  const handleInputValueChange = (value: string) => {
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = value;
+    setAnswers(newAnswers);
   };
 
   const moveToNextQuestion = async () => {
@@ -50,8 +52,9 @@ const DetailedQuestion = () => {
     } else {
       setIsLoading(true);
       const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences." + answers.join(", ");
+        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
+      console.log(messages);
       try {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
@@ -114,21 +117,9 @@ const DetailedQuestion = () => {
             <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
             <div>
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-              <textarea
-                value={answers[currentQuestionIndex]}
-                onChange={handleTextareaInput}
-                onKeyDown={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    moveToNextQuestion();
-                  }
-                }}
-                className="answer-input"
-                style={{ resize: "none", overflow: "hidden" }}
-              />
-              <button onClick={moveToNextQuestion} className="next-button">
-                Next Question
-              </button>
+            </div>
+            <div className="beam-input-container">
+              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
           </>
         )}

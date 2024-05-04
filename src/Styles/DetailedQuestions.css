@@ -18,27 +18,29 @@
 }
 
 .detailed-quiz-box {
+  height: 400px;
+  width: 600px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* Updated to align content to the top */
   align-items: center;
   margin: 20px;
-  background: #1c1e22; /* Slightly darker than quiz-box */
+  background-color: #1c1e22;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  max-width: 450px;
-  min-height: 300px;
+  overflow-y: auto;
 }
 
 .detailed-quiz-box h1 {
-  font-size: 30px; /* Matches h2 in quiz-box for visual consistency */
+  font-size: 30px;
+  margin-bottom: 10px; /* Reduced margin to tighten up the layout */
 }
 
 .detailed-quiz-box p {
-  margin: 20px; /* Ensure paragraph spacing is consistent */
+  margin-bottom: 10px; /* Ensure there's space between the question and the progress bar */
 }
 
 /* Styling for BeamInput to match GradientShadowButton */
@@ -47,7 +49,8 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 20px; /* Add space above the input for visual separation */
+  margin-top: auto; /* Pushes the input up, leaving space above */
+  margin-bottom: 20px; /* Add space above the input for visual separation */
 }
 
 .progress-bar-container {

@@ -84,7 +84,7 @@ const BasicQuestion = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt = "Based on these answers, what career path do you recommend? " + answers.join(", ");
+      const fullPrompt = "Based on these answers, what career path do you recommend: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
