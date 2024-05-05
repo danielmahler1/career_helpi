@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
 import SteppedProgress from "../Components/SteppedProgress";
-
 import "../Styles/DetailedQuestions.css";
 
 type QuestionType = {
@@ -28,12 +27,6 @@ const DetailedQuestion = () => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = event.target.value;
-    setAnswers(newAnswers);
-  };
-
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = value;
@@ -42,7 +35,7 @@ const DetailedQuestion = () => {
 
   const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
-      alert("Please answer the current question before proceeding.");
+      toast.error("An Answer is Required!");
       return;
     }
 
@@ -78,15 +71,6 @@ const DetailedQuestion = () => {
     setAnswers(Array(sampleQuestions.length).fill(""));
   };
 
-  const ProgressBar = ({ current, total }: { current: number; total: number }) => {
-    const progressPercent = (current / total) * 100;
-    return (
-      <div className="progress-bar-container">
-        <div className="progress-bar" style={{ width: `${progressPercent}%` }}></div>
-      </div>
-    );
-  };
-
   if (!quizStarted) {
     return (
       <div className="quiz-container-detailed">
@@ -114,7 +98,7 @@ const DetailedQuestion = () => {
         ) : (
           <>
             <h1>Detailed Questions</h1>
-            <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
             <div>
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
             </div>

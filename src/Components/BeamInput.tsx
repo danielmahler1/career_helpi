@@ -18,7 +18,7 @@ const BeamInput: FC<BeamInputProps> = ({ inputValue, setInputValue, onSubmit }) 
       duration: 5,
       repeat: Infinity,
     });
-  }, []);
+  }, [turn]);
 
   const backgroundImage = useMotionTemplate`conic-gradient(from ${turn}turn, #a78bfa00 75%, #a78bfa 100%)`;
 

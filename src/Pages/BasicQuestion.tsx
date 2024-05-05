@@ -135,24 +135,22 @@ const BasicQuestion = () => {
           </div>
         ) : (
           <>
-            <h1>Career Assessment</h1>
+            <h1>Basic Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} />
-            <div style={{ marginTop: "20px" }}>
-              <h2>{careerQuestions[currentQuestionIndex].question}</h2>
-              {careerQuestions[currentQuestionIndex].options.map((option, index) => (
-                <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
-                  {option}
+            <h2>{careerQuestions[currentQuestionIndex].question}</h2>
+            {careerQuestions[currentQuestionIndex].options.map((option, index) => (
+              <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
+                {option}
+              </button>
+            ))}
+            {showOtherInput && careerQuestions[currentQuestionIndex].hasOtherOption && (
+              <>
+                <input type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)} placeholder="Please specify" className="other-input" />
+                <button className="other-submit" onClick={handleOtherSubmit}>
+                  Enter
                 </button>
-              ))}
-              {showOtherInput && careerQuestions[currentQuestionIndex].hasOtherOption && (
-                <>
-                  <input type="text" value={otherText} onChange={(e) => setOtherText(e.target.value)} placeholder="Please specify" className="other-input" />
-                  <button className="other-submit" onClick={handleOtherSubmit}>
-                    Enter
-                  </button>
-                </>
-              )}
-            </div>
+              </>
+            )}
           </>
         )}
       </div>
