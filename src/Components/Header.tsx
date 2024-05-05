@@ -30,9 +30,9 @@ const Logo = () => {
 const NavLink = ({ to, children }: { to: string; children: string }) => {
   return (
     <Link to={to} className="block overflow-hidden">
-      <motion.div transition={{ ease: "backInOut", duration: 0.5 }} className="h-[20px]">
+      <motion.div className="relative">
+        <span className="absolute inset-0 flex h-[20px] items-center text-neutral-50 transition-opacity duration-300 opacity-0 hover:opacity-100">{children}</span>
         <span className="flex h-[20px] items-center">{children}</span>
-        <span className="flex h-[20px] items-center text-neutral-50">{children}</span>
       </motion.div>
     </Link>
   );
@@ -57,7 +57,7 @@ const JoinButton = () => {
           hover:before:translate-y-[0%]
           active:scale-100`}
     >
-      Join waitlist
+      About Us
     </button>
   );
 };
