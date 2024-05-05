@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link as RouterLink } from "react-router-dom";
-import { FiMenu, FiHome, FiX } from "react-icons/fi";
+import { FiSettings, FiHome, FiX } from "react-icons/fi";
 import { CgDetailsMore, CgDetailsLess } from "react-icons/cg";
 import { BsPeople } from "react-icons/bs";
 import SpringModal from "./SpringModal";
@@ -16,6 +16,11 @@ interface LinkProps {
 const FloatingBottomNav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [apiKey, setApiKey] = useState<string>("");
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem("MYKEY") || "";
+    setApiKey(storedKey);
+  }, []);
 
   return (
     <div className="relative flex justify-center items-center w-full">
@@ -46,7 +51,7 @@ const MenuButton = ({ setOpen, open }: { setOpen: Dispatch<SetStateAction<boolea
   return (
     <div onClick={() => setOpen(!open)} className="text-xl font-bold h-full bg-black text-white">
       <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="p-4">
-        {open ? <FiX /> : <FiMenu />}
+        {open ? <FiX /> : <FiSettings />}
       </motion.button>
     </div>
   );
