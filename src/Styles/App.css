@@ -13,17 +13,6 @@ body {
 .App {
   text-align: center;
   width: 100%;
-  min-height: 100vh;
-}
-
-.homepage-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #282c34;
-  padding: 0;
-  margin: 0;
 }
 
 .hero-section {
@@ -51,10 +40,6 @@ body {
   left: 0;
   background: rgba(0, 0, 0, 0.5);
   z-index: -1;
-}
-
-.footer-form {
-  margin-left: 10px;
 }
 
 .quiz-header {
@@ -91,62 +76,6 @@ body {
   transform: translateY(-5px);
 }
 
-.quiz-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 40px;
-  box-sizing: border-box;
-  height: 100vh;
-  padding-top: 0;
-  margin-top: 0;
-}
-
-.quiz-box {
-  flex: 1 1 calc(50% - 40px);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 20px;
-  background: #404956;
-  border-radius: 10px;
-  padding: 20px;
-  text-align: center;
-  color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 450px;
-  min-height: 300px;
-}
-
-@media (max-width: 768px) {
-  .quiz-box {
-    flex: 1 1 100%;
-  }
-}
-
-.start-assessment-button {
-  font-size: 1.5em;
-  color: #fff;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  background-color: var(--primary-color);
-  color: var(--text-color);
-  padding: 15px 30px;
-  border-radius: 30px;
-  border: none;
-  font-size: 1.2em;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.start-assessment-button:hover,
-.start-assessment-button:focus {
-  background-color: #e64a19;
-
-  transform: translateY(-3px);
-}
-
 .hero-title {
   font-size: 3em;
   font-weight: 700;
@@ -159,32 +88,11 @@ body {
   color: #fff;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-.button {
-  background-color: #61dafb;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  display: inline-block;
-  margin-top: 10px;
-  transition: background-color 0.3s, transform 0.2s;
-  align-self: center;
-  margin-top: auto;
-}
-
-.button:hover,
-.button:focus {
-  background-color: #4095c6;
-  transform: translateY(-2px);
-}
-
-:root {
-  --primary-color: #61dafb;
-  --hover-color: #4095c6;
-  --text-color: #ffffff;
+.mask-with-browser-support {
+  mask: linear-gradient(black, black), linear-gradient(black, black);
+  mask-clip: content-box, border-box;
+  mask-composite: exclude;
+  -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  -webkit-mask-clip: content-box, border-box;
+  -webkit-mask-composite: xor;
 }

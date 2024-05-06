@@ -1,29 +1,64 @@
-import { Navbar, Nav } from "react-bootstrap";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  return <SimpleFloatingNav />;
+};
+
+const SimpleFloatingNav = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
-      <Navbar.Brand as={Link} to="/starter_helpi/" style={{ marginLeft: 10 }}>
-        CareerFinder
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" style={{ marginRight: 10 }} />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="me-auto">
-          <Nav.Link as={Link} to="/basic-questions">
-            Basic Quiz
-          </Nav.Link>
-          <Nav.Link as={Link} to="/detailed-questions">
-            Detailed Quiz
-          </Nav.Link>
-        </Nav>
-        <Nav>
-          <Nav.Link as={Link} to="/results">
-            Results Overview
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+    <nav className="fixed left-[50%] top-8 flex w-fit -translate-x-[50%] items-center gap-6 rounded-lg border-[1px] border-neutral-700 bg-neutral-900 p-2 text-sm text-neutral-500 z-10">
+      <Link to="/">
+        <Logo />
+      </Link>
+      <NavLink to="/basic-questions">Basic Questions</NavLink>
+      <NavLink to="/detailed-questions">Detailed Questions</NavLink>
+      <JoinButton />
+    </nav>
+  );
+};
+
+const Logo = () => {
+  return (
+    <svg width="24" height="auto" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-2 fill-neutral-50">
+      <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" stopColor="#000000"></path>
+      <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" stopColor="#000000"></path>
+    </svg>
+  );
+};
+
+const NavLink = ({ to, children }: { to: string; children: string }) => {
+  return (
+    <Link to={to} className="block overflow-hidden">
+      <motion.div className="relative">
+        <span className="absolute inset-0 flex h-[20px] items-center text-neutral-50 transition-opacity duration-300 opacity-0 hover:opacity-100">{children}</span>
+        <span className="flex h-[20px] items-center">{children}</span>
+      </motion.div>
+    </Link>
+  );
+};
+
+const JoinButton = () => {
+  return (
+    <button
+      className={`
+          relative z-0 flex items-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border-[1px] 
+          border-neutral-700 px-4 py-1.5 font-medium
+         text-neutral-300 transition-all duration-300
+          
+          before:absolute before:inset-0
+          before:-z-10 before:translate-y-[200%]
+          before:scale-[2.5]
+          before:rounded-[100%] before:bg-neutral-50
+          before:transition-transform before:duration-1000
+          before:content-[""]
+  
+          hover:scale-105 hover:border-neutral-50 hover:text-neutral-900
+          hover:before:translate-y-[0%]
+          active:scale-100`}
+    >
+      About Us
+    </button>
   );
 };
 

@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import "../Styles/DetailedQuestions.css"; // Import CSS file
+import getCareerAdvice from "../Components/API"; // Adjust path as necessary
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import GradientShadowButton from "../Components/GradientShadowButton";
+import BeamInput from "../Components/BeamInput";
+import SteppedProgress from "../Components/SteppedProgress";
+import "../Styles/DetailedQuestions.css";
 
-// Define a type for the question structure
 type QuestionType = {
   question: string;
 };
 
-// Sample questions - you can replace or add more
 const sampleQuestions: QuestionType[] = [
   { question: "Describe a project or task where you felt the most engaged and fulfilled. What were you doing, and why did it feel significant to you?" },
   { question: "What specific aspects of your previous jobs have you liked and disliked? (Consider aspects like company culture, management style, job duties, etc.)" },
@@ -17,35 +21,43 @@ const sampleQuestions: QuestionType[] = [
   { question: "What values are most important to you in a workplace? How do you evaluate a potential employer's alignment with these values?" },
 ];
 
-const DetailedQuestions = () => {
+const DetailedQuestion = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>(Array(sampleQuestions.length).fill(""));
   const [quizStarted, setQuizStarted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
-    newAnswers[currentQuestionIndex] = event.target.value;
+    newAnswers[currentQuestionIndex] = value;
     setAnswers(newAnswers);
   };
 
-  const moveToNextQuestion = () => {
+  const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
-      alert("Please answer the current question before proceeding.");
-      return; // Do not proceed if the question is not answered
+      toast.error("An Answer is Required!");
+      return;
     }
 
-    // Move to the next question
-    if (currentQuestionIndex < sampleQuestions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-      // Reset the input field after moving to the next question
-      setAnswers((prevAnswers) => {
-        const updatedAnswers = [...prevAnswers];
-        updatedAnswers[currentQuestionIndex + 1] = ""; // Clear the next question's input
-        return updatedAnswers;
-      });
+    const nextQuestionIndex = currentQuestionIndex + 1;
+    if (nextQuestionIndex < sampleQuestions.length) {
+      setCurrentQuestionIndex(nextQuestionIndex);
     } else {
-      alert("Quiz Complete.");
-      resetQuiz(); // Reset the quiz when complete
+      setIsLoading(true);
+      const fullPrompt =
+        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
+      const messages = [{ role: "user", content: fullPrompt }];
+      console.log(messages);
+      try {
+        const advice = await getCareerAdvice(messages);
+        toast.success("Career Advice Generated Successfully");
+        alert("Quiz Complete. Career advice: " + advice);
+      } catch (error) {
+        toast.error("Error Generating Career Advice");
+      } finally {
+        setIsLoading(false);
+        resetQuiz();
+      }
     }
   };
 
@@ -54,18 +66,9 @@ const DetailedQuestions = () => {
   };
 
   const resetQuiz = () => {
-    setQuizStarted(false); // Reset the quiz state
-    setCurrentQuestionIndex(0); // Reset the question index
-    setAnswers(Array(sampleQuestions.length).fill("")); // Clear all answers
-  };
-
-  const ProgressBar = ({ current, total }: { current: number; total: number }) => {
-    const progressPercent = (current / total) * 100;
-    return (
-      <div className="progress-bar-container">
-        <div style={{ width: `${progressPercent}%` }} className="progress-bar"></div>
-      </div>
-    );
+    setQuizStarted(false);
+    setCurrentQuestionIndex(0);
+    setAnswers(Array(sampleQuestions.length).fill(""));
   };
 
   if (!quizStarted) {
@@ -75,9 +78,7 @@ const DetailedQuestions = () => {
           <div className="content-center">
             <h1>Detailed Questions Quiz</h1>
             <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <button className="start-button" onClick={startQuiz}>
-              Start Quiz
-            </button>
+            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
           </div>
         </div>
       </div>
@@ -87,18 +88,28 @@ const DetailedQuestions = () => {
   return (
     <div className="quiz-container-detailed">
       <div className="detailed-quiz-box">
-        <h1>Detailed Questions</h1>
-        <ProgressBar current={currentQuestionIndex + 1} total={sampleQuestions.length} />
-        <div>
-          <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-          <input type="text" value={answers[currentQuestionIndex]} onChange={handleAnswer} className="answer-input" />
-          <button onClick={moveToNextQuestion} className="next-button">
-            Next Question
-          </button>
-        </div>
+        {isLoading ? (
+          <div className="loading-modal">
+            <div className="loading-text">Generating Career Advice...</div>
+            <div className="spinner-container">
+              <div className="spinner"></div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <h1>Detailed Questions</h1>
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
+            <div>
+              <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
+            </div>
+            <div className="beam-input-container">
+              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
-export default DetailedQuestions;
+export default DetailedQuestion;
