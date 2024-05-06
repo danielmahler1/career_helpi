@@ -35,9 +35,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ handleStartClick }) => {
     >
       <div className="relative z-10 flex flex-col items-center" onClick={handleStartClick}>
         <h1 className="max-w-3xl bg-gradient-to-br from-white to-gray-400 bg-clip-text text-center text-3xl font-medium leading-tight text-transparent sm:text-5xl sm:leading-tight md:text-7xl md:leading-tight">
-          Discover Your Career Path
+          Find Your Career Path
         </h1>
-        <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed">Take our career assessment to find careers that match your interests and skills.</p>
+        <p className="my-6 max-w-xl text-center text-base leading-relaxed md:text-lg md:leading-relaxed">Take our career quizzes to discover jobs that fit your skills and interests.</p>
         <motion.button
           style={{
             border,
