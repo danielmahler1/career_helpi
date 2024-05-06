@@ -26,6 +26,7 @@ const DetailedQuestion = () => {
   const [answers, setAnswers] = useState<string[]>(Array(sampleQuestions.length).fill(""));
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState("");
 
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
@@ -47,11 +48,10 @@ const DetailedQuestion = () => {
       const fullPrompt =
         "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
-      console.log(messages);
       try {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
-        alert("Quiz Complete. Career advice: " + advice);
+        setResult(advice);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
@@ -68,16 +68,27 @@ const DetailedQuestion = () => {
     setQuizStarted(false);
     setCurrentQuestionIndex(0);
     setAnswers(Array(sampleQuestions.length).fill(""));
+    setResult("");
   };
 
-  if (!quizStarted) {
+  if (!quizStarted || result) {
     return (
       <div className="quiz-container-detailed">
         <div className="detailed-quiz-box">
           <div className="content-center">
-            <h1>Detailed Questions Quiz</h1>
-            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
+            {result ? (
+              <>
+                <h1>Career Advice</h1>
+                <p>{result}</p>
+                <button onClick={resetQuiz}>Restart Quiz</button>
+              </>
+            ) : (
+              <>
+                <h1>Detailed Questions Quiz</h1>
+                <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+                <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
+              </>
+            )}
           </div>
         </div>
       </div>
