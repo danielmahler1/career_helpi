@@ -6,6 +6,7 @@ import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
+import BarLoader from "../Components/BarLoader";
 
 type QuestionType = {
   question: string;
@@ -101,9 +102,7 @@ const DetailedQuestion = () => {
         {isLoading ? (
           <div className="loading-modal">
             <div className="loading-text">Generating Career Advice...</div>
-            <div className="spinner-container">
-              <div className="spinner"></div>
-            </div>
+            <BarLoader />
           </div>
         ) : (
           <>

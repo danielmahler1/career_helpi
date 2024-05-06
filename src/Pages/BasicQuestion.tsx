@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
+import BarLoader from "../Components/BarLoader";
 
 type QuestionType = {
   question: string;
@@ -121,7 +122,7 @@ const BasicQuestion = () => {
           <div className="loading-modal">
             <div className="loading-text">Generating Career Advice...</div>
             <div className="spinner-container">
-              <div className="spinner"></div>
+              <BarLoader />
             </div>
           </div>
         ) : (
