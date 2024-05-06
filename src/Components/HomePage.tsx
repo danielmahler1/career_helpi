@@ -17,22 +17,24 @@ const HomePage = () => {
   };
 
   return (
-    <div className="homepage-container">
+    <>
       <HeroSection handleStartClick={handleStartClick} />
-      <div className="quiz-container" ref={quizRef}>
-        <QuizHeader />
-        <div className="quiz-box">
-          <h2>Basic Questions Quiz</h2>
-          <p>Start with some fundamental questions to test your basic knowledge.</p>
-          <GradientShadowButton onClick={() => navigateTo("/basic-questions")} buttonText="Start Basic Quiz" />
-        </div>
-        <div className="quiz-box">
-          <h2>Detailed Questions Quiz</h2>
-          <p>Dive deeper with detailed questions for a thorough challenge.</p>
-          <GradientShadowButton onClick={() => navigateTo("/detailed-questions")} buttonText="Start Detailed Quiz" />
+      <div className="homepage-container">
+        <div className="quiz-container" ref={quizRef}>
+          <QuizHeader />
+          <div className="quiz-box">
+            <h2>Basic Questions Quiz</h2>
+            <p>Start with some fundamental questions to test your basic knowledge.</p>
+            <GradientShadowButton onClick={() => navigateTo("/basic-questions")} buttonText="Start Basic Quiz" />
+          </div>
+          <div className="quiz-box">
+            <h2>Detailed Questions Quiz</h2>
+            <p>Dive deeper with detailed questions for a thorough challenge.</p>
+            <GradientShadowButton onClick={() => navigateTo("/detailed-questions")} buttonText="Start Detailed Quiz" />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
