@@ -56,7 +56,6 @@ const DetailedQuestion = () => {
         toast.error("Error Generating Career Advice");
       } finally {
         setIsLoading(false);
-        resetQuiz();
       }
     }
   };
