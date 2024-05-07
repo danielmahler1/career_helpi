@@ -71,7 +71,6 @@ const BasicQuestion = () => {
       const fullPrompt =
         "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
-
       try {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");

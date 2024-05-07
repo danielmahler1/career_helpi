@@ -7,6 +7,7 @@ import BeamInput from "../Components/BeamInput";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
 import BarLoader from "../Components/BarLoader";
+import ResultsModal from "../Components/ResultsModal";
 
 type QuestionType = {
   question: string;
@@ -28,6 +29,7 @@ const DetailedQuestion = () => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
@@ -53,6 +55,7 @@ const DetailedQuestion = () => {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
         setResult(advice);
+        setIsModalOpen(true);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
@@ -70,31 +73,8 @@ const DetailedQuestion = () => {
     setCurrentQuestionIndex(0);
     setAnswers(Array(sampleQuestions.length).fill(""));
     setResult("");
+    setIsModalOpen(false);
   };
-
-  if (!quizStarted || result) {
-    return (
-      <div className="quiz-container-detailed">
-        <div className="detailed-quiz-box">
-          <div className="content-center">
-            {result ? (
-              <>
-                <h1>Career Advice</h1>
-                <p>{result}</p>
-                <button onClick={resetQuiz}>Restart Quiz</button>
-              </>
-            ) : (
-              <>
-                <h1>Detailed Questions Quiz</h1>
-                <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-                <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="quiz-container-detailed">
@@ -104,7 +84,7 @@ const DetailedQuestion = () => {
             <div className="loading-text">Generating Career Advice...</div>
             <BarLoader />
           </div>
-        ) : (
+        ) : quizStarted ? (
           <>
             <h1>Detailed Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
@@ -115,7 +95,14 @@ const DetailedQuestion = () => {
               <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
           </>
+        ) : (
+          <div className="content-center">
+            <h1>Detailed Questions Quiz</h1>
+            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
+          </div>
         )}
+        <ResultsModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} result={result} resetQuiz={resetQuiz} />
       </div>
     </div>
   );
