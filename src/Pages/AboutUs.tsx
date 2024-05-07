@@ -1,14 +1,34 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FiPlus } from "react-icons/fi";
+import { FaGithub } from "react-icons/fa"; // Import GitHub icon from react-icons
 
-const AboutUs = () => {
-  const [selected, setSelected] = useState(TABS[0]);
+interface Tab {
+  name: string;
+  github: string;
+}
+
+interface TabProps {
+  selected: Tab;
+  setSelected: Dispatch<SetStateAction<Tab>>;
+}
+
+interface QuestionsProps {
+  selected: string;
+}
+
+type QuestionType = {
+  question: string;
+  answer: string;
+};
+
+const AboutUs: React.FC = () => {
+  const [selected, setSelected] = useState<Tab>(TABS[0]);
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50">
       <Heading />
       <Tabs selected={selected} setSelected={setSelected} />
-      <Questions selected={selected} />
+      <Questions selected={selected.name} />
     </section>
   );
 };
@@ -25,20 +45,25 @@ const Heading = () => {
   );
 };
 
-const Tabs = ({ selected, setSelected }: { selected: string; setSelected: Dispatch<SetStateAction<string>> }) => {
+const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
   return (
     <div className="relative z-10 flex flex-wrap items-center justify-center gap-4">
       {TABS.map((tab) => (
         <button
           onClick={() => setSelected(tab)}
           className={`relative overflow-hidden whitespace-nowrap rounded-md border-[1px] px-3 py-1.5 text-sm font-medium transition-colors duration-500 ${
-            selected === tab ? "border-violet-500 text-slate-50" : "border-slate-600 bg-transparent text-slate-400"
+            selected.name === tab.name ? "border-violet-500 text-slate-50" : "border-slate-600 bg-transparent text-slate-400"
           }`}
-          key={tab}
+          key={tab.name}
         >
-          <span className="relative z-10">{tab}</span>
+          <div className="flex items-center space-x-2">
+            <span className="relative z-20">{tab.name}</span> {/* Adjusted z-index of name */}
+            <a href={tab.github} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
+              <FaGithub className="text-lg" /> {/* Adjusted z-index of icon */}
+            </a>
+          </div>
           <AnimatePresence>
-            {selected === tab && (
+            {selected.name === tab.name && (
               <motion.span
                 initial={{ y: "100%" }}
                 animate={{ y: "0%" }}
@@ -47,7 +72,7 @@ const Tabs = ({ selected, setSelected }: { selected: string; setSelected: Dispat
                   duration: 0.5,
                   ease: "backIn",
                 }}
-                className="absolute inset-0 z-0 bg-gradient-to-r from-violet-600 to-indigo-600"
+                className="absolute inset-0 z-10 bg-gradient-to-r from-violet-600 to-indigo-600" // Adjusted z-index of gradient
               />
             )}
           </AnimatePresence>
@@ -57,7 +82,7 @@ const Tabs = ({ selected, setSelected }: { selected: string; setSelected: Dispat
   );
 };
 
-const Questions = ({ selected }: { selected: string }) => {
+const Questions: React.FC<QuestionsProps> = ({ selected }) => {
   return (
     <div className="mx-auto mt-12 max-w-3xl min-h-[350px]">
       <AnimatePresence mode="wait">
@@ -119,12 +144,11 @@ const Question = ({ question, answer }: QuestionType) => {
   );
 };
 
-type QuestionType = {
-  question: string;
-  answer: string;
-};
-
-const TABS = ["Nathan Wolf", "Daniel Mahler", "Ben Kellner"];
+const TABS: Tab[] = [
+  { name: "Nathan Wolf", github: "https://github.com/nathanwolf" },
+  { name: "Daniel Mahler", github: "https://github.com/danielmahler" },
+  { name: "Ben Kellner", github: "https://github.com/benkellner" },
+];
 
 const QUESTIONS = {
   "Nathan Wolf": [
