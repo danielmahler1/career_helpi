@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
 import BasicQuestion from "./Pages/BasicQuestion";
@@ -10,7 +10,7 @@ import "./Styles/App.css";
 
 const App = () => {
   return (
-    <Router>
+    <HashRouter>
       <div className="App">
         <Header />
         <ToastContainer />
@@ -23,7 +23,7 @@ const App = () => {
         </Routes>
         <FloatingBottomNav />
       </div>
-    </Router>
+    </HashRouter>
   );
 };
 
