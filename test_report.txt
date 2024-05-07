@@ -128,12 +128,12 @@ All files                  |       0 |        0 |       0 |       0 |
   SteppedProgress.tsx      |       0 |        0 |       0 |       0 | 9-36              
  src/Pages                 |       0 |        0 |       0 |       0 |                   
   AboutUs.tsx              |       0 |        0 |       0 |       0 | 25-153            
-  BasicQuestion.tsx        |       0 |        0 |       0 |       0 | 17-113            
-  DetailedQuestion.tsx     |       0 |        0 |       0 |       0 | 16-95             
+  BasicQuestion.tsx        |       0 |        0 |       0 |       0 | 17-114            
+  DetailedQuestion.tsx     |       0 |        0 |       0 |       0 | 16-97             
   Results.tsx              |       0 |        0 |       0 |       0 |                   
 ---------------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.382 s
+Time:        3.512 s
 Ran all test suites.
