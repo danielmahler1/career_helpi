@@ -97,7 +97,8 @@ const BasicQuestion = () => {
   };
 
   return (
-    <div className="quiz-container-basic">
+    <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
+      <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
       <div className="basic-quiz-box">
         {isLoading ? (
           <div className="loading-modal">
@@ -106,9 +107,9 @@ const BasicQuestion = () => {
           </div>
         ) : quizStarted ? (
           <>
-            <h1>Basic Questions</h1>
+            <h1 className="text-5xl font-bold mb-4">Basic Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} />
-            <h2>{careerQuestions[currentQuestionIndex].question}</h2>
+            <h2 className="text-xl font-medium">{careerQuestions[currentQuestionIndex].question}</h2>
             {careerQuestions[currentQuestionIndex].options.map((option, index) => (
               <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
                 {option}
@@ -124,7 +125,7 @@ const BasicQuestion = () => {
         )}
         <ResultsModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} result={result} resetQuiz={resetQuiz} />
       </div>
-    </div>
+    </section>
   );
 };
 
