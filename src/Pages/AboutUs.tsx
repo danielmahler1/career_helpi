@@ -2,11 +2,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 
-export const AboutUs = () => {
+const AboutUs = () => {
   const [selected, setSelected] = useState(TABS[0]);
-
   return (
-    <section className="overflow-hidden bg-slate-900 px-4 py-12 text-slate-50">
+    <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50">
       <Heading />
       <Tabs selected={selected} setSelected={setSelected} />
       <Questions selected={selected} />
@@ -18,10 +17,9 @@ const Heading = () => {
   return (
     <>
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <span className="mb-8 bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text font-medium text-transparent">Let's answer some questions</span>
-        <span className="mb-8 text-5xl font-bold">FAQs</span>
+        <span className="mb-8 bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text font-medium text-transparent">About Our Team</span>
+        <span className="mb-8 text-5xl font-bold">Who We Are</span>
       </div>
-
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
     </>
   );
@@ -61,7 +59,7 @@ const Tabs = ({ selected, setSelected }: { selected: string; setSelected: Dispat
 
 const Questions = ({ selected }: { selected: string }) => {
   return (
-    <div className="mx-auto mt-12 max-w-3xl">
+    <div className="mx-auto mt-12 max-w-3xl min-h-[350px]">
       <AnimatePresence mode="wait">
         {Object.entries(QUESTIONS).map(([tab, questions]) => {
           return selected === tab ? (
@@ -126,28 +124,24 @@ type QuestionType = {
   answer: string;
 };
 
-const TABS = ["Web dev", "Mobile dev", "UI/UX", "Copywriting"];
+const TABS = ["Nathan Wolf", "Daniel Mahler", "Ben Kellner"];
 
 const QUESTIONS = {
-  "Web dev": [
+  "Nathan Wolf": [
     {
-      question: "What is web development?",
+      question: "Who Am I?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "How do I know if I need it?",
+      question: "What do I do?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "What does it cost?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "What about SEO?",
+      question: "What is My Experience?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],
-  "Mobile dev": [
+  "Daniel Mahler": [
     {
       question: "What is mobile development?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
@@ -165,7 +159,7 @@ const QUESTIONS = {
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],
-  "UI/UX": [
+  "Ben Kellner": [
     {
       question: "What is UI/UX?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
@@ -180,24 +174,6 @@ const QUESTIONS = {
     },
     {
       question: "Does it make sense for my company?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-  ],
-  Copywriting: [
-    {
-      question: "What is copywriting?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "Can you write my blog?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "Can you also help with ad design?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "How much does it cost?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],

@@ -40,8 +40,9 @@ const NavLink = ({ to, children }: { to: string; children: string }) => {
 
 const JoinButton = () => {
   return (
-    <button
-      className={`
+    <Link to="/about-us">
+      <button
+        className={`
           relative z-0 flex items-center gap-2 overflow-hidden whitespace-nowrap rounded-lg border-[1px] 
           border-neutral-700 px-4 py-1.5 font-medium
          text-neutral-300 transition-all duration-300
@@ -56,9 +57,10 @@ const JoinButton = () => {
           hover:scale-105 hover:border-neutral-50 hover:text-neutral-900
           hover:before:translate-y-[0%]
           active:scale-100`}
-    >
-      About Us
-    </button>
+      >
+        About Us
+      </button>
+    </Link>
   );
 };
 
