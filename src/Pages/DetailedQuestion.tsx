@@ -8,6 +8,7 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
+import StaggeredDropDown from "../Components/StaggeredDropDown";
 
 type QuestionType = {
   question: string;
@@ -35,6 +36,12 @@ const DetailedQuestion = () => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = value;
     setAnswers(newAnswers);
+  };
+
+  const onStepClick = (stepIndex: number) => {
+    if (stepIndex <= currentQuestionIndex) {
+      setCurrentQuestionIndex(stepIndex);
+    }
   };
 
   const moveToNextQuestion = async () => {
@@ -79,6 +86,7 @@ const DetailedQuestion = () => {
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
+      <StaggeredDropDown resetQuiz={resetQuiz} />
 
       <div className="detailed-quiz-box">
         {isLoading ? (
@@ -89,7 +97,7 @@ const DetailedQuestion = () => {
         ) : quizStarted ? (
           <>
             <h1>Detailed Questions</h1>
-            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} onStepClick={onStepClick} />
             <div>
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
             </div>
