@@ -81,6 +81,7 @@ const DetailedQuestion = () => {
     setAnswers(Array(sampleQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
+    toast.success("Quiz Reset Successfully");
   };
 
   return (

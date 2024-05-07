@@ -97,6 +97,7 @@ const BasicQuestion = () => {
     setAnswers(Array(careerQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
+    toast.success("Quiz Reset Successfully");
   };
 
   const startQuiz = () => {

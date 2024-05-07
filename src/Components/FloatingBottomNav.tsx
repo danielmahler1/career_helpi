@@ -20,6 +20,17 @@ const FloatingBottomNav = () => {
   useEffect(() => {
     const storedKey = localStorage.getItem("MYKEY") || "";
     setApiKey(storedKey);
+
+    const handleStorageChange = () => {
+      const updatedKey = localStorage.getItem("MYKEY") || "";
+      setApiKey(updatedKey);
+    };
+
+    window.addEventListener("apiKeyUpdate", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("apiKeyUpdate", handleStorageChange);
+    };
   }, []);
 
   return (

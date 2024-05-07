@@ -145,9 +145,9 @@ const Question = ({ question, answer }: QuestionType) => {
 };
 
 const TABS: Tab[] = [
-  { name: "Nathan Wolf", github: "https://github.com/nathanwolf" },
-  { name: "Daniel Mahler", github: "https://github.com/danielmahler" },
-  { name: "Ben Kellner", github: "https://github.com/benkellner" },
+  { name: "Nathan Wolf", github: "https://github.com/natew100" },
+  { name: "Daniel Mahler", github: "https://github.com/danielmahler1" },
+  { name: "Ben Kellner", github: "https://github.com/BMKellner" },
 ];
 
 const QUESTIONS = {

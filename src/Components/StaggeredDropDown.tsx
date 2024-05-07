@@ -1,10 +1,10 @@
 import { FiEdit, FiChevronDown } from "react-icons/fi";
 import { GrPowerReset } from "react-icons/gr";
 import { MdOutlineFeedback } from "react-icons/md";
-
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IconType } from "react-icons";
+import SpringModal from "./SpringModal";
 
 type OptionProps = {
   text: string;
@@ -19,25 +19,49 @@ type StaggeredDropDownProps = {
 
 const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
   const [open, setOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [apiKey, setApiKey] = useState("");
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem("MYKEY") || "";
+    setApiKey(storedKey);
+    const handleStorageChange = () => {
+      const updatedKey = localStorage.getItem("MYKEY") || "";
+      setApiKey(updatedKey);
+    };
+    window.addEventListener("apiKeyUpdate", handleStorageChange);
+    return () => {
+      window.removeEventListener("apiKeyUpdate", handleStorageChange);
+    };
+  }, []);
+
+  const handleEditApiKey = () => {
+    setModalOpen(true);
+    setOpen(false);
+  };
+
   return (
-    <motion.div animate={open ? "open" : "closed"} className="fixed left-20 top-9 w-fit">
-      <button onClick={() => setOpen((prev) => !prev)} className="flex items-center gap-2 px-3 py-2 rounded-md text-indigo-50 bg-indigo-500 hover:bg-indigo-600 transition-colors">
-        <span className="font-medium text-sm">Action Bar</span>
-        <motion.span variants={iconVariants}>
-          <FiChevronDown />
-        </motion.span>
-      </button>
-      <motion.ul
-        initial={wrapperVariants.closed}
-        variants={wrapperVariants}
-        style={{ originY: "top", translateX: "-50%" }}
-        className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
-      >
-        <Option setOpen={setOpen} Icon={GrPowerReset} text="Reset Quiz" onClick={resetQuiz} />
-        <Option setOpen={setOpen} Icon={FiEdit} text="Edit API Key" onClick={resetQuiz} />
-        <Option setOpen={setOpen} Icon={MdOutlineFeedback} text="Submit Feedback" onClick={resetQuiz} />
-      </motion.ul>
-    </motion.div>
+    <>
+      <motion.div animate={open ? "open" : "closed"} className="fixed left-20 top-9 w-fit">
+        <button onClick={() => setOpen((prev) => !prev)} className="flex items-center gap-2 px-3 py-2 rounded-md text-indigo-50 bg-indigo-500 hover:bg-indigo-600 transition-colors">
+          <span className="font-medium text-sm">Action Menu</span>
+          <motion.span variants={iconVariants}>
+            <FiChevronDown />
+          </motion.span>
+        </button>
+        <motion.ul
+          initial={wrapperVariants.closed}
+          variants={wrapperVariants}
+          style={{ originY: "top", translateX: "-50%" }}
+          className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
+        >
+          <Option setOpen={setOpen} Icon={GrPowerReset} text="Reset Quiz" onClick={resetQuiz} />
+          <Option setOpen={setOpen} Icon={FiEdit} text="Edit API Key" onClick={handleEditApiKey} />
+          <Option setOpen={setOpen} Icon={MdOutlineFeedback} text="Submit Feedback" onClick={resetQuiz} />
+        </motion.ul>
+      </motion.div>
+      <SpringModal isOpen={modalOpen} setIsOpen={setModalOpen} apiKey={apiKey} setApiKey={setApiKey} />
+    </>
   );
 };
 

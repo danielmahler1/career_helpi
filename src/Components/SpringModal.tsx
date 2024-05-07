@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiAlertCircle } from "react-icons/fi";
-import { toast } from "react-toastify"; // Ensure you have react-toastify installed and imported
+import { toast } from "react-toastify";
 
 interface SpringModalProps {
   isOpen: boolean;
@@ -20,6 +20,7 @@ const SpringModal: React.FC<SpringModalProps> = ({ isOpen, setIsOpen, apiKey, se
     localStorage.setItem("MYKEY", apiKey);
     toast.success("API Key Saved Successfully");
     setIsOpen(false);
+    window.dispatchEvent(new CustomEvent("apiKeyUpdate"));
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
