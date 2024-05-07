@@ -143,37 +143,29 @@ const QUESTIONS = {
   ],
   "Daniel Mahler": [
     {
-      question: "What is mobile development?",
+      question: "Who Am I?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "Can you do both iOS and Android?",
+      question: "What do I do?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "Can you help with app store optimization?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "How long does it take?",
+      question: "What is My Experience?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],
   "Ben Kellner": [
     {
-      question: "What is UI/UX?",
+      question: "Who Am I?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "Can you audit my existing site?",
+      question: "What do I do?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "How do you perform research?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "Does it make sense for my company?",
+      question: "What is My Experience?",
       answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],
