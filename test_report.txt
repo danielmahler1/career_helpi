@@ -2,47 +2,103 @@
 > starter_helpi@0.1.0 test
 > react-scripts test --coverage
 
+  console.error
+    Error: Not implemented: HTMLCanvasElement.prototype.getContext (without installing the canvas npm package)
+        at module.exports (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+        at HTMLCanvasElementImpl.getContext (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+        at HTMLCanvasElement.getContext (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1182:24
+        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1186:1
+        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1397:1
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:15875:1)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Module.Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/three-stdlib/loaders/LottieLoader.cjs:4:16)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Module.Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/three-stdlib/index.cjs:207:22)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/@react-three/drei/index.cjs.js:1:438)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/Components/HeroSection.tsx:1:1)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/Components/HomePage.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.test.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at jestAdapter (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:13)
+        at processTicksAndRejections (node:internal/process/task_queues:96:5)
+        at runTestInternal (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/runTest.js:389:16)
+        at runTest (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/runTest.js:475:34)
+        at TestRunner.runTests (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/index.js:101:12) undefined
+
+    [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mStars[39m } [36mfrom[39m [32m"@react-three/drei"[39m[33m;[39m
+     [90m   |[39m [31m[1m^[22m[39m
+     [90m 2 |[39m [36mimport[39m { [33mCanvas[39m } [36mfrom[39m [32m"@react-three/fiber"[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m
+     [90m 4 |[39m [36mimport[39m { [33mFiArrowRight[39m } [36mfrom[39m [32m"react-icons/fi"[39m[33m;[39m[0m
+
+      at console.Object.<anonymous>.console.error (node_modules/its-fine/src/index.tsx:86:16)
+      at VirtualConsole.<anonymous> (node_modules/jsdom/lib/jsdom/virtual-console.js:29:45)
+      at module.exports (node_modules/jsdom/lib/jsdom/browser/not-implemented.js:12:26)
+      at HTMLCanvasElementImpl.getContext (node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+      at HTMLCanvasElement.getContext (node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+      at node_modules/src/libs/lottie.js:1182:24
+      at node_modules/src/libs/lottie.js:1186:1
+      at node_modules/src/libs/lottie.js:1397:1
+      at Object.<anonymous> (node_modules/src/libs/lottie.js:15875:1)
+      at Module.Object.<anonymous> (node_modules/three-stdlib/loaders/LottieLoader.cjs:4:16)
+      at Module.Object.<anonymous> (node_modules/three-stdlib/index.cjs:207:22)
+      at Object.<anonymous> (node_modules/@react-three/drei/index.cjs.js:1:438)
+      at Object.<anonymous> (src/Components/HeroSection.tsx:1:1)
+      at Object.<anonymous> (src/Components/HomePage.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:3:1)
+      at Object.<anonymous> (src/App.test.tsx:3:1)
+
 FAIL src/App.test.tsx
   ● Test suite failed to run
 
-    Jest encountered an unexpected token
+    TypeError: Cannot set properties of null (setting 'fillStyle')
 
-    Jest failed to parse a file. This happens e.g. when your code or its dependencies use non-standard JavaScript syntax, or when Jest is not configured to support such syntax.
-
-    Out of the box Jest supports Babel, which will be used to transform your files into valid JS based on your Babel configuration.
-
-    By default "node_modules" folder is ignored by transformers.
-
-    Here's what you can do:
-     • If you are trying to use ECMAScript Modules, see https://jestjs.io/docs/ecmascript-modules for how to enable it.
-     • If you are trying to use TypeScript, see https://jestjs.io/docs/getting-started#using-typescript
-     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
-     • If you need a custom transformation specify a "transform" option in your config.
-     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
-
-    You'll find more details and examples of these config options in the docs:
-    https://jestjs.io/docs/configuration
-    For information about custom transformations, see:
-    https://jestjs.io/docs/code-transformation
-
-    Details:
-
-    /home/runner/work/starter_helpi/starter_helpi/node_modules/axios/index.js:1
-    ({"Object.<anonymous>":function(module,exports,require,__dirname,__filename,jest){import axios from './lib/axios.js';
-                                                                                      ^^^^^^
-
-    SyntaxError: Cannot use import statement outside a module
-
-    [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m axios [36mfrom[39m [32m"axios"[39m[33m;[39m
+    [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mStars[39m } [36mfrom[39m [32m"@react-three/drei"[39m[33m;[39m
      [90m   |[39m [31m[1m^[22m[39m
-     [90m 2 |[39m [36mimport[39m [32m"react-toastify/dist/ReactToastify.css"[39m[33m;[39m
-     [90m 3 |[39m
-     [90m 4 |[39m [36mconst[39m openAIEndpoint [33m=[39m [32m"https://api.openai.com/v1/chat/completions"[39m[33m;[39m[0m
+     [90m 2 |[39m [36mimport[39m { [33mCanvas[39m } [36mfrom[39m [32m"@react-three/fiber"[39m[33m;[39m
+     [90m 3 |[39m [36mimport[39m [33mReact[39m[33m,[39m { useEffect } [36mfrom[39m [32m"react"[39m[33m;[39m
+     [90m 4 |[39m [36mimport[39m { [33mFiArrowRight[39m } [36mfrom[39m [32m"react-icons/fi"[39m[33m;[39m[0m
 
-      at Runtime.createScriptFromCode (node_modules/jest-runtime/build/index.js:1728:14)
-      at Object.<anonymous> (src/Components/API.ts:1:1)
-      at Object.<anonymous> (src/Pages/BasicQuestion.tsx:2:1)
-      at Object.<anonymous> (src/App.tsx:4:1)
+      at node_modules/src/libs/lottie.js:1183:11
+      at node_modules/src/libs/lottie.js:1186:1
+      at node_modules/src/libs/lottie.js:1397:1
+      at Object.<anonymous> (node_modules/src/libs/lottie.js:15875:1)
+      at Module.Object.<anonymous> (node_modules/three-stdlib/loaders/LottieLoader.cjs:4:16)
+      at Module.Object.<anonymous> (node_modules/three-stdlib/index.cjs:207:22)
+      at Object.<anonymous> (node_modules/@react-three/drei/index.cjs.js:1:438)
+      at Object.<anonymous> (src/Components/HeroSection.tsx:1:1)
+      at Object.<anonymous> (src/Components/HomePage.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:3:1)
       at Object.<anonymous> (src/App.test.tsx:3:1)
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
       at runJest (node_modules/@jest/core/build/runJest.js:404:19)
@@ -54,7 +110,7 @@ File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered 
 ---------------------------|---------|----------|---------|---------|-------------------
 All files                  |       0 |        0 |       0 |       0 |                   
  src                       |       0 |        0 |       0 |       0 |                   
-  App.tsx                  |       0 |      100 |       0 |       0 | 10-11             
+  App.tsx                  |       0 |      100 |       0 |       0 | 11-12             
   index.tsx                |       0 |      100 |     100 |       0 | 7-17              
   reportWebVitals.ts       |       0 |        0 |       0 |       0 | 3-10              
  src/Components            |       0 |        0 |       0 |       0 |                   
@@ -64,18 +120,20 @@ All files                  |       0 |        0 |       0 |       0 |
   FloatingBottomNav.tsx    |       0 |        0 |       0 |       0 | 16-52             
   GradientShadowButton.tsx |       0 |      100 |       0 |       0 | 9-10              
   Header.tsx               |       0 |      100 |       0 |       0 | 4-42              
-  HeroSection.tsx          |       0 |      100 |       0 |       0 | 9-10              
-  HomePage.tsx             |       0 |      100 |       0 |       0 | 8-32              
+  HeroSection.tsx          |       0 |      100 |       0 |       0 | 11-29             
+  HomePage.tsx             |       0 |      100 |       0 |       0 | 8-33              
   QuizHeader.tsx           |       0 |      100 |       0 |       0 | 1-2               
+  ResultsModal.tsx         |       0 |        0 |       0 |       0 | 12-40             
   SpringModal.tsx          |       0 |        0 |       0 |       0 | 13-58             
   SteppedProgress.tsx      |       0 |        0 |       0 |       0 | 9-36              
  src/Pages                 |       0 |        0 |       0 |       0 |                   
-  BasicQuestion.tsx        |       0 |        0 |       0 |       0 | 15-133            
-  DetailedQuestion.tsx     |       0 |        0 |       0 |       0 | 14-106            
+  AboutUs.tsx              |       0 |        0 |       0 |       0 | 25-153            
+  BasicQuestion.tsx        |       0 |        0 |       0 |       0 | 17-113            
+  DetailedQuestion.tsx     |       0 |        0 |       0 |       0 | 16-95             
   Results.tsx              |       0 |        0 |       0 |       0 |                   
 ---------------------------|---------|----------|---------|---------|-------------------
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.008 s
+Time:        3.455 s
 Ran all test suites.
