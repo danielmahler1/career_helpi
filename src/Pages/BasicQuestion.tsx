@@ -7,6 +7,7 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
+import AIResponseHandler from "../Components/API"; // Import the class
 
 type QuestionType = {
   question: string;
@@ -62,6 +63,8 @@ const BasicQuestion = () => {
     advanceQuestion();
   };
 
+  const aiHandler = new AIResponseHandler();
+
   const advanceQuestion = async () => {
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < careerQuestions.length) {
@@ -69,20 +72,28 @@ const BasicQuestion = () => {
     } else {
       setIsLoading(true);
       const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
+        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
+  
       try {
-        const advice = await getCareerAdvice(messages);
+        const advice = await aiHandler.getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
         setResult(advice);
         setIsModalOpen(true);
       } catch (error) {
-        toast.error("Error Generating Career Advice");
+        // Use type assertion to check if error is an instance of Error
+        if (error instanceof Error) {
+          toast.error("Error Generating Career Advice: " + error.message);
+        } else {
+          // Fallback error message if the error is not an instance of Error
+          toast.error("An unknown error occurred.");
+        }
       } finally {
         setIsLoading(false);
       }
     }
   };
+  
 
   const resetQuiz = () => {
     setQuizStarted(false);

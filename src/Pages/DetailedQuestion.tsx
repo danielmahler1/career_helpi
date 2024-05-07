@@ -8,6 +8,8 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
+import AIResponseHandler from "../Components/API"; // Import the class
+
 
 type QuestionType = {
   question: string;
@@ -37,27 +39,34 @@ const DetailedQuestion = () => {
     setAnswers(newAnswers);
   };
 
+  const aiHandler = new AIResponseHandler();
+
   const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
       toast.error("An Answer is Required!");
       return;
     }
-
+  
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < sampleQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
       const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
+        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
+  
       try {
-        const advice = await getCareerAdvice(messages);
+        const advice = await aiHandler.getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
         setResult(advice);
         setIsModalOpen(true);
       } catch (error) {
-        toast.error("Error Generating Career Advice");
+        if (error instanceof Error) {
+          toast.error("Error Generating Career Advice: " + error.message);
+        } else {
+          toast.error("An unknown error occurred.");
+        }
       } finally {
         setIsLoading(false);
       }
