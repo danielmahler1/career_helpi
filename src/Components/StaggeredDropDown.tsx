@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import SpringModal from "./SpringModal";
+import FeedbackModal from "./FeedbackModal";
 
 type OptionProps = {
   text: string;
@@ -20,7 +21,9 @@ type StaggeredDropDownProps = {
 const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [apiKey, setApiKey] = useState("");
+  const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
     const storedKey = localStorage.getItem("MYKEY") || "";
@@ -37,6 +40,11 @@ const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
 
   const handleEditApiKey = () => {
     setModalOpen(true);
+    setOpen(false);
+  };
+
+  const handleFeedbackModalOpen = () => {
+    setFeedbackModalOpen(true);
     setOpen(false);
   };
 
@@ -57,10 +65,11 @@ const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
         >
           <Option setOpen={setOpen} Icon={GrPowerReset} text="Reset Quiz" onClick={resetQuiz} />
           <Option setOpen={setOpen} Icon={FiEdit} text="Edit API Key" onClick={handleEditApiKey} />
-          <Option setOpen={setOpen} Icon={MdOutlineFeedback} text="Submit Feedback" onClick={resetQuiz} />
+          <Option setOpen={setOpen} Icon={MdOutlineFeedback} text="Submit Feedback" onClick={handleFeedbackModalOpen} />
         </motion.ul>
       </motion.div>
       <SpringModal isOpen={modalOpen} setIsOpen={setModalOpen} apiKey={apiKey} setApiKey={setApiKey} />
+      <FeedbackModal isOpen={feedbackModalOpen} setIsOpen={setFeedbackModalOpen} feedback={feedback} setFeedback={setFeedback} />
     </>
   );
 };
