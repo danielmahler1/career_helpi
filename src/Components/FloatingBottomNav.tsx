@@ -30,7 +30,7 @@ const FloatingBottomNav = () => {
           <Link text="Home" Icon={FiHome} path="/" />
           <Link text="Basic" Icon={CgDetailsLess} path="/basic-questions" />
           <Link text="Detailed" Icon={CgDetailsMore} path="/detailed-questions" />
-          <Link text="About" Icon={BsPeople} path="/about" />
+          <Link text="About" Icon={BsPeople} path="/about-us" />
         </div>
         <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} apiKey={apiKey} setApiKey={setApiKey} />
       </motion.nav>

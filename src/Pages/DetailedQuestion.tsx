@@ -6,6 +6,8 @@ import GradientShadowButton from "../Components/GradientShadowButton";
 import BeamInput from "../Components/BeamInput";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
+import BarLoader from "../Components/BarLoader";
+import ResultsModal from "../Components/ResultsModal";
 
 type QuestionType = {
   question: string;
@@ -26,6 +28,8 @@ const DetailedQuestion = () => {
   const [answers, setAnswers] = useState<string[]>(Array(sampleQuestions.length).fill(""));
   const [quizStarted, setQuizStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
@@ -47,16 +51,15 @@ const DetailedQuestion = () => {
       const fullPrompt =
         "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
-      console.log(messages);
       try {
         const advice = await getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
-        alert("Quiz Complete. Career advice: " + advice);
+        setResult(advice);
+        setIsModalOpen(true);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
         setIsLoading(false);
-        resetQuiz();
       }
     }
   };
@@ -69,21 +72,9 @@ const DetailedQuestion = () => {
     setQuizStarted(false);
     setCurrentQuestionIndex(0);
     setAnswers(Array(sampleQuestions.length).fill(""));
+    setResult("");
+    setIsModalOpen(false);
   };
-
-  if (!quizStarted) {
-    return (
-      <div className="quiz-container-detailed">
-        <div className="detailed-quiz-box">
-          <div className="content-center">
-            <h1>Detailed Questions Quiz</h1>
-            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
-            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="quiz-container-detailed">
@@ -91,11 +82,9 @@ const DetailedQuestion = () => {
         {isLoading ? (
           <div className="loading-modal">
             <div className="loading-text">Generating Career Advice...</div>
-            <div className="spinner-container">
-              <div className="spinner"></div>
-            </div>
+            <BarLoader />
           </div>
-        ) : (
+        ) : quizStarted ? (
           <>
             <h1>Detailed Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
@@ -106,7 +95,14 @@ const DetailedQuestion = () => {
               <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
           </>
+        ) : (
+          <div className="content-center">
+            <h1>Detailed Questions Quiz</h1>
+            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+            <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
+          </div>
         )}
+        <ResultsModal isOpen={isModalOpen} setIsOpen={setIsModalOpen} result={result} resetQuiz={resetQuiz} />
       </div>
     </div>
   );
