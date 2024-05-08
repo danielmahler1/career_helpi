@@ -2,7 +2,7 @@ import { FiEdit, FiChevronDown } from "react-icons/fi";
 import { GrPowerReset, GrTrash } from "react-icons/gr";
 import { MdOutlineFeedback } from "react-icons/md";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IconType } from "react-icons";
 import SpringModal from "./SpringModal";
 import FeedbackModal from "./FeedbackModal";
@@ -15,8 +15,8 @@ type OptionProps = {
 };
 
 type StaggeredDropDownProps = {
-  resetQuiz?: () => void; // Optional props
-  deleteAllResults?: () => void; // Optional props
+  resetQuiz?: () => void;
+  deleteAllResults?: () => void;
 };
 
 const StaggeredDropDown = ({ resetQuiz, deleteAllResults }: StaggeredDropDownProps) => {
@@ -25,6 +25,19 @@ const StaggeredDropDown = ({ resetQuiz, deleteAllResults }: StaggeredDropDownPro
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [apiKey, setApiKey] = useState("");
   const [feedback, setFeedback] = useState("");
+
+  useEffect(() => {
+    const storedKey = localStorage.getItem("MYKEY") || "";
+    setApiKey(storedKey);
+    const handleStorageChange = () => {
+      const updatedKey = localStorage.getItem("MYKEY") || "";
+      setApiKey(updatedKey);
+    };
+    window.addEventListener("apiKeyUpdate", handleStorageChange);
+    return () => {
+      window.removeEventListener("apiKeyUpdate", handleStorageChange);
+    };
+  }, []);
 
   const handleEditApiKey = () => {
     setModalOpen(true);
