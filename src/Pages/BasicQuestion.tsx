@@ -1,18 +1,24 @@
 import React, { useState } from "react";
-import getCareerAdvice from "../Components/API"; // Adjust path as necessary
+import getCareerAdvice from "../Components/API";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
+import GradientShadowButton from "../Components/GradientShadowButton";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
+import StaggeredDropDown from "../Components/StaggeredDropDown";
 
 type QuestionType = {
   question: string;
   options: string[];
   hasOtherOption?: boolean;
 };
+
+interface Result {
+  title: string;
+  description: string;
+}
 
 const careerQuestions: QuestionType[] = [
   {
@@ -55,11 +61,37 @@ const BasicQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const saveResultsToLocalStorage = (newResult: Result) => {
+    const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
+    const updatedResults = [...existingResults, newResult];
+    localStorage.setItem("quizResults", JSON.stringify(updatedResults));
+  };
+
+  const handleApiSuccess = (advice: string) => {
+    toast.success("Career Advice Generated Successfully");
+    setResult(advice);
+    const timestamp = new Date().toLocaleString();
+    const title = `Results - ${timestamp}`;
+    const newResult = {
+      questionType: "Basic Questions",
+      title: title,
+      description: advice,
+    };
+    saveResultsToLocalStorage(newResult);
+    setIsModalOpen(true);
+  };
+
   const handleOptionClick = (option: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = option;
     setAnswers(newAnswers);
     advanceQuestion();
+  };
+
+  const onStepClick = (stepIndex: number) => {
+    if (stepIndex <= currentQuestionIndex) {
+      setCurrentQuestionIndex(stepIndex);
+    }
   };
 
   const advanceQuestion = async () => {
@@ -73,9 +105,7 @@ const BasicQuestion = () => {
       const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
-        toast.success("Career Advice Generated Successfully");
-        setResult(advice);
-        setIsModalOpen(true);
+        handleApiSuccess(advice);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
@@ -90,6 +120,7 @@ const BasicQuestion = () => {
     setAnswers(Array(careerQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
+    toast.success("Quiz Reset Successfully");
   };
 
   const startQuiz = () => {
@@ -99,6 +130,7 @@ const BasicQuestion = () => {
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
+      <StaggeredDropDown resetQuiz={resetQuiz} />
       <div className="basic-quiz-box">
         {isLoading ? (
           <div className="loading-modal">
@@ -108,7 +140,7 @@ const BasicQuestion = () => {
         ) : quizStarted ? (
           <>
             <h1 className="text-5xl font-bold mb-4">Basic Questions</h1>
-            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} onStepClick={onStepClick} />
             <h2 className="text-xl font-medium">{careerQuestions[currentQuestionIndex].question}</h2>
             {careerQuestions[currentQuestionIndex].options.map((option, index) => (
               <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
