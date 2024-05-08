@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import { FaGithub } from "react-icons/fa"; // Import GitHub icon from react-icons
+import useMeasure from "react-use-measure";
 
 interface Tab {
   name: string;
@@ -57,9 +58,9 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
           key={tab.name}
         >
           <div className="flex items-center space-x-2">
-            <span className="relative z-20">{tab.name}</span> {/* Adjusted z-index of name */}
+            <span className="relative z-20">{tab.name}</span>
             <a href={tab.github} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
-              <FaGithub className="text-lg" /> {/* Adjusted z-index of icon */}
+              <FaGithub className="text-lg" />
             </a>
           </div>
           <AnimatePresence>
@@ -84,7 +85,7 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
 
 const Questions: React.FC<QuestionsProps> = ({ selected }) => {
   return (
-    <div className="mx-auto mt-12 max-w-3xl min-h-[350px]">
+    <div className="mx-auto mt-12 max-w-3xl min-h-[300px]">
       <AnimatePresence mode="wait">
         {Object.entries(QUESTIONS).map(([tab, questions]) => {
           return selected === tab ? (
@@ -112,6 +113,7 @@ const Questions: React.FC<QuestionsProps> = ({ selected }) => {
 
 const Question = ({ question, answer }: QuestionType) => {
   const [open, setOpen] = useState(false);
+  const [ref, { height }] = useMeasure();
 
   return (
     <motion.div animate={open ? "open" : "closed"} className={`rounded-xl border-[1px] border-slate-700 px-4 transition-colors ${open ? "bg-slate-800" : "bg-slate-900"}`}>
@@ -133,12 +135,12 @@ const Question = ({ question, answer }: QuestionType) => {
       <motion.div
         initial={false}
         animate={{
-          height: open ? "fit-content" : "0px",
+          height: open ? height : "0px",
           marginBottom: open ? "24px" : "0px",
         }}
         className="overflow-hidden text-slate-400"
       >
-        <p>{answer}</p>
+        <p ref={ref}>{answer}</p>
       </motion.div>
     </motion.div>
   );
