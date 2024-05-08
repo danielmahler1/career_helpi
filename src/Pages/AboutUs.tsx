@@ -156,17 +156,21 @@ const QUESTIONS = {
   "Nathan Wolf": [
     {
       question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "I am a sophomore at the University of Delaware majoring in Computer Science with a minor in Business Administration and a concentration in Cybersecurity. I am passionate about developing software solutions that enhance operational efficiency and user engagement.",
     },
     {
       question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "I specialize in creating robust software solutions using a diverse tech stack including Python, Java, JavaScript, React, and Flask. My experience extends to full-stack development, database management, and aligning technology projects with business objectives.",
     },
     {
       question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "With internships in software engineering, I have developed key projects like a full-stack real estate portal and a training management system. Additionally, as the founder of previously ran software robotic application, I led a team to build and scale a software solution that significantly boosted efficiency and sales for clients.",
     },
   ],
+
   "Daniel Mahler": [
     {
       question: "Who Am I?",
