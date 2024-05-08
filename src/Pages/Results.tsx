@@ -1,12 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useHistory for navigation
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
 import useMeasure from "react-use-measure";
+import { CgDetailsMore, CgDetailsLess } from "react-icons/cg";
 
 interface Tab {
   name: string;
-  github: string;
+  path: string;
+  icon: JSX.Element;
 }
 
 interface TabProps {
@@ -18,13 +20,23 @@ interface QuestionsProps {
   selected: string;
 }
 
-type QuestionType = {
-  question: string;
-  answer: string;
+type ResultType = {
+  title: string;
+  description: string;
 };
 
-const AboutUs: React.FC = () => {
+const Results: React.FC = () => {
   const [selected, setSelected] = useState<Tab>(TABS[0]);
+  const [results, setResults] = useState<{ [key: string]: ResultType[] }>({});
+
+  useEffect(() => {
+    const loadResults = () => {
+      const storedResults = JSON.parse(localStorage.getItem("quizResults") || "{}");
+      setResults(storedResults);
+    };
+    loadResults();
+  }, []);
+
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50">
       <Heading />
@@ -38,8 +50,8 @@ const Heading = () => {
   return (
     <>
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <span className="mb-8 bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text font-medium text-transparent">About Our Team</span>
-        <span className="mb-8 text-5xl font-bold">Who We Are</span>
+        <span className="mb-8 bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text font-medium text-transparent">Results Overview</span>
+        <span className="mb-8 text-5xl font-bold">Access Previous Quiz Results</span>
       </div>
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
     </>
@@ -47,6 +59,11 @@ const Heading = () => {
 };
 
 const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
+  const navigate = useNavigate();
+  const navigateTo = (path: string) => {
+    navigate(path);
+  };
+
   return (
     <div className="relative z-10 flex flex-wrap items-center justify-center gap-4">
       {TABS.map((tab) => (
@@ -59,9 +76,9 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
         >
           <div className="flex items-center space-x-2">
             <span className="relative z-20">{tab.name}</span>
-            <a href={tab.github} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
-              <FaGithub className="text-lg" />
-            </a>
+            <span className="relative z-20" onClick={() => navigateTo(tab.path)}>
+              {tab.icon}
+            </span>
           </div>
           <AnimatePresence>
             {selected.name === tab.name && (
@@ -73,7 +90,7 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
                   duration: 0.5,
                   ease: "backIn",
                 }}
-                className="absolute inset-0 z-10 bg-gradient-to-r from-violet-600 to-indigo-600" // Adjusted z-index of gradient
+                className="absolute inset-0 z-10 bg-gradient-to-r from-violet-600 to-indigo-600"
               />
             )}
           </AnimatePresence>
@@ -101,7 +118,7 @@ const Questions: React.FC<QuestionsProps> = ({ selected }) => {
               key={tab}
             >
               {questions.map((q, idx) => (
-                <Question key={idx} {...q} />
+                <Result key={idx} {...q} />
               ))}
             </motion.div>
           ) : undefined;
@@ -111,14 +128,14 @@ const Questions: React.FC<QuestionsProps> = ({ selected }) => {
   );
 };
 
-const Question = ({ question, answer }: QuestionType) => {
+const Result = ({ title, description }: ResultType) => {
   const [open, setOpen] = useState(false);
   const [ref, { height }] = useMeasure();
 
   return (
     <motion.div animate={open ? "open" : "closed"} className={`rounded-xl border-[1px] border-slate-700 px-4 transition-colors ${open ? "bg-slate-800" : "bg-slate-900"}`}>
       <button onClick={() => setOpen((pv) => !pv)} className="flex w-full items-center justify-between gap-4 py-4">
-        <span className={`text-left text-lg font-medium transition-colors ${open ? "text-slate-50" : "text-slate-400"}`}>{question}</span>
+        <span className={`text-left text-lg font-medium transition-colors ${open ? "text-slate-50" : "text-slate-400"}`}>{title}</span>
         <motion.span
           variants={{
             open: {
@@ -140,65 +157,50 @@ const Question = ({ question, answer }: QuestionType) => {
         }}
         className="overflow-hidden text-slate-400"
       >
-        <p ref={ref}>{answer}</p>
+        <p ref={ref}>{description}</p>
       </motion.div>
     </motion.div>
   );
 };
 
 const TABS: Tab[] = [
-  { name: "Nathan Wolf", github: "https://github.com/natew100" },
-  { name: "Daniel Mahler", github: "https://github.com/danielmahler1" },
-  { name: "Ben Kellner", github: "https://github.com/BMKellner" },
+  { name: "Detailed Questions Results", path: "/detailed-questions", icon: <CgDetailsMore /> },
+  { name: "Basic Questions Results", path: "/basic-questions", icon: <CgDetailsLess /> },
 ];
 
 const QUESTIONS = {
-  "Nathan Wolf": [
+  "Detailed Questions Results": [
     {
-      question: "Who Am I?",
-      answer:
+      title: "Result 1",
+      description:
         "I am a sophomore at the University of Delaware majoring in Computer Science with a minor in Business Administration and a concentration in Cybersecurity. I am passionate about developing software solutions that enhance operational efficiency and user engagement.",
     },
     {
-      question: "What do I do?",
-      answer:
-        "I specialize in creating robust software solutions using a diverse tech stack including Python, Java, JavaScript, React, and Flask. My experience extends to full-stack development, database management, and aligning technology projects with business objectives.",
+      title: "Result 2",
+      description:
+        "I am a software developer with 2 years of experience in building web applications using React, Node.js, and MongoDB. I have worked on projects ranging from e-commerce platforms to social networking sites.",
     },
     {
-      question: "What is My Experience?",
-      answer:
-        "With internships in software engineering, I have developed key projects like a full-stack real estate portal and a training management system. Additionally, as the founder of previously ran software robotic application, I led a team to build and scale a software solution that significantly boosted efficiency and sales for clients.",
+      title: "Result 3",
+      description:
+        "I am a full-stack developer with expertise in building scalable and secure web applications. I have experience working with cloud technologies such as AWS and Azure and have developed RESTful APIs for various projects.",
     },
   ],
 
-  "Daniel Mahler": [
+  "Basic Questions Results": [
     {
-      question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      title: "Who Am I?",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      title: "What do I do?",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
     {
-      question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-  ],
-  "Ben Kellner": [
-    {
-      question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      title: "What is My Experience?",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
     },
   ],
 };
 
-export default AboutUs;
+export default Results;

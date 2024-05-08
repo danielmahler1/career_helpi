@@ -3,6 +3,7 @@ import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
 import BasicQuestion from "./Pages/BasicQuestion";
 import DetailedQuestion from "./Pages/DetailedQuestion";
+import Results from "./Pages/Results";
 import { ToastContainer } from "react-toastify";
 import FloatingBottomNav from "./Components/FloatingBottomNav";
 import AboutUs from "./Pages/AboutUs";
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/starter_helpi/" element={<HomePage />} />
           <Route path="/basic-questions" element={<BasicQuestion />} />
           <Route path="/detailed-questions" element={<DetailedQuestion />} />
+          <Route path="/results" element={<Results />} />
           <Route path="/about-us" element={<AboutUs />} />
         </Routes>
         <FloatingBottomNav />

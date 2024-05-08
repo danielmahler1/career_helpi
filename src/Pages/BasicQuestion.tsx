@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import getCareerAdvice from "../Components/API"; // Adjust path as necessary
+import getCareerAdvice from "../Components/API";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
+import GradientShadowButton from "../Components/GradientShadowButton";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
 import BarLoader from "../Components/BarLoader";
@@ -14,6 +14,11 @@ type QuestionType = {
   options: string[];
   hasOtherOption?: boolean;
 };
+
+interface Result {
+  title: string;
+  description: string;
+}
 
 const careerQuestions: QuestionType[] = [
   {
@@ -56,6 +61,25 @@ const BasicQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const saveResultsToLocalStorage = (newResult: Result) => {
+    const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
+    const updatedResults = [...existingResults, newResult];
+    localStorage.setItem("quizResults", JSON.stringify(updatedResults));
+  };
+
+  const handleApiSuccess = (advice: string) => {
+    toast.success("Career Advice Generated Successfully");
+    setResult(advice);
+    const timestamp = new Date().toLocaleString();
+    const title = `Results - ${timestamp}`;
+    const newResult = {
+      title: title,
+      description: advice,
+    };
+    saveResultsToLocalStorage(newResult);
+    setIsModalOpen(true);
+  };
+
   const handleOptionClick = (option: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = option;
@@ -80,9 +104,7 @@ const BasicQuestion = () => {
       const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
-        toast.success("Career Advice Generated Successfully");
-        setResult(advice);
-        setIsModalOpen(true);
+        handleApiSuccess(advice);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
