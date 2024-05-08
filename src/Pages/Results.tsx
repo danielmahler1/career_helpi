@@ -123,39 +123,61 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
 };
 
 const Questions: React.FC<QuestionsProps> = ({ selected, results }) => {
+  if (Object.keys(results).length === 0 || !results[selected]) {
+    return (
+      <div className="mx-auto mt-12 max-w-3xl min-h-[300px]">
+        <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+          <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2 a1 1 0 0 1 1 1v4h1 a1 1 0 0 1 0 2Z" />
+          </svg>
+          <span className="sr-only">Info</span>
+          <div>
+            <span className="font-medium">No Results Found!</span> Please take a quiz to view results.
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="mx-auto mt-12 max-w-3xl min-h-[300px]">
       <AnimatePresence mode="wait">
-        {Object.entries(results).length > 0 ? (
-          Object.entries(results).map(([tab, resultsArray]) => {
-            const recentResults = resultsArray.slice(-4).reverse();
-            return selected === tab ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: 0.5,
-                  ease: "backIn",
-                }}
-                className="space-y-4"
-                key={tab}
-              >
-                {recentResults.length > 0 ? recentResults.map((result, idx) => <Result key={idx} {...result} />) : <div className="text-center py-10">No recent results available.</div>}
-              </motion.div>
-            ) : null;
-          })
-        ) : (
-          <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-            <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-            </svg>
-            <span className="sr-only">Info</span>
-            <div>
-              <span className="font-medium">No Results Found!</span> Please take a quiz to view results.
-            </div>
-          </div>
-        )}
+        {Object.entries(results).map(([tab, resultsArray]) => {
+          const recentResults = resultsArray.slice(-4).reverse();
+          if (selected === tab) {
+            if (recentResults.length > 0) {
+              return (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{
+                    duration: 0.5,
+                    ease: "backIn",
+                  }}
+                  className="space-y-4"
+                  key={tab}
+                >
+                  {recentResults.map((result, idx) => (
+                    <Result key={idx} {...result} />
+                  ))}
+                </motion.div>
+              );
+            } else {
+              return (
+                <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert" key={tab}>
+                  <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2 a1 1 0 0 1 1 1v4h1 a1 1 0 0 1 0 2Z" />
+                  </svg>
+                  <span className="sr-only">Info</span>
+                  <div>
+                    <span className="font-medium">No Results Found!</span> Please take a quiz to view results.
+                  </div>
+                </div>
+              );
+            }
+          }
+          return null;
+        })}
       </AnimatePresence>
     </div>
   );
