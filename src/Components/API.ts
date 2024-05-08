@@ -1,24 +1,20 @@
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 
-// Define the endpoint for the OpenAI API
 const openAIEndpoint = "https://api.openai.com/v1/chat/completions";
 
-// Interface for a message from an AdviceSeeker
 interface IMessage {
-  role: string; // Role of the message sender ('user' or 'system')
-  content: string; // Content of the message
+  role: string;  // Role of the message sender ('user' or 'system')
+  content: string;  // Content of the message
 }
 
-// Class for handling communication with the AI API
 class AIResponseHandler {
   private apiKey: string | null;
 
   constructor() {
-    this.apiKey = localStorage.getItem("MYKEY"); // Retrieve the API key from local storage
+    this.apiKey = localStorage.getItem("MYKEY");  // Retrieve the API key from local storage
   }
 
-  // Method to get career advice from the OpenAI API
   public async getCareerAdvice(messages: IMessage[]): Promise<string> {
     if (!this.apiKey) {
       throw new Error("API key is not set. Please enter your API key.");
@@ -32,7 +28,7 @@ class AIResponseHandler {
       );
 
       const lastMessage = response.data.choices[0].message.content;
-      return lastMessage.trim();
+      return this.formatApiResponse(lastMessage);
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const message = error.response?.data?.error?.message || "An unknown error occurred";
@@ -41,6 +37,24 @@ class AIResponseHandler {
         throw new Error(`Error fetching career advice: ${error}`);
       }
     }
+  }
+
+  private formatApiResponse(text: string): string {
+    // Convert **word** to <strong>word</strong>
+    const boldedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    
+    // Convert * bullet points to HTML list items
+    const bulletText = boldedText.split('\n').map(line => {
+      if (line.trim().startsWith('* ')) {
+        return `<li>${line.trim().substring(2)}</li>`; // Remove '* ' and wrap in <li>
+      }
+      return line;
+    }).join('\n');
+
+    // Wrap lines that start with <li> with <ul> tags
+    const formattedText = bulletText.replace(/(<li>.*?<\/li>)/g, (match) => `<ul>${match}</ul>`);
+
+    return formattedText;
   }
 }
 
