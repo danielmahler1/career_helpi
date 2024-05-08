@@ -73,6 +73,7 @@ const BasicQuestion = () => {
     const timestamp = new Date().toLocaleString();
     const title = `Results - ${timestamp}`;
     const newResult = {
+      questionType: "Basic Questions",
       title: title,
       description: advice,
     };

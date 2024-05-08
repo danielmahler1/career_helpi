@@ -6,6 +6,7 @@ import { CgDetailsMore, CgDetailsLess } from "react-icons/cg";
 import { BsPeople } from "react-icons/bs";
 import SpringModal from "./SpringModal";
 import { IconType } from "react-icons";
+import { MdOutlineOutput } from "react-icons/md";
 
 interface LinkProps {
   text: string;
@@ -20,14 +21,11 @@ const FloatingBottomNav = () => {
   useEffect(() => {
     const storedKey = localStorage.getItem("MYKEY") || "";
     setApiKey(storedKey);
-
     const handleStorageChange = () => {
       const updatedKey = localStorage.getItem("MYKEY") || "";
       setApiKey(updatedKey);
     };
-
     window.addEventListener("apiKeyUpdate", handleStorageChange);
-
     return () => {
       window.removeEventListener("apiKeyUpdate", handleStorageChange);
     };
@@ -41,6 +39,7 @@ const FloatingBottomNav = () => {
           <Link text="Home" Icon={FiHome} path="/" />
           <Link text="Basic" Icon={CgDetailsLess} path="/basic-questions" />
           <Link text="Detailed" Icon={CgDetailsMore} path="/detailed-questions" />
+          <Link text="Results" Icon={MdOutlineOutput} path="/results" />
           <Link text="About" Icon={BsPeople} path="/about-us" />
         </div>
         <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} apiKey={apiKey} setApiKey={setApiKey} />

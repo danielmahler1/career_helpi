@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Import useHistory for navigation
+import { useNavigate } from "react-router-dom";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 import { CgDetailsMore, CgDetailsLess } from "react-icons/cg";
+import StaggeredDropDown from "../Components/StaggeredDropDown";
 
 interface Tab {
   name: string;
@@ -16,8 +17,17 @@ interface TabProps {
   setSelected: Dispatch<SetStateAction<Tab>>;
 }
 
+interface StoredResult extends ResultType {
+  questionType: string;
+}
+
+interface ResultsByType {
+  [key: string]: ResultType[];
+}
+
 interface QuestionsProps {
   selected: string;
+  results: Record<string, ResultType[]>;
 }
 
 type ResultType = {
@@ -27,21 +37,33 @@ type ResultType = {
 
 const Results: React.FC = () => {
   const [selected, setSelected] = useState<Tab>(TABS[0]);
-  const [results, setResults] = useState<{ [key: string]: ResultType[] }>({});
+  const [results, setResults] = useState<ResultsByType>({});
 
   useEffect(() => {
     const loadResults = () => {
-      const storedResults = JSON.parse(localStorage.getItem("quizResults") || "{}");
-      setResults(storedResults);
+      const storedResults = JSON.parse(localStorage.getItem("quizResults") || "[]") as StoredResult[];
+      const resultsByType = storedResults.reduce<ResultsByType>((acc, result) => {
+        const { questionType, ...rest } = result;
+        acc[questionType] = acc[questionType] || [];
+        acc[questionType].push(rest);
+        return acc;
+      }, {});
+      setResults(resultsByType);
     };
     loadResults();
   }, []);
 
+  const handleDeleteAllResults = () => {
+    localStorage.removeItem("quizResults");
+    setResults({});
+  };
+
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50">
+      <StaggeredDropDown deleteAllResults={handleDeleteAllResults} />
       <Heading />
       <Tabs selected={selected} setSelected={setSelected} />
-      <Questions selected={selected.name} />
+      <Questions selected={selected.name} results={results} />
     </section>
   );
 };
@@ -100,12 +122,15 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
   );
 };
 
-const Questions: React.FC<QuestionsProps> = ({ selected }) => {
+const Questions: React.FC<QuestionsProps> = ({ selected, results }) => {
   return (
     <div className="mx-auto mt-12 max-w-3xl min-h-[300px]">
       <AnimatePresence mode="wait">
-        {Object.entries(QUESTIONS).map(([tab, questions]) => {
-          return selected === tab ? (
+        {Object.entries(results).map(([tab, resultsArray]) => {
+          const recentResults = resultsArray.slice(-4).reverse();
+          const isTabSelected = selected === tab;
+
+          return isTabSelected ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -117,12 +142,22 @@ const Questions: React.FC<QuestionsProps> = ({ selected }) => {
               className="space-y-4"
               key={tab}
             >
-              {questions.map((q, idx) => (
-                <Result key={idx} {...q} />
-              ))}
+              {recentResults.length > 0 ? recentResults.map((result, idx) => <Result key={idx} {...result} />) : <div className="text-center py-10">No recent results available.</div>}
             </motion.div>
-          ) : undefined;
+          ) : null;
         })}
+
+        {Object.entries(results).every(([tab, resultsArray]) => selected === tab && resultsArray.length === 0) && (
+          <div className="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <svg className="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+            </svg>
+            <span className="sr-only">Info</span>
+            <div>
+              <span className="font-medium">No Results Found!</span> Please take a quiz to view results.
+            </div>
+          </div>
+        )}
       </AnimatePresence>
     </div>
   );
@@ -164,43 +199,8 @@ const Result = ({ title, description }: ResultType) => {
 };
 
 const TABS: Tab[] = [
-  { name: "Detailed Questions Results", path: "/detailed-questions", icon: <CgDetailsMore /> },
-  { name: "Basic Questions Results", path: "/basic-questions", icon: <CgDetailsLess /> },
+  { name: "Basic Questions", path: "/basic-questions", icon: <CgDetailsLess /> },
+  { name: "Detailed Questions", path: "/detailed-questions", icon: <CgDetailsMore /> },
 ];
-
-const QUESTIONS = {
-  "Detailed Questions Results": [
-    {
-      title: "Result 1",
-      description:
-        "I am a sophomore at the University of Delaware majoring in Computer Science with a minor in Business Administration and a concentration in Cybersecurity. I am passionate about developing software solutions that enhance operational efficiency and user engagement.",
-    },
-    {
-      title: "Result 2",
-      description:
-        "I am a software developer with 2 years of experience in building web applications using React, Node.js, and MongoDB. I have worked on projects ranging from e-commerce platforms to social networking sites.",
-    },
-    {
-      title: "Result 3",
-      description:
-        "I am a full-stack developer with expertise in building scalable and secure web applications. I have experience working with cloud technologies such as AWS and Azure and have developed RESTful APIs for various projects.",
-    },
-  ],
-
-  "Basic Questions Results": [
-    {
-      title: "Who Am I?",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      title: "What do I do?",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-    {
-      title: "What is My Experience?",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
-    },
-  ],
-};
 
 export default Results;

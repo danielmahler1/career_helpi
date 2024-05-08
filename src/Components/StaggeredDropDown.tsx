@@ -1,8 +1,8 @@
 import { FiEdit, FiChevronDown } from "react-icons/fi";
-import { GrPowerReset } from "react-icons/gr";
+import { GrPowerReset, GrTrash } from "react-icons/gr";
 import { MdOutlineFeedback } from "react-icons/md";
 import { motion } from "framer-motion";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { IconType } from "react-icons";
 import SpringModal from "./SpringModal";
 import FeedbackModal from "./FeedbackModal";
@@ -15,28 +15,16 @@ type OptionProps = {
 };
 
 type StaggeredDropDownProps = {
-  resetQuiz: () => void;
+  resetQuiz?: () => void; // Optional props
+  deleteAllResults?: () => void; // Optional props
 };
 
-const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
+const StaggeredDropDown = ({ resetQuiz, deleteAllResults }: StaggeredDropDownProps) => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
   const [apiKey, setApiKey] = useState("");
   const [feedback, setFeedback] = useState("");
-
-  useEffect(() => {
-    const storedKey = localStorage.getItem("MYKEY") || "";
-    setApiKey(storedKey);
-    const handleStorageChange = () => {
-      const updatedKey = localStorage.getItem("MYKEY") || "";
-      setApiKey(updatedKey);
-    };
-    window.addEventListener("apiKeyUpdate", handleStorageChange);
-    return () => {
-      window.removeEventListener("apiKeyUpdate", handleStorageChange);
-    };
-  }, []);
 
   const handleEditApiKey = () => {
     setModalOpen(true);
@@ -63,7 +51,8 @@ const StaggeredDropDown = ({ resetQuiz }: StaggeredDropDownProps) => {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          <Option setOpen={setOpen} Icon={GrPowerReset} text="Reset Quiz" onClick={resetQuiz} />
+          {resetQuiz && <Option setOpen={setOpen} Icon={GrPowerReset} text="Reset Quiz" onClick={resetQuiz} />}
+          {deleteAllResults && <Option setOpen={setOpen} Icon={GrTrash} text="Delete All Results" onClick={deleteAllResults} />}
           <Option setOpen={setOpen} Icon={FiEdit} text="Edit API Key" onClick={handleEditApiKey} />
           <Option setOpen={setOpen} Icon={MdOutlineFeedback} text="Submit Feedback" onClick={handleFeedbackModalOpen} />
         </motion.ul>

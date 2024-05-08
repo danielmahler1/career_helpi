@@ -14,6 +14,11 @@ type QuestionType = {
   question: string;
 };
 
+interface Result {
+  title: string;
+  description: string;
+}
+
 const sampleQuestions: QuestionType[] = [
   { question: "Describe a project or task where you felt the most engaged and fulfilled. What were you doing, and why did it feel significant to you?" },
   { question: "What specific aspects of your previous jobs have you liked and disliked? (Consider aspects like company culture, management style, job duties, etc.)" },
@@ -31,6 +36,26 @@ const DetailedQuestion = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const saveResultsToLocalStorage = (newResult: Result) => {
+    const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
+    const updatedResults = [...existingResults, newResult];
+    localStorage.setItem("quizResults", JSON.stringify(updatedResults));
+  };
+
+  const handleApiSuccess = (advice: string) => {
+    toast.success("Career Advice Generated Successfully");
+    setResult(advice);
+    const timestamp = new Date().toLocaleString();
+    const title = `Results - ${timestamp}`;
+    const newResult = {
+      questionType: "Detailed Questions",
+      title: title,
+      description: advice,
+    };
+    saveResultsToLocalStorage(newResult);
+    setIsModalOpen(true);
+  };
 
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
@@ -60,9 +85,7 @@ const DetailedQuestion = () => {
       const messages = [{ role: "user", content: fullPrompt }];
       try {
         const advice = await getCareerAdvice(messages);
-        toast.success("Career Advice Generated Successfully");
-        setResult(advice);
-        setIsModalOpen(true);
+        handleApiSuccess(advice);
       } catch (error) {
         toast.error("Error Generating Career Advice");
       } finally {
