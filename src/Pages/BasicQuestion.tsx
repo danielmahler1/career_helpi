@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
+import GradientShadowButton from "../Components/GradientShadowButton";
 import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
-import AIResponseHandler from "../Components/API"; // Import the class
+import AIResponseHandler from "../Components/API";  // Ensure AIResponseHandler is correctly imported
+import StaggeredDropDown from "../Components/StaggeredDropDown"; // If still needed
 
 type QuestionType = {
   question: string;
@@ -55,6 +56,8 @@ const BasicQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const aiHandler = new AIResponseHandler(); // Use AIResponseHandler for all API interactions
+
   const handleOptionClick = (option: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = option;
@@ -62,37 +65,27 @@ const BasicQuestion = () => {
     advanceQuestion();
   };
 
-  const aiHandler = new AIResponseHandler();
-
   const advanceQuestion = async () => {
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < careerQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt =
-        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user. Bold the carrer suggestion and make a bulleted of the details. The format should be bolded career suggestion and then a bulleted list with each bullet in a new line." + answers.join(", ");
+      const fullPrompt = "Answer with the career path you recommend..." + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
-  
+
       try {
         const advice = await aiHandler.getCareerAdvice(messages);
         toast.success("Career Advice Generated Successfully");
         setResult(advice);
         setIsModalOpen(true);
       } catch (error) {
-        // Use type assertion to check if error is an instance of Error
-        if (error instanceof Error) {
-          toast.error("Error Generating Career Advice: " + error.message);
-        } else {
-          // Fallback error message if the error is not an instance of Error
-          toast.error("An unknown error occurred.");
-        }
+        toast.error(`Error Generating Career Advice: ${error.message}`);
       } finally {
         setIsLoading(false);
       }
     }
   };
-  
 
   const resetQuiz = () => {
     setQuizStarted(false);
@@ -100,6 +93,7 @@ const BasicQuestion = () => {
     setAnswers(Array(careerQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
+    toast.info("Quiz Reset Successfully");
   };
 
   const startQuiz = () => {
@@ -108,7 +102,7 @@ const BasicQuestion = () => {
 
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
-      <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
+      <StaggeredDropDown resetQuiz={resetQuiz} />
       <div className="basic-quiz-box">
         {isLoading ? (
           <div className="loading-modal">

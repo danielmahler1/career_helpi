@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa"; // Import GitHub icon from react-icons
+import { FaGithub } from "react-icons/fa";
+import useMeasure from "react-use-measure";
 
 interface Tab {
   name: string;
@@ -57,9 +58,9 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
           key={tab.name}
         >
           <div className="flex items-center space-x-2">
-            <span className="relative z-20">{tab.name}</span> {/* Adjusted z-index of name */}
+            <span className="relative z-20">{tab.name}</span>
             <a href={tab.github} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
-              <FaGithub className="text-lg" /> {/* Adjusted z-index of icon */}
+              <FaGithub className="text-lg" />
             </a>
           </div>
           <AnimatePresence>
@@ -84,7 +85,7 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
 
 const Questions: React.FC<QuestionsProps> = ({ selected }) => {
   return (
-    <div className="mx-auto mt-12 max-w-3xl min-h-[350px]">
+    <div className="mx-auto mt-12 max-w-3xl min-h-[300px]">
       <AnimatePresence mode="wait">
         {Object.entries(QUESTIONS).map(([tab, questions]) => {
           return selected === tab ? (
@@ -112,6 +113,7 @@ const Questions: React.FC<QuestionsProps> = ({ selected }) => {
 
 const Question = ({ question, answer }: QuestionType) => {
   const [open, setOpen] = useState(false);
+  const [ref, { height }] = useMeasure();
 
   return (
     <motion.div animate={open ? "open" : "closed"} className={`rounded-xl border-[1px] border-slate-700 px-4 transition-colors ${open ? "bg-slate-800" : "bg-slate-900"}`}>
@@ -133,38 +135,42 @@ const Question = ({ question, answer }: QuestionType) => {
       <motion.div
         initial={false}
         animate={{
-          height: open ? "fit-content" : "0px",
+          height: open ? height : "0px",
           marginBottom: open ? "24px" : "0px",
         }}
         className="overflow-hidden text-slate-400"
       >
-        <p>{answer}</p>
+        <p ref={ref}>{answer}</p>
       </motion.div>
     </motion.div>
   );
 };
 
 const TABS: Tab[] = [
-  { name: "Nathan Wolf", github: "https://github.com/nathanwolf" },
-  { name: "Daniel Mahler", github: "https://github.com/danielmahler" },
-  { name: "Ben Kellner", github: "https://github.com/benkellner" },
+  { name: "Nathan Wolf", github: "https://github.com/natew100" },
+  { name: "Daniel Mahler", github: "https://github.com/danielmahler1" },
+  { name: "Ben Kellner", github: "https://github.com/BMKellner" },
 ];
 
 const QUESTIONS = {
   "Nathan Wolf": [
     {
       question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "I am a sophomore at the University of Delaware majoring in Computer Science with a minor in Business Administration and a concentration in Cybersecurity. I am passionate about developing software solutions that enhance operational efficiency and user engagement.",
     },
     {
       question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "I specialize in creating robust software solutions using a diverse tech stack including Python, Java, JavaScript, React, and Flask. My experience extends to full-stack development, database management, and aligning technology projects with business objectives.",
     },
     {
       question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer:
+        "With internships in software engineering, I have developed key projects like a full-stack real estate portal and a training management system. Additionally, as the founder of previously ran software robotic application, I led a team to build and scale a software solution that significantly boosted efficiency and sales for clients.",
     },
   ],
+
   "Daniel Mahler": [
     {
       question: "Who Am I?",

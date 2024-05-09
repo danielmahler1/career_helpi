@@ -7,12 +7,17 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
-import AIResponseHandler from "../Components/API"; // Import the class
-
+import AIResponseHandler from "../Components/API"; // Import the AIResponseHandler class
+import StaggeredDropDown from "../Components/StaggeredDropDown";
 
 type QuestionType = {
   question: string;
 };
+
+interface Result {
+  title: string;
+  description: string;
+}
 
 const sampleQuestions: QuestionType[] = [
   { question: "Describe a project or task where you felt the most engaged and fulfilled. What were you doing, and why did it feel significant to you?" },
@@ -32,13 +37,33 @@ const DetailedQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const aiHandler = new AIResponseHandler(); // Use AIResponseHandler for API interactions
+
+  const saveResultsToLocalStorage = (newResult: Result) => {
+    const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
+    const updatedResults = [...existingResults, newResult];
+    localStorage.setItem("quizResults", JSON.stringify(updatedResults));
+  };
+
+  const handleApiSuccess = (advice: string) => {
+    toast.success("Career Advice Generated Successfully");
+    setResult(advice);
+    const timestamp = new Date().toLocaleString();
+    const title = `Results - ${timestamp}`;
+    const newResult = {
+      questionType: "Detailed Questions",
+      title: title,
+      description: advice,
+    };
+    saveResultsToLocalStorage(newResult);
+    setIsModalOpen(true);
+  };
+
   const handleInputValueChange = (value: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = value;
     setAnswers(newAnswers);
   };
-
-  const aiHandler = new AIResponseHandler();
 
   const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
@@ -57,9 +82,7 @@ const DetailedQuestion = () => {
   
       try {
         const advice = await aiHandler.getCareerAdvice(messages);
-        toast.success("Career Advice Generated Successfully");
-        setResult(advice);
-        setIsModalOpen(true);
+        handleApiSuccess(advice);
       } catch (error) {
         if (error instanceof Error) {
           toast.error("Error Generating Career Advice: " + error.message);
@@ -77,17 +100,18 @@ const DetailedQuestion = () => {
   };
 
   const resetQuiz = () => {
-    setQuizStarted(false);
+    setQuizStarted(false;
     setCurrentQuestionIndex(0);
     setAnswers(Array(sampleQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
+    toast.success("Quiz Reset Successfully");
   };
 
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
-
+      <StaggeredDropDown resetQuiz={resetQuiz} />
       <div className="detailed-quiz-box">
         {isLoading ? (
           <div className="loading-modal">
@@ -102,7 +126,7 @@ const DetailedQuestion = () => {
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
             </div>
             <div className="beam-input-container">
-              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
+              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={moveToNextQuestion} />
             </div>
           </>
         ) : (

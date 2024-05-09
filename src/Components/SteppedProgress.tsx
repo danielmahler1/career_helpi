@@ -4,13 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 interface SteppedProgressProps {
   stepsComplete: number;
   numSteps: number;
+  onStepClick: (step: number) => void; // Add this line to the interface
 }
 
-const SteppedProgress = ({ stepsComplete, numSteps }: SteppedProgressProps) => {
-  return <Steps numSteps={numSteps} stepsComplete={stepsComplete} />;
+const SteppedProgress = ({ stepsComplete, numSteps, onStepClick }: SteppedProgressProps) => {
+  return <Steps numSteps={numSteps} stepsComplete={stepsComplete} onStepClick={onStepClick} />;
 };
 
-const Steps = ({ numSteps, stepsComplete }: { numSteps: number; stepsComplete: number }) => {
+const Steps = ({ numSteps, stepsComplete, onStepClick }: { numSteps: number; stepsComplete: number; onStepClick: (step: number) => void }) => {
   const stepArray = Array.from(Array(numSteps).keys());
   return (
     <div className="flex items-center justify-between gap-3">
@@ -19,7 +20,7 @@ const Steps = ({ numSteps, stepsComplete }: { numSteps: number; stepsComplete: n
         const isActive = stepNum <= stepsComplete;
         return (
           <React.Fragment key={stepNum}>
-            <Step num={stepNum} isActive={isActive} />
+            <Step num={stepNum} isActive={isActive} onClick={() => onStepClick(num)} />
             {stepNum !== stepArray.length && (
               <div className="w-full h-1 rounded-full bg-gray-200 relative">
                 <motion.div className="absolute top-0 bottom-0 left-0 bg-indigo-600 rounded-full" animate={{ width: isActive ? "100%" : 0 }} transition={{ ease: "easeIn", duration: 0.3 }} />
@@ -32,13 +33,14 @@ const Steps = ({ numSteps, stepsComplete }: { numSteps: number; stepsComplete: n
   );
 };
 
-const Step = ({ num, isActive }: { num: number; isActive: boolean }) => {
+const Step = ({ num, isActive, onClick }: { num: number; isActive: boolean; onClick: () => void }) => {
   return (
     <div className="relative">
-      <div
+      <button
         className={`w-10 h-10 flex items-center justify-center shrink-0 border-2 rounded-full font-semibold text-sm relative z-10 transition-colors duration-300 ${
           isActive ? "border-indigo-600 bg-indigo-600 text-white" : "border-gray-300 text-gray-300"
         }`}
+        onClick={onClick} // Add onClick event here
       >
         <AnimatePresence mode="wait">
           {isActive ? (
@@ -64,7 +66,7 @@ const Step = ({ num, isActive }: { num: number; isActive: boolean }) => {
             </motion.span>
           )}
         </AnimatePresence>
-      </div>
+      </button>
       {isActive && <div className="absolute z-0 -inset-1.5 bg-indigo-100 rounded-full animate-pulse" />}
     </div>
   );
