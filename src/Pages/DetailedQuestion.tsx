@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import getCareerAdvice from "../Components/API"; // Adjust path as necessary
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
@@ -7,7 +8,6 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/DetailedQuestions.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
-import AIResponseHandler from "../Components/API"; // Import the AIResponseHandler class
 import StaggeredDropDown from "../Components/StaggeredDropDown";
 
 type QuestionType = {
@@ -37,8 +37,6 @@ const DetailedQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const aiHandler = new AIResponseHandler(); // Use AIResponseHandler for API interactions
-
   const saveResultsToLocalStorage = (newResult: Result) => {
     const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
     const updatedResults = [...existingResults, newResult];
@@ -65,30 +63,31 @@ const DetailedQuestion = () => {
     setAnswers(newAnswers);
   };
 
+  const onStepClick = (stepIndex: number) => {
+    if (stepIndex <= currentQuestionIndex) {
+      setCurrentQuestionIndex(stepIndex);
+    }
+  };
+
   const moveToNextQuestion = async () => {
     if (answers[currentQuestionIndex].trim() === "") {
       toast.error("An Answer is Required!");
       return;
     }
-  
+
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < sampleQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
       const fullPrompt =
-        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
+        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
-  
       try {
-        const advice = await aiHandler.getCareerAdvice(messages);
+        const advice = await getCareerAdvice(messages);
         handleApiSuccess(advice);
       } catch (error) {
-        if (error instanceof Error) {
-          toast.error("Error Generating Career Advice: " + error.message);
-        } else {
-          toast.error("An unknown error occurred.");
-        }
+        toast.error("Error Generating Career Advice");
       } finally {
         setIsLoading(false);
       }
@@ -100,7 +99,7 @@ const DetailedQuestion = () => {
   };
 
   const resetQuiz = () => {
-    setQuizStarted(false;
+    setQuizStarted(false);
     setCurrentQuestionIndex(0);
     setAnswers(Array(sampleQuestions.length).fill(""));
     setResult("");
@@ -112,6 +111,7 @@ const DetailedQuestion = () => {
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
       <StaggeredDropDown resetQuiz={resetQuiz} />
+
       <div className="detailed-quiz-box">
         {isLoading ? (
           <div className="loading-modal">
@@ -121,12 +121,12 @@ const DetailedQuestion = () => {
         ) : quizStarted ? (
           <>
             <h1>Detailed Questions</h1>
-            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} onStepClick={onStepClick} />
             <div>
               <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
             </div>
             <div className="beam-input-container">
-              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={moveToNextQuestion} />
+              <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
           </>
         ) : (
