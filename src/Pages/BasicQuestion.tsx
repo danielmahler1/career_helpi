@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import getCareerAdvice from "../Components/API";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
@@ -7,18 +6,14 @@ import SteppedProgress from "../Components/SteppedProgress";
 import "../Styles/BasicQuestion.css";
 import BarLoader from "../Components/BarLoader";
 import ResultsModal from "../Components/ResultsModal";
-import StaggeredDropDown from "../Components/StaggeredDropDown";
+import AIResponseHandler from "../Components/API";  // Ensure AIResponseHandler is correctly imported
+import StaggeredDropDown from "../Components/StaggeredDropDown"; // If still needed
 
 type QuestionType = {
   question: string;
   options: string[];
   hasOtherOption?: boolean;
 };
-
-interface Result {
-  title: string;
-  description: string;
-}
 
 const careerQuestions: QuestionType[] = [
   {
@@ -61,25 +56,7 @@ const BasicQuestion = () => {
   const [result, setResult] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const saveResultsToLocalStorage = (newResult: Result) => {
-    const existingResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
-    const updatedResults = [...existingResults, newResult];
-    localStorage.setItem("quizResults", JSON.stringify(updatedResults));
-  };
-
-  const handleApiSuccess = (advice: string) => {
-    toast.success("Career Advice Generated Successfully");
-    setResult(advice);
-    const timestamp = new Date().toLocaleString();
-    const title = `Results - ${timestamp}`;
-    const newResult = {
-      questionType: "Basic Questions",
-      title: title,
-      description: advice,
-    };
-    saveResultsToLocalStorage(newResult);
-    setIsModalOpen(true);
-  };
+  const aiHandler = new AIResponseHandler(); // Use AIResponseHandler for all API interactions
 
   const handleOptionClick = (option: string) => {
     const newAnswers = [...answers];
@@ -88,26 +65,22 @@ const BasicQuestion = () => {
     advanceQuestion();
   };
 
-  const onStepClick = (stepIndex: number) => {
-    if (stepIndex <= currentQuestionIndex) {
-      setCurrentQuestionIndex(stepIndex);
-    }
-  };
-
   const advanceQuestion = async () => {
     const nextQuestionIndex = currentQuestionIndex + 1;
     if (nextQuestionIndex < careerQuestions.length) {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
+      const fullPrompt = "Answer with the career path you recommend..." + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
+
       try {
-        const advice = await getCareerAdvice(messages);
-        handleApiSuccess(advice);
+        const advice = await aiHandler.getCareerAdvice(messages);
+        toast.success("Career Advice Generated Successfully");
+        setResult(advice);
+        setIsModalOpen(true);
       } catch (error) {
-        toast.error("Error Generating Career Advice");
+        toast.error(`Error Generating Career Advice: ${error.message}`);
       } finally {
         setIsLoading(false);
       }
@@ -120,7 +93,7 @@ const BasicQuestion = () => {
     setAnswers(Array(careerQuestions.length).fill(""));
     setResult("");
     setIsModalOpen(false);
-    toast.success("Quiz Reset Successfully");
+    toast.info("Quiz Reset Successfully");
   };
 
   const startQuiz = () => {
@@ -129,7 +102,6 @@ const BasicQuestion = () => {
 
   return (
     <section className="flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-slate-900 px-4 py-12 text-slate-50 relative">
-      <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
       <StaggeredDropDown resetQuiz={resetQuiz} />
       <div className="basic-quiz-box">
         {isLoading ? (
@@ -140,7 +112,7 @@ const BasicQuestion = () => {
         ) : quizStarted ? (
           <>
             <h1 className="text-5xl font-bold mb-4">Basic Questions</h1>
-            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} onStepClick={onStepClick} />
+            <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={careerQuestions.length} />
             <h2 className="text-xl font-medium">{careerQuestions[currentQuestionIndex].question}</h2>
             {careerQuestions[currentQuestionIndex].options.map((option, index) => (
               <button key={index} className="option-button" onClick={() => handleOptionClick(option)}>
