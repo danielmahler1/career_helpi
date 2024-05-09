@@ -73,7 +73,7 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
                   duration: 0.5,
                   ease: "backIn",
                 }}
-                className="absolute inset-0 z-10 bg-gradient-to-r from-violet-600 to-indigo-600" // Adjusted z-index of gradient
+                className="absolute inset-0 z-10 bg-gradient-to-r from-violet-600 to-indigo-600"
               />
             )}
           </AnimatePresence>

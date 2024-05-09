@@ -2,8 +2,8 @@
 import React from "react";
 
 interface GradientShadowButtonProps {
-  onClick: () => void; // Generic onClick handler
-  buttonText: string; // Button text as a prop for flexibility
+  onClick: () => void;
+  buttonText: string;
 }
 
 const GradientShadowButton: React.FC<GradientShadowButtonProps> = ({ onClick, buttonText }) => {

@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 interface SteppedProgressProps {
   stepsComplete: number;
   numSteps: number;
-  onStepClick: (step: number) => void; // Add this line to the interface
+  onStepClick: (step: number) => void;
 }
 
 const SteppedProgress = ({ stepsComplete, numSteps, onStepClick }: SteppedProgressProps) => {
@@ -40,7 +40,7 @@ const Step = ({ num, isActive, onClick }: { num: number; isActive: boolean; onCl
         className={`w-10 h-10 flex items-center justify-center shrink-0 border-2 rounded-full font-semibold text-sm relative z-10 transition-colors duration-300 ${
           isActive ? "border-indigo-600 bg-indigo-600 text-white" : "border-gray-300 text-gray-300"
         }`}
-        onClick={onClick} // Add onClick event here
+        onClick={onClick}
       >
         <AnimatePresence mode="wait">
           {isActive ? (
