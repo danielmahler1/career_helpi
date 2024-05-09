@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import getCareerAdvice from "../Components/API"; // Adjust path as necessary
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton"; // Import the component
