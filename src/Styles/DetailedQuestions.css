@@ -1,14 +1,3 @@
-.quiz-container-detailed {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #282c34;
-  padding: 20px;
-  height: auto;
-  min-height: 100vh;
-}
-
 .detailed-quiz-box {
   height: 400px;
   width: 600px;
