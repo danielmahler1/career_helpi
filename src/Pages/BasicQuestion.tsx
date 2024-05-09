@@ -72,7 +72,7 @@ const BasicQuestion = () => {
     } else {
       setIsLoading(true);
       const fullPrompt =
-        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user. Bold the carrer suggestion and bullet the details" + answers.join(", ");
+        "Answer with the career path you recommend, give a concise answer based on the prompts we gave and the answers provided by the user. Bold the carrer suggestion and make a bulleted of the details. The format should be bolded career suggestion and then a bulleted list with each bullet in a new line" + answers.join(", ");
       const messages = [{ role: "user", content: fullPrompt }];
   
       try {
