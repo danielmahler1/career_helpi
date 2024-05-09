@@ -120,11 +120,9 @@ const DetailedQuestion = () => {
           </div>
         ) : quizStarted ? (
           <>
-            <h1>Detailed Questions</h1>
+            <h1 className="text-5xl font-bold mb-4">Detailed Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} onStepClick={onStepClick} />
-            <div>
-              <h2>{sampleQuestions[currentQuestionIndex].question}</h2>
-            </div>
+            <h2 className="text-xl font-medium">{sampleQuestions[currentQuestionIndex].question}</h2>
             <div className="beam-input-container">
               <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
