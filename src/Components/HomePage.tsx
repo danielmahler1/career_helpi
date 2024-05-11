@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Import useHistory for navigation
+import { useNavigate } from "react-router-dom";
 import HeroSection from "./HeroSection";
 import QuizHeader from "./QuizHeader";
-import GradientShadowButton from "./GradientShadowButton"; // Import the new button component
+import GradientShadowButton from "./GradientShadowButton";
 import "../Styles/HomePage.css";
 
 const HomePage = () => {

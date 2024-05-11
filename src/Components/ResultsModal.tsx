@@ -1,12 +1,12 @@
 import { Dispatch, SetStateAction } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { FiCheckCircle } from "react-icons/fi"; // Using a check icon for results
+import { FiCheckCircle } from "react-icons/fi";
 
 interface ResultsModalProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   result: string;
-  resetQuiz: () => void; // Function to reset the quiz
+  resetQuiz: () => void;
 }
 
 const ResultsModal: React.FC<ResultsModalProps> = ({ isOpen, setIsOpen, result, resetQuiz }) => {
