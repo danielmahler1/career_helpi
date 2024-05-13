@@ -67,18 +67,26 @@ const BasicQuestion = () => {
     localStorage.setItem("quizResults", JSON.stringify(updatedResults));
   };
 
-  const handleApiSuccess = (advice: string) => {
-    toast.success("Career Advice Generated Successfully");
-    setResult(advice);
-    const timestamp = new Date().toLocaleString();
-    const title = `Results - ${timestamp}`;
-    const newResult = {
-      questionType: "Basic Questions",
-      title: title,
-      description: advice,
-    };
-    saveResultsToLocalStorage(newResult);
-    setIsModalOpen(true);
+  const handleApiSuccess = (apiResponse: string) => {
+    try {
+      const advice = JSON.parse(apiResponse);
+      console.log(advice);
+      toast.success("Career Advice Generated Successfully");
+      setResult(advice);
+      const timestamp = new Date().toLocaleString();
+      const title = `Results - ${timestamp}`;
+      const newResult = {
+        questionType: "Basic Questions",
+        title: title,
+        description: JSON.stringify(advice, null, 2), // Store pretty-printed JSON
+      };
+      saveResultsToLocalStorage(newResult);
+      setIsModalOpen(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error("Error parsing career advice: " + error.message);
+      }
+    }
   };
 
   const handleOptionClick = (option: string) => {
@@ -100,14 +108,43 @@ const BasicQuestion = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
-      const messages = [{ role: "user", content: fullPrompt }];
+      const buildPrompt = (answers: string[]) => {
+        return `Given the following details about a user:
+        - Highest level of education: ${answers[0]}
+        - Primary professional skills: ${answers[1]}
+        - Years of work experience in the current or most recent field: ${answers[2]}
+        - Preferred work environment: ${answers[3]}
+        - Main career goals: ${answers[4]}
+        - Industries interested in working in: ${answers[5]}
+        - Importance of work-life balance: ${answers[6]}
+      
+      Generate a detailed career advice response including:
+      1. The recommended career path.
+      2. A brief summary of this career path.
+      3. Three other jobs that might also suit the user's profile. For each job, provide a title and a short summary.
+      
+      Format your response as follows:
+      {
+        "recommended_job": "Job title",
+        "job_summary": "A brief summary of the job.",
+        "other_jobs": [
+          {"title": "Job1", "summary": "Brief summary of Job1"},
+          {"title": "Job2", "summary": "Brief summary of Job2"},
+          {"title": "Job3", "summary": "Brief summary of Job3"}
+        ]
+      }`;
+      };
+      const prompt = buildPrompt(answers);
+      const messages = [{ role: "user", content: prompt }]; // Wrap the prompt in the correct format
       try {
-        const advice = await getCareerAdvice(messages);
-        handleApiSuccess(advice);
+        const apiResponse = await getCareerAdvice(messages); // Now passing the correct type
+        handleApiSuccess(apiResponse);
       } catch (error) {
-        toast.error("Error Generating Career Advice");
+        if (error instanceof Error) {
+          toast.error("Error Generating Career Advice: " + error.message);
+        } else {
+          toast.error("Error Generating Career Advice: " + String(error));
+        }
       } finally {
         setIsLoading(false);
       }

@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FiCheckCircle } from "react-icons/fi";
+import React from "react";
 
 interface ResultsModalProps {
   isOpen: boolean;
@@ -9,7 +10,20 @@ interface ResultsModalProps {
   resetQuiz: () => void;
 }
 
+interface Job {
+  title: string;
+  summary: string;
+}
+
 const ResultsModal: React.FC<ResultsModalProps> = ({ isOpen, setIsOpen, result, resetQuiz }) => {
+  let parsedResult;
+  try {
+    parsedResult = result && typeof result === "string" ? JSON.parse(result) : result;
+  } catch (error) {
+    console.error("Failed to parse results:", error);
+    parsedResult = {};
+  }
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -32,7 +46,18 @@ const ResultsModal: React.FC<ResultsModalProps> = ({ isOpen, setIsOpen, result, 
                 <FiCheckCircle />
               </div>
               <h3 className="text-3xl font-bold text-center mb-2">Career Advice</h3>
-              <p className="text-center mb-6">{result}</p>
+              <p className="text-center mb-6">Recommended Job: {parsedResult.recommended_job}</p>
+              <p className="text-center mb-6">Job Summary: {parsedResult.job_summary}</p>
+              <div>
+                <h4 className="text-center font-bold mb-2">Other Jobs:</h4>
+                <ul>
+                  {parsedResult.other_jobs.map((job: Job) => (
+                    <li key={job.title}>
+                      {job.title} - {job.summary}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               <div className="flex gap-2">
                 <button type="button" onClick={resetQuiz} className="bg-white hover:opacity-90 transition-opacity text-indigo-600 font-semibold w-full py-2 rounded">
                   Restart Quiz
