@@ -129,7 +129,7 @@ All files                  |       0 |        0 |       0 |       0 |
   StaggeredDropDown.tsx    |       0 |        0 |       0 |       0 | 22-138            
   SteppedProgress.tsx      |       0 |        0 |       0 |       0 | 10-37             
  src/Pages                 |       0 |        0 |       0 |       0 |                   
-  AboutUs.tsx              |       0 |        0 |       0 |       0 | 26-155            
+  AboutUs.tsx              |       0 |        0 |       0 |       0 | 27-159            
   BasicQuestion.tsx        |       0 |        0 |       0 |       0 | 23-146            
   DetailedQuestion.tsx     |       0 |        0 |       0 |       0 | 22-127            
   Results.tsx              |       0 |        0 |       0 |       0 | 38-221            
@@ -137,5 +137,5 @@ All files                  |       0 |        0 |       0 |       0 |
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.392 s
+Time:        3.393 s
 Ran all test suites.
