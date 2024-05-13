@@ -1,4 +1,3 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
 import BasicQuestion from "./Pages/BasicQuestion";
@@ -9,9 +8,11 @@ import { ToastContainer } from "react-toastify";
 import FloatingBottomNav from "./Components/FloatingBottomNav";
 import "./Styles/App.css";
 
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
+
 const App = () => {
   return (
-    <Router basename="/starter_helpi">
+    <Router>
       <div className="App">
         <Header />
         <ToastContainer />
