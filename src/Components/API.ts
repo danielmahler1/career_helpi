@@ -13,7 +13,7 @@ const getCareerAdvice = async (messages: { role: string; content: string }[]): P
     const response = await axios.post(
       openAIEndpoint,
       {
-        model: "gpt-4-turbo",
+        model: "gpt-4o",
         messages: messages,
       },
       {
