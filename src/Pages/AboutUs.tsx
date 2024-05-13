@@ -1,12 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { FiPlus } from "react-icons/fi";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 import useMeasure from "react-use-measure";
 
 interface Tab {
   name: string;
   github: string;
+  linkedin: string;
 }
 
 interface TabProps {
@@ -61,6 +62,9 @@ const Tabs: React.FC<TabProps> = ({ selected, setSelected }) => {
             <span className="relative z-20">{tab.name}</span>
             <a href={tab.github} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
               <FaGithub className="text-lg" />
+            </a>
+            <a href={tab.linkedin} target="_blank" rel="noopener noreferrer" className="inline-block z-20">
+              <FaLinkedin className="text-lg" />
             </a>
           </div>
           <AnimatePresence>
@@ -147,9 +151,9 @@ const Question = ({ question, answer }: QuestionType) => {
 };
 
 const TABS: Tab[] = [
-  { name: "Nathan Wolf", github: "https://github.com/natew100" },
-  { name: "Daniel Mahler", github: "https://github.com/danielmahler1" },
-  { name: "Ben Kellner", github: "https://github.com/BMKellner" },
+  { name: "Nathan Wolf", github: "https://github.com/natew100", linkedin: "https://www.linkedin.com/in/nathanwolf1/" },
+  { name: "Daniel Mahler", github: "https://github.com/danielmahler1", linkedin: "https://www.linkedin.com/in/daniel-mahler/" },
+  { name: "Ben Kellner", github: "https://github.com/BMKellner", linkedin: "https://www.linkedin.com/in/ben-kellner-1a1b1b1b1/" },
 ];
 
 const QUESTIONS = {

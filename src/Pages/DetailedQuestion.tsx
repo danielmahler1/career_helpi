@@ -112,7 +112,7 @@ const DetailedQuestion = () => {
       <span className="absolute -top-[350px] left-[50%] z-0 h-[500px] w-[600px] -translate-x-[50%] rounded-full bg-gradient-to-r from-violet-600/20 to-indigo-600/20 blur-3xl" />
       <StaggeredDropDown resetQuiz={resetQuiz} />
 
-      <div className="detailed-quiz-box">
+      <div className="flex flex-col items-center justify-start p-5 text-center text-white bg-dark-gray rounded-lg shadow-custom overflow-y-auto w-full h-[400px] mx-auto my-5 md:max-w-xl lg:max-w-2xl">
         {isLoading ? (
           <div className="loading-modal">
             <div className="loading-text">Generating Career Advice...</div>
@@ -120,17 +120,17 @@ const DetailedQuestion = () => {
           </div>
         ) : quizStarted ? (
           <>
-            <h1 className="text-5xl font-bold mb-4">Detailed Questions</h1>
+            <h1 className="text-2xl md:text-3xl font-bold mb-4 ">Detailed Questions</h1>
             <SteppedProgress stepsComplete={currentQuestionIndex} numSteps={sampleQuestions.length} onStepClick={onStepClick} />
-            <h2 className="text-xl font-medium">{sampleQuestions[currentQuestionIndex].question}</h2>
+            <h2 className="text-xl font-medium mt-5">{sampleQuestions[currentQuestionIndex].question}</h2>
             <div className="beam-input-container">
               <BeamInput inputValue={answers[currentQuestionIndex]} setInputValue={handleInputValueChange} onSubmit={() => moveToNextQuestion()} />
             </div>
           </>
         ) : (
-          <div className="content-center">
-            <h1>Detailed Questions Quiz</h1>
-            <p>Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
+          <div className="flex flex-col items-center justify-center p-6 text-center my-auto">
+            <h1 className="text-white mb-4 text-3xl">Detailed Questions Quiz</h1>
+            <p className="mb-6 text-white">Click below to start the quiz. Answer some questions to find out more about your preferences!</p>
             <GradientShadowButton onClick={startQuiz} buttonText="Start Quiz" />
           </div>
         )}
