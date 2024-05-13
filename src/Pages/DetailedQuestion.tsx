@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import getCareerAdvice from "../Components/API"; 
+import getCareerAdvice from "../Components/API";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GradientShadowButton from "../Components/GradientShadowButton";
@@ -43,18 +43,25 @@ const DetailedQuestion = () => {
     localStorage.setItem("quizResults", JSON.stringify(updatedResults));
   };
 
-  const handleApiSuccess = (advice: string) => {
-    toast.success("Career Advice Generated Successfully");
-    setResult(advice);
-    const timestamp = new Date().toLocaleString();
-    const title = `Results - ${timestamp}`;
-    const newResult = {
-      questionType: "Detailed Questions",
-      title: title,
-      description: advice,
-    };
-    saveResultsToLocalStorage(newResult);
-    setIsModalOpen(true);
+  const handleApiSuccess = (apiResponse: string) => {
+    try {
+      const advice = JSON.parse(apiResponse);
+      toast.success("Career Advice Generated Successfully");
+      setResult(advice);
+      const timestamp = new Date().toLocaleString();
+      const title = `Results - ${timestamp}`;
+      const newResult = {
+        questionType: "Detailed Questions",
+        title: title,
+        description: JSON.stringify(advice, null, 2),
+      };
+      saveResultsToLocalStorage(newResult);
+      setIsModalOpen(true);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error("Error parsing career advice: " + error.message);
+      }
+    }
   };
 
   const handleInputValueChange = (value: string) => {
@@ -80,14 +87,43 @@ const DetailedQuestion = () => {
       setCurrentQuestionIndex(nextQuestionIndex);
     } else {
       setIsLoading(true);
-      const fullPrompt =
-        "Answer with the career path you reccomend, give a concise answer based on the prompts we gave and the answers provided by the user, no more than 10 sentences: " + answers.join(", ");
-      const messages = [{ role: "user", content: fullPrompt }];
+      const buildPrompt = (answers: string[]) => {
+        return `Given the following details about a user:
+          - Describe a project or task where you felt the most engaged and fulfilled. What were you doing, and why did it feel significant to you?: ${answers[0]}
+          - What specific aspects of your previous jobs have you liked and disliked? (Consider aspects like company culture, management style, job duties, etc.): ${answers[1]}
+          - How do you handle stress and pressure at work? Can you provide an example of a stressful situation and how you managed it?: ${answers[2]}
+          - What are your long-term career aspirations? Where do you see yourself in 5, 10, and 20 years?: ${answers[3]}
+          - What are your strengths and weaknesses as they relate to your desired career field?: ${answers[4]}
+          - If you had the opportunity to learn any new skill without restrictions, what skill would you choose and why?: ${answers[5]}
+          - What values are most important to you in a workplace? How do you evaluate a potential employer's alignment with these values?: ${answers[6]}
+        
+        Generate a detailed career advice response including:
+        1. The recommended career path.
+        2. A brief summary of this career path.
+        3. Three other jobs that might also suit the user's profile. For each job, provide a title and a short summary. Keep each descritipn short and to the point, 2 sentences max.
+        
+        Format your response as follows:
+        {
+          "recommended_job": "Job title",
+          "job_summary": "A brief summary of the job.",
+          "other_jobs": [
+            {"title": "Job1", "summary": "Brief summary of Job1"},
+            {"title": "Job2", "summary": "Brief summary of Job2"},
+            {"title": "Job3", "summary": "Brief summary of Job3"}
+          ]
+        }`;
+      };
+      const prompt = buildPrompt(answers);
+      const messages = [{ role: "user", content: prompt }]; // Wrap the prompt in the correct format
       try {
-        const advice = await getCareerAdvice(messages);
-        handleApiSuccess(advice);
+        const apiResponse = await getCareerAdvice(messages); // Now passing the correct type
+        handleApiSuccess(apiResponse);
       } catch (error) {
-        toast.error("Error Generating Career Advice");
+        if (error instanceof Error) {
+          toast.error("Error Generating Career Advice: " + error.message);
+        } else {
+          toast.error("Error Generating Career Advice: " + String(error));
+        }
       } finally {
         setIsLoading(false);
       }

@@ -5,6 +5,8 @@ import { FiPlus } from "react-icons/fi";
 import useMeasure from "react-use-measure";
 import { CgDetailsMore, CgDetailsLess } from "react-icons/cg";
 import StaggeredDropDown from "../Components/StaggeredDropDown";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 interface Tab {
   name: string;
@@ -56,6 +58,7 @@ const Results: React.FC = () => {
   const handleDeleteAllResults = () => {
     localStorage.removeItem("quizResults");
     setResults({});
+    toast.success("Deleted All Results Successfully");
   };
 
   return (
