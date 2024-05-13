@@ -40,7 +40,7 @@
         at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
         at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
         at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.tsx:3:1)
+        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.tsx:2:1)
         at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
         at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
         at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
@@ -75,7 +75,7 @@
       at Object.<anonymous> (node_modules/@react-three/drei/index.cjs.js:1:438)
       at Object.<anonymous> (src/Components/HeroSection.tsx:1:1)
       at Object.<anonymous> (src/Components/HomePage.tsx:3:1)
-      at Object.<anonymous> (src/App.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:2:1)
       at Object.<anonymous> (src/App.test.tsx:3:1)
 
 FAIL src/App.test.tsx
@@ -98,7 +98,7 @@ FAIL src/App.test.tsx
       at Object.<anonymous> (node_modules/@react-three/drei/index.cjs.js:1:438)
       at Object.<anonymous> (src/Components/HeroSection.tsx:1:1)
       at Object.<anonymous> (src/Components/HomePage.tsx:3:1)
-      at Object.<anonymous> (src/App.tsx:3:1)
+      at Object.<anonymous> (src/App.tsx:2:1)
       at Object.<anonymous> (src/App.test.tsx:3:1)
       at TestScheduler.scheduleTests (node_modules/@jest/core/build/TestScheduler.js:333:13)
       at runJest (node_modules/@jest/core/build/runJest.js:404:19)
@@ -110,7 +110,7 @@ File                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered 
 ---------------------------|---------|----------|---------|---------|-------------------
 All files                  |       0 |        0 |       0 |       0 |                   
  src                       |       0 |        0 |       0 |       0 |                   
-  App.tsx                  |       0 |      100 |       0 |       0 | 12-13             
+  App.tsx                  |       0 |      100 |       0 |       0 | 13-14             
   index.tsx                |       0 |      100 |     100 |       0 | 7-17              
   reportWebVitals.ts       |       0 |        0 |       0 |       0 | 3-10              
  src/Components            |       0 |        0 |       0 |       0 |                   
@@ -137,5 +137,5 @@ All files                  |       0 |        0 |       0 |       0 |
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.393 s
+Time:        3.48 s
 Ran all test suites.
