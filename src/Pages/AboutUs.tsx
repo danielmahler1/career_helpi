@@ -178,15 +178,15 @@ const QUESTIONS = {
   "Daniel Mahler": [
     {
       question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I am a sophomore at the University of Delaware majoring in Computer Science with a concentration in Cybersecurity and a minor in Business Administration. I am enthusiastic about building software that enhances efficiency and optimizes user involvement.",
     },
     {
       question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I have a diverse skill set in software development, proficient in languages and frameworks including Python, Java, JavaScript, React, C, and C++. ",
     },
     {
       question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I maintained the official website for a college organization, utilizing a blend of technologies including JavaScript and Angular for frontend development. This project not only honed my full-stack development skills but also enhanced my ability to integrate technical solutions with organizational objectives.",
     },
   ],
   "Ben Kellner": [
