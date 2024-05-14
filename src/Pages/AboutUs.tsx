@@ -153,7 +153,7 @@ const Question = ({ question, answer }: QuestionType) => {
 const TABS: Tab[] = [
   { name: "Nathan Wolf", github: "https://github.com/natew100", linkedin: "https://www.linkedin.com/in/nathanwolf1/" },
   { name: "Daniel Mahler", github: "https://github.com/danielmahler1", linkedin: "https://www.linkedin.com/in/daniel-mahler/" },
-  { name: "Ben Kellner", github: "https://github.com/BMKellner", linkedin: "https://www.linkedin.com/in/ben-kellner-1a1b1b1b1/" },
+  { name: "Ben Kellner", github: "https://github.com/BMKellner", linkedin: "https://www.linkedin.com/in/benjamin-kellner-849196256/" },
 ];
 
 const QUESTIONS = {
@@ -192,15 +192,15 @@ const QUESTIONS = {
   "Ben Kellner": [
     {
       question: "Who Am I?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I am a sophomore at the University of Delaware majoring in Computer science with a concentration in Cybersecurity",
     },
     {
       question: "What do I do?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I excel in developing strong software systems utilizing a varied tech stack that includes Python, Java, and JavaScript, along with React for front-end development. My expertise covers full-stack development and ensuring that technology initiatives are in sync with business goals.",
     },
     {
       question: "What is My Experience?",
-      answer: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sint tempora quasi eligendi distinctio, mollitia porro repudiandae modi consectetur consequuntur perferendis!",
+      answer: "I have created a web scraping website to gain information of all relevant financial news and interned at a digital agenct specializing in marketing and web development. I have also worked on a project that involved creating a website for a local business and full stack development",
     },
   ],
 };
