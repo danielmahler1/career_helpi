@@ -30,7 +30,7 @@ const HomePage = () => {
           <div className="quiz-box">
             <h2>Detailed Questions Quiz</h2>
             <p>Dive deeper with detailed questions for a thorough challenge.</p>
-            <GradientShadowButton onClick={() => navigateTo("/detailed-questions")} buttonText="Go To Start Detailed Quiz" />
+            <GradientShadowButton onClick={() => navigateTo("/detailed-questions")} buttonText="Go To Detailed Quiz" />
           </div>
         </div>
       </div>
