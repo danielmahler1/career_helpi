@@ -37,3 +37,10 @@ const getCareerAdvice = async (messages: { role: string; content: string }[]): P
 };
 
 export default getCareerAdvice;
+
+/*AI generated -  when API is inputted into the API.ts file it calls 
+chat gpt-4o model to generate career advice based on the messages passed in. 
+The API key is stored in local storage and is used to 
+authenticate the request. The function returns the last message from the response. 
+If an error occurs, it throws an error with a message that describes the error.
+*/
