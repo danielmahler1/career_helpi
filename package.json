@@ -1,5 +1,5 @@
 {
-  "name": "starter_helpi",
+  "name": "career_helpi",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "homepage": "https://danielmahler1.github.io/starter_helpi"
+    "homepage": "https://danielmahler1.github.io/career_helpi"
   },
   "eslintConfig": {
     "extends": [
