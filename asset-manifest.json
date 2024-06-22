@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/starter_helpi/static/css/main.761b7cb7.css",
-    "main.js": "/starter_helpi/static/js/main.d17f23f3.js",
-    "static/js/453.bad6c33a.chunk.js": "/starter_helpi/static/js/453.bad6c33a.chunk.js",
-    "index.html": "/starter_helpi/index.html",
-    "main.761b7cb7.css.map": "/starter_helpi/static/css/main.761b7cb7.css.map",
-    "main.d17f23f3.js.map": "/starter_helpi/static/js/main.d17f23f3.js.map",
-    "453.bad6c33a.chunk.js.map": "/starter_helpi/static/js/453.bad6c33a.chunk.js.map"
+    "main.css": "/career_helpi/static/css/main.761b7cb7.css",
+    "main.js": "/career_helpi/static/js/main.e6e9d5f5.js",
+    "static/js/453.0646d10c.chunk.js": "/career_helpi/static/js/453.0646d10c.chunk.js",
+    "index.html": "/career_helpi/index.html",
+    "main.761b7cb7.css.map": "/career_helpi/static/css/main.761b7cb7.css.map",
+    "main.e6e9d5f5.js.map": "/career_helpi/static/js/main.e6e9d5f5.js.map",
+    "453.0646d10c.chunk.js.map": "/career_helpi/static/js/453.0646d10c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.761b7cb7.css",
-    "static/js/main.d17f23f3.js"
+    "static/js/main.e6e9d5f5.js"
   ]
 }

@@ -1,59 +1,59 @@
 
-> starter_helpi@0.1.0 test
+> career_helpi@0.1.0 test
 > react-scripts test --coverage
 
   console.error
     Error: Not implemented: HTMLCanvasElement.prototype.getContext (without installing the canvas npm package)
-        at module.exports (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
-        at HTMLCanvasElementImpl.getContext (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
-        at HTMLCanvasElement.getContext (/home/runner/work/starter_helpi/starter_helpi/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
-        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1182:24
-        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1186:1
-        at /home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:1397:1
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/src/libs/lottie.js:15875:1)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Module.Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/three-stdlib/loaders/LottieLoader.cjs:4:16)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Module.Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/three-stdlib/index.cjs:207:22)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.requireModuleOrMock (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/node_modules/@react-three/drei/index.cjs.js:1:438)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/Components/HeroSection.tsx:1:1)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/Components/HomePage.tsx:3:1)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.tsx:2:1)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at Runtime.require [as requireModuleOrMock] (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1210:21)
-        at Object.<anonymous> (/home/runner/work/starter_helpi/starter_helpi/src/App.test.tsx:3:1)
-        at Runtime._execModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1646:24)
-        at Runtime._loadModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1185:12)
-        at Runtime.requireModule (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runtime/build/index.js:1009:12)
-        at jestAdapter (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:13)
+        at module.exports (/home/runner/work/career_helpi/career_helpi/node_modules/jsdom/lib/jsdom/browser/not-implemented.js:9:17)
+        at HTMLCanvasElementImpl.getContext (/home/runner/work/career_helpi/career_helpi/node_modules/jsdom/lib/jsdom/living/nodes/HTMLCanvasElement-impl.js:42:5)
+        at HTMLCanvasElement.getContext (/home/runner/work/career_helpi/career_helpi/node_modules/jsdom/lib/jsdom/living/generated/HTMLCanvasElement.js:131:58)
+        at /home/runner/work/career_helpi/career_helpi/node_modules/src/libs/lottie.js:1182:24
+        at /home/runner/work/career_helpi/career_helpi/node_modules/src/libs/lottie.js:1186:1
+        at /home/runner/work/career_helpi/career_helpi/node_modules/src/libs/lottie.js:1397:1
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/node_modules/src/libs/lottie.js:15875:1)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Module.Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/node_modules/three-stdlib/loaders/LottieLoader.cjs:4:16)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Module.Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/node_modules/three-stdlib/index.cjs:207:22)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.requireModuleOrMock (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/node_modules/@react-three/drei/index.cjs.js:1:438)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/src/Components/HeroSection.tsx:1:1)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/src/Components/HomePage.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/src/App.tsx:2:1)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at Runtime.require [as requireModuleOrMock] (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1210:21)
+        at Object.<anonymous> (/home/runner/work/career_helpi/career_helpi/src/App.test.tsx:3:1)
+        at Runtime._execModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1646:24)
+        at Runtime._loadModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1185:12)
+        at Runtime.requireModule (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runtime/build/index.js:1009:12)
+        at jestAdapter (/home/runner/work/career_helpi/career_helpi/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:13)
         at processTicksAndRejections (node:internal/process/task_queues:95:5)
-        at runTestInternal (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/runTest.js:389:16)
-        at runTest (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/runTest.js:475:34)
-        at TestRunner.runTests (/home/runner/work/starter_helpi/starter_helpi/node_modules/jest-runner/build/index.js:101:12) undefined
+        at runTestInternal (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runner/build/runTest.js:389:16)
+        at runTest (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runner/build/runTest.js:475:34)
+        at TestRunner.runTests (/home/runner/work/career_helpi/career_helpi/node_modules/jest-runner/build/index.js:101:12) undefined
 
     [0m[31m[1m>[22m[39m[90m 1 |[39m [36mimport[39m { [33mStars[39m } [36mfrom[39m [32m"@react-three/drei"[39m[33m;[39m
      [90m   |[39m [31m[1m^[22m[39m
@@ -137,5 +137,5 @@ All files                  |       0 |        0 |       0 |       0 |
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
-Time:        3.532 s
+Time:        3.644 s
 Ran all test suites.
